@@ -5,11 +5,14 @@ import einops
 from typing import Callable, Any
 
 class SparseCoding(nn.Module):
-    def __init__(self, S, D, learn_D, seed: int = 20240625):
+    def __init__(self, S, D, learn_D, seed: int = 42):
         super().__init__()
         self.learn_D = learn_D
         torch.manual_seed(seed + 42)
-        self.log_S_ = nn.Parameter(data=-10 * torch.ones(S.shape), requires_grad=True)
+        if S is not None:
+            self.log_S_ = nn.Parameter(data=-10 * torch.ones(S.shape), requires_grad=True)
+        else:
+            self.log_S_ = None
         if learn_D:
             self.D_ = nn.Parameter(data=torch.randn(D.shape), requires_grad=True)
         else:
@@ -18,9 +21,38 @@ class SparseCoding(nn.Module):
     def forward(self, X = None):
         if self.learn_D:
             self.D_.data /= torch.linalg.norm(self.D_, dim=1, keepdim=True)
-        S_ = torch.exp(self.log_S_)
-        X_ = S_ @ self.D_
-        return S_, X_
+        if self.log_S_ is not None:
+            S_ = torch.exp(self.log_S_)
+            X_ = S_ @ self.D_
+            return S_, X_
+        else:
+            return None, None  # or raise an exception if this case should not occur
+
+    def infer(self, X, num_iterations=100, lr=0.01, l1_weight=0.1):
+        # Initialize S_ randomly
+        S_ = torch.randn(X.shape[0], self.D_.shape[0], device=X.device, requires_grad=True)
+
+        optimizer = torch.optim.Adam([S_], lr=lr)
+
+        for _ in range(num_iterations):
+            optimizer.zero_grad()
+
+            # Compute reconstruction
+            X_ = S_ @ self.D_
+
+            # Compute loss (reconstruction error + L1 penalty)
+            loss = F.mse_loss(X_, X) + l1_weight * torch.sum(torch.abs(S_))
+
+            # Backward pass
+            loss.backward()
+
+            # Update S_
+            optimizer.step()
+
+            # Apply ReLU to ensure non-negativity (if this constraint is desired)
+            S_.data = F.relu(S_.data)
+
+        return S_.detach()
     
     def loss_forward(self, X, weight):
         S_, X_ = self.forward(X)

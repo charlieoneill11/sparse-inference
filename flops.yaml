@@ -1,0 +1,50 @@
+flop_counts:
+  SparseCoding:
+    base_flops: 933
+    note: "Multiply by the number of optimization iterations (n) for total FLOPs"
+
+  SparseAutoEncoder:
+    total_flops: 544
+    breakdown:
+      subtract_pre_bias: 8
+      encoder_linear: 256
+      relu_activation: 16
+      matrix_multiplication: 256
+      add_pre_bias: 8
+
+  GatedSAE:
+    total_flops: 672
+    breakdown:
+      subtract_b_dec: 8
+      initial_matrix_multiplication: 256
+      exp_and_multiply: 32
+      add_b_mag: 16
+      relu_activation: 16
+      add_b_gate: 16
+      post_gate_operations: 48
+      element_wise_multiplication: 16
+      final_matrix_multiplication: 256
+      add_b_dec: 8
+
+  TopKSAE:
+    total_flops: 585
+    breakdown:
+      subtract_pre_bias: 8
+      encoder_linear: 256
+      add_latent_bias: 16
+      topk_operation:
+        partial_sort: 25
+        relu_on_top_k: 3
+        zero_out_non_top_k: 13
+      matrix_multiplication: 256
+      add_pre_bias: 8
+
+model_parameters:
+  N: 16  # number of sparse sources / latent dimensions
+  M: 8   # number of measurements / input dimensions
+  K: 3   # number of active components for TopKSAE
+
+notes:
+  - "All calculations assume the model parameters N=16, M=8, and K=3."
+  - "SparseCoding FLOPs should be multiplied by the number of optimization iterations."
+  - "FLOPs for other models represent a single forward pass during inference."

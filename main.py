@@ -13,6 +13,7 @@ from scipy.stats import gennorm
 from typing import Union
 from scipy.fft import dct
 import einops
+import yaml
 
 from models import SparseCoding, SparseAutoEncoder, GatedSAE, TopKSAE
 
@@ -159,14 +160,12 @@ X = torch.tensor(S, dtype=torch.float32).to(device) @ D
 print(S.shape, X.shape, D.shape)
 
 
-#model = SparseCoding(S, D, learn_D=False, seed=seed).to(device)
-#model = SparseAutoEncoder(D, learn_D=False, seed=seed, relu=False).to(device)
-model = GatedSAE(D, learn_D=False, seed=seed).to(device)
+model = SparseCoding(S, D, learn_D=True, seed=seed).to(device)
+#model = SparseAutoEncoder(D, learn_D=True, seed=seed, relu=False).to(device)
+#model = GatedSAE(D, learn_D=False, seed=seed).to(device)
 #model = TopKSAE(D, learn_D=False, seed=seed, k=K).to(device)
 
 # Read in lr and l1_weight from config.yaml
-import yaml
-
 with open('train_configs.yaml') as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
 
