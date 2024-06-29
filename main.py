@@ -161,8 +161,8 @@ print(S.shape, X.shape, D.shape)
 
 #model = SparseCoding(S, D, learn_D=False, seed=seed).to(device)
 #model = SparseAutoEncoder(D, learn_D=False, seed=seed, relu=False).to(device)
-#model = GatedSAE(D, learn_D=False, seed=seed).to(device)
-model = TopKSAE(D, learn_D=False, seed=seed, k=K).to(device)
+model = GatedSAE(D, learn_D=False, seed=seed).to(device)
+#model = TopKSAE(D, learn_D=False, seed=seed, k=K).to(device)
 
 # Read in lr and l1_weight from config.yaml
 import yaml

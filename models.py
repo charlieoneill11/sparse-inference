@@ -70,8 +70,12 @@ class GatedSAE(nn.Module):
 
         N, M = D.shape
 
+        if self.learn_D:
+            self.D_ = nn.Parameter(torch.nn.init.kaiming_uniform_(torch.empty(N, M)), requires_grad=True)
+        else:
+            self.D_ = nn.Parameter(D, requires_grad=False)
+
         self.W_gate = nn.Parameter(torch.nn.init.kaiming_uniform_(torch.empty(M, N)), requires_grad=True)
-        self.W_dec = nn.Parameter(torch.nn.init.kaiming_uniform_(torch.empty(N, M)), requires_grad=True)
         self.b_dec = nn.Parameter(torch.zeros(M))
         self.b_enc_gate = nn.Parameter(torch.zeros(N))
         self.b_dec_gate = nn.Parameter(torch.zeros(M))
@@ -79,7 +83,7 @@ class GatedSAE(nn.Module):
         self.b_mag = nn.Parameter(torch.zeros(N))
         self.b_gate = nn.Parameter(torch.zeros(N))
 
-        self.W_dec.data[:] = self.W_dec / self.W_dec.norm(dim=-1, keepdim=True)
+        self.D_.data /= torch.linalg.norm(self.D_, dim=1, keepdim=True)
 
         self.d_hidden = N
 
@@ -94,20 +98,16 @@ class GatedSAE(nn.Module):
     #     return S_, X_, pre_gate_hidden
 
     def forward(self, X):
-        # Replace einops.einsum with standard PyTorch operations
-        preactivations_hidden = torch.matmul(X - self.b_dec, self.W_gate)
+        if self.learn_D:
+            self.D_.data /= torch.linalg.norm(self.D_, dim=1, keepdim=True)
 
+        preactivations_hidden = torch.matmul(X - self.b_dec, self.W_gate)
         pre_mag_hidden = preactivations_hidden * torch.exp(self.r_mag) + self.b_mag
         post_mag_hidden = torch.relu(pre_mag_hidden)
-
         pre_gate_hidden = preactivations_hidden + self.b_gate
         post_gate_hidden = (torch.sign(pre_gate_hidden) + 1) / 2
-
         S_ = post_mag_hidden * post_gate_hidden
-
-        # Replace einops.einsum with standard PyTorch operations
-        X_ = torch.matmul(S_, self.W_dec) + self.b_dec
-
+        X_ = torch.matmul(S_, self.D_) + self.b_dec
         return S_, X_, pre_gate_hidden
 
     # def loss_forward(self, X, weight):
@@ -125,19 +125,16 @@ class GatedSAE(nn.Module):
         gated_sae_loss = F.mse_loss(X_, X, reduction='mean') #(X_ - X).pow(2).mean()
         gate_magnitude = F.relu(pre_gate_hidden)
         gated_sae_loss += l1_weight * gate_magnitude.sum()
-        
-        # Replace einops.einsum with standard PyTorch operations
-        gate_reconstruction = torch.matmul(gate_magnitude, self.W_dec.detach()) + self.b_dec.detach()
-        
+        gate_reconstruction = torch.matmul(gate_magnitude, self.D_.detach()) + self.b_dec.detach()
         auxiliary_loss = F.mse_loss(gate_reconstruction, X, reduction='mean')
         gated_sae_loss += auxiliary_loss
         return S_, X_, gated_sae_loss
 
     @torch.no_grad()
     def make_decoder_weights_and_grad_unit_norm(self):
-        W_dec_normed = self.W_dec / self.W_dec.norm(dim=-1, keepdim=True)
-        W_dec_grad_proj = (self.W_dec.grad * W_dec_normed).sum(-1, keepdim=True) * W_dec_normed
-        self.W_dec.grad -= W_dec_grad_proj
+        D_normed = self.D_ / self.D_.norm(dim=-1, keepdim=True)
+        D_grad_proj = (self.D_.grad * D_normed).sum(-1, keepdim=True) * D_normed
+        self.D_.grad -= D_grad_proj
 
 
 ### TOP-K Sparse Autoencoder ###
