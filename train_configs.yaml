@@ -1,0 +1,15 @@
+SparseCoding:
+  lr: 3e-3
+  l1_weight: 1e-2
+
+SparseAutoencoder:
+  lr: 3e-3
+  l1_weight: 1e-2
+
+GatedSAE:
+  lr: 1e-4
+  l1_weight: 3e-4
+
+TopKSAE:
+  lr: 1e-4
+  l1_weight: 3e-4
