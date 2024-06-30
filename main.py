@@ -160,8 +160,8 @@ X = torch.tensor(S, dtype=torch.float32).to(device) @ D
 print(S.shape, X.shape, D.shape)
 
 
-model = SparseCoding(S, D, learn_D=True, seed=seed).to(device)
-#model = SparseAutoEncoder(D, learn_D=True, seed=seed, relu=False).to(device)
+model = SparseCoding(S, D, learn_D=False, seed=seed).to(device)
+#model = SparseAutoEncoder(D, learn_D=False, seed=seed, relu=False).to(device)
 #model = GatedSAE(D, learn_D=False, seed=seed).to(device)
 #model = TopKSAE(D, learn_D=False, seed=seed, k=K).to(device)
 
@@ -175,8 +175,8 @@ if isinstance(model, SparseCoding):
     l1_weight = float(config['SparseCoding']['l1_weight'])
 
 elif isinstance(model, SparseAutoEncoder):
-    lr = float(config['SparseAutoencoder']['lr'])
-    l1_weight = float(config['SparseAutoencoder']['l1_weight'])
+    lr = float(config['SparseAutoEncoder']['lr'])
+    l1_weight = float(config['SparseAutoEncoder']['l1_weight'])
 
 elif isinstance(model, GatedSAE):
     lr = float(config['GatedSAE']['lr'])

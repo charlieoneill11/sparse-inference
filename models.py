@@ -9,10 +9,7 @@ class SparseCoding(nn.Module):
         super().__init__()
         self.learn_D = learn_D
         torch.manual_seed(seed + 42)
-        if S is not None:
-            self.log_S_ = nn.Parameter(data=-10 * torch.ones(S.shape), requires_grad=True)
-        else:
-            self.log_S_ = None
+        self.log_S_ = nn.Parameter(data=-10 * torch.ones(S.shape[0], D.shape[0]), requires_grad=True)
         if learn_D:
             self.D_ = nn.Parameter(data=torch.randn(D.shape), requires_grad=True)
         else:
@@ -21,12 +18,9 @@ class SparseCoding(nn.Module):
     def forward(self, X = None):
         if self.learn_D:
             self.D_.data /= torch.linalg.norm(self.D_, dim=1, keepdim=True)
-        if self.log_S_ is not None:
-            S_ = torch.exp(self.log_S_)
-            X_ = S_ @ self.D_
-            return S_, X_
-        else:
-            return None, None  # or raise an exception if this case should not occur
+        S_ = torch.exp(self.log_S_)
+        X_ = S_ @ self.D_
+        return S_, X_
 
     def infer(self, X, num_iterations=100, lr=0.01, l1_weight=0.1):
         # Initialize S_ randomly
