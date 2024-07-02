@@ -1,0 +1,180 @@
+{
+  "parameters": {
+    "N": 16,
+    "M": 8,
+    "K": 3,
+    "num_data": 1024,
+    "num_step": 20000,
+    "batch_size": 32,
+    "seed": 20240625,
+    "hidden_dims": [
+      4,
+      8,
+      10,
+      12,
+      16
+    ]
+  },
+  "results": [
+    {
+      "model": "SparseCoding",
+      "hidden_dim": 4,
+      "inference_flops": 18100,
+      "training_flops": 77120000,
+      "total_flops": 77138100,
+      "mcc": 0.12545553726410388
+    },
+    {
+      "model": "SparseCoding",
+      "hidden_dim": 8,
+      "inference_flops": 31700,
+      "training_flops": 144000000,
+      "total_flops": 144031700,
+      "mcc": 0.26344757217245046
+    },
+    {
+      "model": "SparseCoding",
+      "hidden_dim": 10,
+      "inference_flops": 38500,
+      "training_flops": 177440000,
+      "total_flops": 177478500,
+      "mcc": 0.4174392557376607
+    },
+    {
+      "model": "SparseCoding",
+      "hidden_dim": 12,
+      "inference_flops": 45300,
+      "training_flops": 210880000,
+      "total_flops": 210925300,
+      "mcc": 0.5600417700071201
+    },
+    {
+      "model": "SparseCoding",
+      "hidden_dim": 16,
+      "inference_flops": 58900,
+      "training_flops": 277760000,
+      "total_flops": 277818900,
+      "mcc": 0.8365036524524605
+    },
+    {
+      "model": "SparseAutoEncoder",
+      "hidden_dim": 4,
+      "inference_flops": 72,
+      "training_flops": 103360000,
+      "total_flops": 103360072,
+      "mcc": 0.16242638408525045
+    },
+    {
+      "model": "SparseAutoEncoder",
+      "hidden_dim": 8,
+      "inference_flops": 144,
+      "training_flops": 195840000,
+      "total_flops": 195840144,
+      "mcc": 0.2856473396124546
+    },
+    {
+      "model": "SparseAutoEncoder",
+      "hidden_dim": 10,
+      "inference_flops": 180,
+      "training_flops": 242080000,
+      "total_flops": 242080180,
+      "mcc": 0.3934296097965998
+    },
+    {
+      "model": "SparseAutoEncoder",
+      "hidden_dim": 12,
+      "inference_flops": 216,
+      "training_flops": 288320000,
+      "total_flops": 288320216,
+      "mcc": 0.4318701261029734
+    },
+    {
+      "model": "SparseAutoEncoder",
+      "hidden_dim": 16,
+      "inference_flops": 288,
+      "training_flops": 380800000,
+      "total_flops": 380800288,
+      "mcc": 0.6556501028437367
+    },
+    {
+      "model": "GatedSAE",
+      "hidden_dim": 4,
+      "inference_flops": 120,
+      "training_flops": 151680000,
+      "total_flops": 151680120,
+      "mcc": 0.14301272480912627
+    },
+    {
+      "model": "GatedSAE",
+      "hidden_dim": 8,
+      "inference_flops": 224,
+      "training_flops": 261120000,
+      "total_flops": 261120224,
+      "mcc": 0.3231486021342739
+    },
+    {
+      "model": "GatedSAE",
+      "hidden_dim": 10,
+      "inference_flops": 276,
+      "training_flops": 315840000,
+      "total_flops": 315840276,
+      "mcc": 0.40333875196211155
+    },
+    {
+      "model": "GatedSAE",
+      "hidden_dim": 12,
+      "inference_flops": 328,
+      "training_flops": 370560000,
+      "total_flops": 370560328,
+      "mcc": 0.4931131380818192
+    },
+    {
+      "model": "GatedSAE",
+      "hidden_dim": 16,
+      "inference_flops": 432,
+      "training_flops": 480000000,
+      "total_flops": 480000432,
+      "mcc": 0.6098439440359247
+    },
+    {
+      "model": "TopKSAE",
+      "hidden_dim": 4,
+      "inference_flops": 103,
+      "training_flops": 120640000,
+      "total_flops": 120640103,
+      "mcc": 0.16947973057315124
+    },
+    {
+      "model": "TopKSAE",
+      "hidden_dim": 8,
+      "inference_flops": 187,
+      "training_flops": 218240000,
+      "total_flops": 218240187,
+      "mcc": 0.33732168373065974
+    },
+    {
+      "model": "TopKSAE",
+      "hidden_dim": 10,
+      "inference_flops": 229,
+      "training_flops": 267040000,
+      "total_flops": 267040229,
+      "mcc": 0.4163884022383304
+    },
+    {
+      "model": "TopKSAE",
+      "hidden_dim": 12,
+      "inference_flops": 271,
+      "training_flops": 315840000,
+      "total_flops": 315840271,
+      "mcc": 0.5394707389888368
+    },
+    {
+      "model": "TopKSAE",
+      "hidden_dim": 16,
+      "inference_flops": 355,
+      "training_flops": 413440000,
+      "total_flops": 413440355,
+      "mcc": 0.6299823827768356
+    }
+  ]
+}

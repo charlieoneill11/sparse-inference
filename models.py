@@ -3,6 +3,7 @@ from torch import nn
 from torch.nn import functional as F
 import einops
 from typing import Callable, Any
+from tqdm import tqdm
 
 class SparseCoding(nn.Module):
     def __init__(self, S, D, learn_D, seed: int = 42):
@@ -22,14 +23,17 @@ class SparseCoding(nn.Module):
         X_ = S_ @ self.D_
         return S_, X_
 
-    def infer(self, X, num_iterations=100, lr=0.01, l1_weight=0.1):
+    def infer(self, X, num_iterations=10000, lr=3e-3, l1_weight=1e-3):
         # Initialize S_ randomly
-        S_ = torch.randn(X.shape[0], self.D_.shape[0], device=X.device, requires_grad=True)
+        #S_ = torch.randn(X.shape[0], self.D_.shape[0], device=X.device, requires_grad=True)
+        self.log_S_ = nn.Parameter(data=-10 * torch.ones(X.shape[0], self.D_.shape[0]), requires_grad=True)
 
-        optimizer = torch.optim.Adam([S_], lr=lr)
+        optimizer = torch.optim.Adam([self.log_S_], lr=lr)
 
-        for _ in range(num_iterations):
+        for _ in tqdm(range(num_iterations), desc='Infer'):
             optimizer.zero_grad()
+
+            S_ = torch.exp(self.log_S_)
 
             # Compute reconstruction
             X_ = S_ @ self.D_
@@ -47,6 +51,7 @@ class SparseCoding(nn.Module):
             S_.data = F.relu(S_.data)
 
         return S_.detach()
+
     
     def loss_forward(self, X, weight):
         S_, X_ = self.forward(X)
