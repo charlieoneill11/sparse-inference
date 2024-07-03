@@ -7,7 +7,6 @@ from scipy.stats import pearsonr as corr
 import pickle
 from tqdm import tqdm
 import sys
-from munkres import Munkres
 from sklearn.feature_selection import mutual_info_regression
 from scipy.stats import gennorm
 from typing import Union
@@ -16,6 +15,7 @@ import einops
 import yaml
 
 from models import SparseCoding, SparseAutoEncoder, GatedSAE, TopKSAE
+from metrics import mcc, match_latents
 
 # parameters
 N = 16  # number of sparse sources
@@ -121,31 +121,6 @@ def analyze(S, S_):
     sample_codes(S, S_)
     show_correlations(S, S_)
 
-
-
-
-# Evaluation metric
-munk = Munkres()
-def match_latents(z, z_):
-    matches = np.zeros((z.shape[1], z_.shape[1]))
-    for i in range(z.shape[1]):
-        for j in range(z_.shape[1]):
-            matches[i, j] = abs(corr(z[:, i], z_[:, j])[0])
-    matches[np.isnan(matches)] = 0
-    indexes = munk.compute(-matches)
-    return matches, indexes
-
-
-def eval_nd(z, z_):
-    matches, indexes = match_latents(z, z_)
-    corrs = []
-    for i in indexes:
-        corrs.append(matches[i[0], i[1]])
-    return corrs
-
-
-def mcc(z, z_):
-    return np.mean(eval_nd(z, z_)[0])
 
 # generate sample and move to torch
 S = []
