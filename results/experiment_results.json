@@ -30,56 +30,56 @@
       "model": "SparseCoding",
       "hidden_dim": 4,
       "lr": 0.001,
-      "l1_weight": 1e-05,
-      "inference_flops": 72400,
+      "l1_weight": 0.001,
+      "inference_flops": 724000,
       "training_flops": 77120000,
-      "total_flops": 77192400,
-      "mcc": 0.13332964091477872,
-      "num_iterations": 10000
+      "total_flops": 77844000,
+      "mcc": 0.12913484078778642,
+      "num_iterations": 1000
     },
     {
       "model": "SparseCoding",
       "hidden_dim": 8,
       "lr": 0.01,
       "l1_weight": 0.001,
-      "inference_flops": 126800,
+      "inference_flops": 1268000,
       "training_flops": 144000000,
-      "total_flops": 144126800,
-      "mcc": 0.3177269910845832,
-      "num_iterations": 10000
+      "total_flops": 145268000,
+      "mcc": 0.3154015032529012,
+      "num_iterations": 1000
     },
     {
       "model": "SparseCoding",
       "hidden_dim": 10,
       "lr": 0.01,
       "l1_weight": 0.001,
-      "inference_flops": 154000,
+      "inference_flops": 1540000,
       "training_flops": 177440000,
-      "total_flops": 177594000,
-      "mcc": 0.42757066120597126,
-      "num_iterations": 10000
+      "total_flops": 178980000,
+      "mcc": 0.42641862871130737,
+      "num_iterations": 1000
     },
     {
       "model": "SparseCoding",
       "hidden_dim": 12,
       "lr": 0.01,
       "l1_weight": 0.0001,
-      "inference_flops": 181200,
+      "inference_flops": 1812000,
       "training_flops": 210880000,
-      "total_flops": 211061200,
-      "mcc": 0.5751730612726809,
-      "num_iterations": 10000
+      "total_flops": 212692000,
+      "mcc": 0.5738555396244127,
+      "num_iterations": 1000
     },
     {
       "model": "SparseCoding",
       "hidden_dim": 16,
       "lr": 0.01,
       "l1_weight": 0.001,
-      "inference_flops": 235600,
+      "inference_flops": 2356000,
       "training_flops": 277760000,
-      "total_flops": 277995600,
-      "mcc": 0.8356183330222109,
-      "num_iterations": 10000
+      "total_flops": 280116000,
+      "mcc": 0.8345024024967742,
+      "num_iterations": 1000
     },
     {
       "model": "SparseAutoEncoder",
@@ -185,51 +185,51 @@
       "model": "TopKSAE",
       "hidden_dim": 4,
       "lr": 0.0001,
-      "l1_weight": 0.001,
+      "l1_weight": 1e-05,
       "inference_flops": 103,
       "training_flops": 120640000,
       "total_flops": 120640103,
-      "mcc": 0.13044561646837122
+      "mcc": 0.13007456816996713
     },
     {
       "model": "TopKSAE",
       "hidden_dim": 8,
       "lr": 0.01,
-      "l1_weight": 0.0001,
+      "l1_weight": 1e-05,
       "inference_flops": 187,
       "training_flops": 218240000,
       "total_flops": 218240187,
-      "mcc": 0.3598304755587669
+      "mcc": 0.35686188011437614
     },
     {
       "model": "TopKSAE",
       "hidden_dim": 10,
       "lr": 0.001,
-      "l1_weight": 0.001,
+      "l1_weight": 1e-05,
       "inference_flops": 229,
       "training_flops": 267040000,
       "total_flops": 267040229,
-      "mcc": 0.3891574988525139
+      "mcc": 0.3819360984118828
     },
     {
       "model": "TopKSAE",
       "hidden_dim": 12,
       "lr": 0.01,
-      "l1_weight": 0.0001,
+      "l1_weight": 1e-05,
       "inference_flops": 271,
       "training_flops": 315840000,
       "total_flops": 315840271,
-      "mcc": 0.6132407912205192
+      "mcc": 0.613297793308432
     },
     {
       "model": "TopKSAE",
       "hidden_dim": 16,
       "lr": 0.001,
-      "l1_weight": 0.001,
+      "l1_weight": 1e-05,
       "inference_flops": 355,
       "training_flops": 413440000,
       "total_flops": 413440355,
-      "mcc": 0.6670450398927592
+      "mcc": 0.6676148652803882
     }
   ]
 }

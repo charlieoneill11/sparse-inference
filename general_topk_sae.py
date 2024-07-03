@@ -11,7 +11,7 @@ from models import GeneralSAETopK, TopKSAE
 from flop_counter import calculate_inference_flops, calculate_training_flops
 
 # Parameters
-N, M, K = 16, 8, 3
+N, M, K = 32, 8, 5
 seed = 20240625
 num_data = 1024
 num_step = 20000
@@ -21,7 +21,7 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 # Grid search parameters
 lr_range = np.logspace(-4, -1, 10)  # Learning rate range
 lr_range = list(lr_range)
-projections_up = [12, 16]  # Example projections for GeneralSAETopK
+projections_up = [12, 16, 32]  # Example projections for GeneralSAETopK
 
 # Cosine Annealing parameters
 T_0 = 1000

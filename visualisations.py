@@ -214,7 +214,7 @@ def create_plot(flop_type):
     fig.show()
     
     # Save the plot
-    fig.write_image(f"results/{flop_type}_flops_pareto_curves.pdf")
+    #fig.write_image(f"results/{flop_type}_flops_pareto_curves.pdf")
     
     print(f"Plot saved as '{flop_type}_flops_pareto_curves.pdf'")
 
