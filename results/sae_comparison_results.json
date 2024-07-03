@@ -1,0 +1,93 @@
+{
+  "parameters": {
+    "N": 16,
+    "M": 8,
+    "K": 3,
+    "num_data": 1024,
+    "num_step": 10000,
+    "batch_size": 32,
+    "seed": 20240625,
+    "encoder_depths": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "lr_range": [
+      0.0001,
+      0.005,
+      0.001,
+      0.05,
+      0.01
+    ],
+    "l1_weight_range": [
+      1e-05,
+      0.0005,
+      0.0001,
+      0.005,
+      0.001
+    ]
+  },
+  "results": [
+    {
+      "model": "SparseCoding",
+      "encoder_depth": null,
+      "lr": 0.05,
+      "l1_weight": 0.0005,
+      "inference_flops": 23560000,
+      "training_flops": 138880000,
+      "total_flops": 162440000,
+      "mcc": 0.8096933204947305
+    },
+    {
+      "model": "SparseAutoEncoder",
+      "encoder_depth": null,
+      "lr": 0.01,
+      "l1_weight": 1e-05,
+      "inference_flops": 288,
+      "training_flops": 190400000,
+      "total_flops": 190400288,
+      "mcc": 0.6779375057492842
+    },
+    {
+      "model": "GeneralSAE",
+      "encoder_depth": 2,
+      "lr": 0.005,
+      "l1_weight": 1e-05,
+      "inference_flops": 664,
+      "training_flops": 1088000000,
+      "total_flops": 1088000664,
+      "mcc": 0.554709821723975
+    },
+    {
+      "model": "GeneralSAE",
+      "encoder_depth": 3,
+      "lr": 0.0001,
+      "l1_weight": 1e-05,
+      "inference_flops": 996,
+      "training_flops": 1626880000,
+      "total_flops": 1626880996,
+      "mcc": 0.5829280355060291
+    },
+    {
+      "model": "GeneralSAE",
+      "encoder_depth": 4,
+      "lr": 0.001,
+      "l1_weight": 1e-05,
+      "inference_flops": 1310,
+      "training_flops": 2136960000,
+      "total_flops": 2136961310,
+      "mcc": 0.5841351480048669
+    },
+    {
+      "model": "GeneralSAE",
+      "encoder_depth": 5,
+      "lr": 0.0001,
+      "l1_weight": 1e-05,
+      "inference_flops": 1628,
+      "training_flops": 2653440000,
+      "total_flops": 2653441628,
+      "mcc": 0.5731720069059492
+    }
+  ]
+}

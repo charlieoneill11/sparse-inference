@@ -1,0 +1,258 @@
+{
+  "parameters": {
+    "N": 16,
+    "M": 8,
+    "K": 3,
+    "num_data": 1024,
+    "num_step": 20000,
+    "batch_size": 32,
+    "seed": 20240625,
+    "projections_up": [
+      12,
+      16
+    ],
+    "lr_range": [
+      0.0001,
+      0.0005,
+      0.001,
+      0.005,
+      0.01
+    ],
+    "l1_weight_range": [
+      1e-05,
+      5e-05,
+      0.0001,
+      0.0005,
+      0.001
+    ],
+    "T_0": 1000,
+    "T_mult": 2
+  },
+  "results": [
+    {
+      "initial_lr": 0.0001,
+      "l1_weight": 1e-05,
+      "val_mcc": 0.6022205341574391,
+      "test_mcc": 0.6263554210354769,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.0001,
+      "l1_weight": 5e-05,
+      "val_mcc": 0.5960086821164268,
+      "test_mcc": 0.5720177874933086,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.0001,
+      "l1_weight": 0.0001,
+      "val_mcc": 0.5256336436984839,
+      "test_mcc": 0.4697688863122238,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.0001,
+      "l1_weight": 0.0005,
+      "val_mcc": 0.31300487444303826,
+      "test_mcc": 0.17435838605649678,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.0001,
+      "l1_weight": 0.001,
+      "val_mcc": 0.3130048743770999,
+      "test_mcc": 0.1760854029539871,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.0005,
+      "l1_weight": 1e-05,
+      "val_mcc": 0.585941861822441,
+      "test_mcc": 0.5711955512533962,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.0005,
+      "l1_weight": 5e-05,
+      "val_mcc": 0.569049170058026,
+      "test_mcc": 0.5611969647882411,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.0005,
+      "l1_weight": 0.0001,
+      "val_mcc": 0.48887076048720246,
+      "test_mcc": 0.46382116808202056,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.0005,
+      "l1_weight": 0.0005,
+      "val_mcc": 0.3121234257163614,
+      "test_mcc": 0.09749917938125918,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.0005,
+      "l1_weight": 0.001,
+      "val_mcc": 0.31212341905379404,
+      "test_mcc": 0.1562853919511049,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.001,
+      "l1_weight": 1e-05,
+      "val_mcc": 0.6321801607098223,
+      "test_mcc": 0.4954609515761774,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.001,
+      "l1_weight": 5e-05,
+      "val_mcc": 0.5916311702834207,
+      "test_mcc": 0.5279253914461037,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.001,
+      "l1_weight": 0.0001,
+      "val_mcc": 0.4401126722408861,
+      "test_mcc": 0.40808859053363733,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.001,
+      "l1_weight": 0.0005,
+      "val_mcc": 0.310980011660007,
+      "test_mcc": 0.09751426115059303,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.001,
+      "l1_weight": 0.001,
+      "val_mcc": 0.310979996081457,
+      "test_mcc": 0.15311988276270228,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.005,
+      "l1_weight": 1e-05,
+      "val_mcc": 0.5602463039470877,
+      "test_mcc": 0.5089687550353901,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.005,
+      "l1_weight": 5e-05,
+      "val_mcc": 0.5492364657356177,
+      "test_mcc": 0.45264562005191067,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.005,
+      "l1_weight": 0.0001,
+      "val_mcc": 0.3617152453034862,
+      "test_mcc": 0.3328048167861226,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.005,
+      "l1_weight": 0.0005,
+      "val_mcc": 0.30163228430984645,
+      "test_mcc": 0.034300393728472045,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.005,
+      "l1_weight": 0.001,
+      "val_mcc": 0.3016322001943905,
+      "test_mcc": 0.03430039747036062,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.01,
+      "l1_weight": 1e-05,
+      "val_mcc": 0.5532532805185078,
+      "test_mcc": 0.5236929519658111,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.01,
+      "l1_weight": 5e-05,
+      "val_mcc": 0.46408548053683774,
+      "test_mcc": 0.4868919197531767,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.01,
+      "l1_weight": 0.0001,
+      "val_mcc": 0.3566271041084974,
+      "test_mcc": 0.2907714825099674,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.01,
+      "l1_weight": 0.0005,
+      "val_mcc": 0.2903725722499644,
+      "test_mcc": 0.0,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    },
+    {
+      "initial_lr": 0.01,
+      "l1_weight": 0.001,
+      "val_mcc": 0.2903725826145376,
+      "test_mcc": 0.0,
+      "inference_flops": 860,
+      "training_flops": 2972160000,
+      "total_flops": 2972160860
+    }
+  ]
+}

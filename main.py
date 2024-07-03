@@ -23,9 +23,9 @@ K = 3  # number of active components
 M = 8  # number of measurements
 seed = 20240625
 num_data = 1024
-lr = 1e-4 #3e-3
+lr = 3e-3
 num_step = 20000
-l1_weight = 3e-4 #1e-2
+l1_weight = 1e-2
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 
@@ -160,7 +160,7 @@ X = torch.tensor(S, dtype=torch.float32).to(device) @ D
 print(S.shape, X.shape, D.shape)
 
 
-model = SparseCoding(S, D, learn_D=False, seed=seed).to(device)
+model = SparseCoding(S, D, learn_D=True, seed=seed).to(device)
 #model = SparseAutoEncoder(D, learn_D=False, seed=seed, relu=False).to(device)
 #model = GatedSAE(D, learn_D=False, seed=seed).to(device)
 #model = TopKSAE(D, learn_D=False, seed=seed, k=K).to(device)

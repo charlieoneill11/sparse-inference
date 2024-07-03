@@ -431,6 +431,9 @@ def train_model(model, X_train, S_train, num_step, lr, l1_weight):
     for i in tqdm(range(num_step), desc=f"Training {model.__class__.__name__}"):
         if isinstance(model, GatedSAE):
             S_, X_, loss = model.loss_forward(X_train, l1_weight=l1_weight)
+        elif isinstance(model, TopKSAE): # we don't want to apply L1 penalty to TopK
+            S_, X_ = model.forward(X_train)
+            loss = torch.sum((X_train - X_) ** 2)
         else:
             S_, X_ = model.forward(X_train)
             loss = torch.sum((X_train - X_) ** 2) + l1_weight * torch.sum(torch.abs(S_))

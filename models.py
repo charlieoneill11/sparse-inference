@@ -32,22 +32,11 @@ class SparseCoding(nn.Module):
 
         for _ in tqdm(range(num_iterations), desc='Infer'):
             optimizer.zero_grad()
-
             S_ = torch.exp(self.log_S_)
-
-            # Compute reconstruction
             X_ = S_ @ self.D_
-
-            # Compute loss (reconstruction error + L1 penalty)
             loss = F.mse_loss(X_, X) + l1_weight * torch.sum(torch.abs(S_))
-
-            # Backward pass
             loss.backward()
-
-            # Update S_
             optimizer.step()
-
-            # Apply ReLU to ensure non-negativity (if this constraint is desired)
             S_.data = F.relu(S_.data)
 
         return S_.detach()
@@ -64,6 +53,51 @@ class Exp(nn.Module):
 
     def forward(self, X):
         return torch.exp(X)
+    
+
+class GeneralSAE(nn.Module):
+    def __init__(self, initial_D, projections_up, resnet=True, learn_D=True, seed: int = 20240625):
+        super().__init__()
+        torch.manual_seed(seed + 42)
+        N, M = initial_D.shape
+        print(f"GeneralSAE init - N: {N}, M: {M}")
+        print(f"Projections: {projections_up}")
+        
+        self.projections_up = projections_up
+        self.resnet = resnet
+        self.learn_D = learn_D
+        
+        # Create the encoder
+        layers = []
+        input_dim = M
+        for output_dim in projections_up:
+            layers.append(nn.Linear(input_dim, output_dim))
+            layers.append(nn.ReLU())
+            input_dim = output_dim
+        
+        self.encoder = nn.Sequential(*layers)
+        #print(f"Encoder: {self.encoder}")
+        
+        # Initialize D
+        if learn_D:
+            self.D = nn.Parameter(torch.randn(projections_up[-1], M), requires_grad=True)
+        else:
+            self.D = nn.Parameter(initial_D.T, requires_grad=False)
+        #print(f"D shape: {self.D.shape}")
+    
+    def forward(self, X):
+        if self.learn_D:
+            self.D.data /= torch.linalg.norm(self.D, dim=0, keepdim=True)
+        
+        S = self.encoder(X)
+        #print(f"Forward - X shape: {X.shape}, S shape: {S.shape}")
+        
+        X_recon = S @ self.D
+        #print(f"Forward - X_recon shape: {X_recon.shape}")
+        
+        return S, X_recon
+
+        
     
 
 class SparseAutoEncoder(nn.Module):
@@ -220,3 +254,79 @@ class TopKSAE(nn.Module):
     @property
     def k(self):
         return self.activation.k
+    
+
+class TopK(nn.Module):
+    def __init__(self, k: int, postact_fn: nn.Module = nn.ReLU()):
+        super().__init__()
+        self.k = k
+        self.postact_fn = postact_fn
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        topk = torch.topk(x, k=self.k, dim=-1)
+        values = self.postact_fn(topk.values)
+        result = torch.zeros_like(x)
+        result.scatter_(-1, topk.indices, values)
+        return result
+
+class GeneralSAETopK(nn.Module):
+    def __init__(self, initial_D, projections_up, k, learn_D=True, seed: int = 20240625, postact_fn=nn.ReLU()):
+        super().__init__()
+        torch.manual_seed(seed + 42)
+        N, M = initial_D.shape
+        
+        self.projections_up = projections_up
+        self.learn_D = learn_D
+        
+        # Create the encoder
+        layers = []
+        input_dim = M
+        for output_dim in projections_up[:-1]:  # All layers except the last one
+            layers.append(nn.Linear(input_dim, output_dim))
+            layers.append(nn.ReLU())
+            input_dim = output_dim
+        
+        # Last layer of the encoder (before top-k)
+        layers.append(nn.Linear(input_dim, projections_up[-1]))
+        
+        self.encoder = nn.Sequential(*layers)
+        
+        # Top-K activation
+        self.topk_activation = TopK(k=k, postact_fn=postact_fn)
+        
+        # Initialize D
+        if learn_D:
+            self.D = nn.Parameter(torch.randn(projections_up[-1], M), requires_grad=True)
+        else:
+            self.D = nn.Parameter(initial_D.T, requires_grad=False)
+        
+        # Bias terms
+        self.latent_bias = nn.Parameter(torch.zeros(projections_up[-1]))
+        self.pre_bias = nn.Parameter(torch.zeros(M))
+    
+    def forward(self, X):
+        if self.learn_D:
+            self.D.data /= torch.linalg.norm(self.D, dim=0, keepdim=True)
+        
+        # Encoder
+        X_centered = X - self.pre_bias
+        S_pre_act = self.encoder(X_centered) + self.latent_bias
+        
+        # Apply top-k activation
+        S = self.topk_activation(S_pre_act)
+        
+        # Reconstruction
+        X_recon = S @ self.D + self.pre_bias
+        
+        return S, X_recon
+
+    def loss_forward(self, X, l1_weight):
+        S, X_recon = self.forward(X)
+        reconstruction_loss = F.mse_loss(X_recon, X, reduction='mean')
+        sparsity_loss = l1_weight * torch.sum(torch.abs(S))
+        total_loss = reconstruction_loss + sparsity_loss
+        return S, X_recon, total_loss
+
+    @property
+    def k(self):
+        return self.topk_activation.k
