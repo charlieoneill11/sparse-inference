@@ -15,11 +15,11 @@ N, M, K = 32, 8, 5
 seed = 20240625
 num_data = 1024
 num_step = 20000
-batch_size = 32
+batch_size = 256
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 # Grid search parameters
-lr_range = np.logspace(-4, -1, 10)  # Learning rate range
+lr_range = np.logspace(-4, -2, 10)  # Learning rate range
 lr_range = list(lr_range)
 projections_up = [12, 16, 32]  # Example projections for GeneralSAETopK
 
@@ -124,7 +124,7 @@ def main():
     X_train, X_val, X_test = X[:train_size], X[train_size:train_size+val_size], X[train_size+val_size:]
     
     # Grid search for GeneralSAETopK
-    general_results = grid_search(GeneralSAETopK, X_train, S_train, X_val, S_val, X_test, S_test, D)
+    #general_results = grid_search(GeneralSAETopK, X_train, S_train, X_val, S_val, X_test, S_test, D)
     
     # Grid search for TopKSAE
     topk_results = grid_search(TopKSAE, X_train, S_train, X_val, S_val, X_test, S_test, D)
@@ -141,12 +141,12 @@ def main():
             'T_0': T_0,
             'T_mult': T_mult
         },
-        'GeneralSAETopK_results': general_results,
+        #'GeneralSAETopK_results': general_results,
         'TopKSAE_results': topk_results
     }
     
-    with open('results/sae_topk_comparison_results.json', 'w') as f:
-        json.dump(experiment_data, f, indent=2)
+    # with open('results/sae_topk_comparison_results.json', 'w') as f:
+    #     json.dump(experiment_data, f, indent=2)
 
 if __name__ == "__main__":
     main()

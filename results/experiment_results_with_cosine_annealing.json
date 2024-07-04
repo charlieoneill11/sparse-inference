@@ -1,0 +1,238 @@
+{
+  "parameters": {
+    "N": 16,
+    "M": 8,
+    "K": 3,
+    "num_data": 1024,
+    "num_step": 20000,
+    "batch_size": 32,
+    "seed": 20240625,
+    "hidden_dims": [
+      4,
+      8,
+      10,
+      12,
+      16
+    ],
+    "lr_range": [
+      0.0001,
+      0.003,
+      0.001,
+      0.01
+    ],
+    "l1_weight_range": [
+      1e-05,
+      0.0001,
+      0.001
+    ],
+    "use_cosine_annealing": true,
+    "T_max": 20000
+  },
+  "results": [
+    {
+      "model": "SparseCoding",
+      "hidden_dim": 4,
+      "lr": 0.001,
+      "l1_weight": 0.001,
+      "inference_flops": 724000,
+      "training_flops": 77120000,
+      "total_flops": 77844000,
+      "mcc": 0.13453299406129998,
+      "num_iterations": 1000
+    },
+    {
+      "model": "SparseCoding",
+      "hidden_dim": 8,
+      "lr": 0.003,
+      "l1_weight": 0.001,
+      "inference_flops": 1268000,
+      "training_flops": 144000000,
+      "total_flops": 145268000,
+      "mcc": 0.32805562660902743,
+      "num_iterations": 1000
+    },
+    {
+      "model": "SparseCoding",
+      "hidden_dim": 10,
+      "lr": 0.01,
+      "l1_weight": 0.0001,
+      "inference_flops": 1540000,
+      "training_flops": 177440000,
+      "total_flops": 178980000,
+      "mcc": 0.38959840780266597,
+      "num_iterations": 1000
+    },
+    {
+      "model": "SparseCoding",
+      "hidden_dim": 12,
+      "lr": 0.01,
+      "l1_weight": 0.0001,
+      "inference_flops": 1812000,
+      "training_flops": 210880000,
+      "total_flops": 212692000,
+      "mcc": 0.5706170752006923,
+      "num_iterations": 1000
+    },
+    {
+      "model": "SparseCoding",
+      "hidden_dim": 16,
+      "lr": 0.01,
+      "l1_weight": 0.001,
+      "inference_flops": 2356000,
+      "training_flops": 277760000,
+      "total_flops": 280116000,
+      "mcc": 0.815752668510811,
+      "num_iterations": 1000
+    },
+    {
+      "model": "SparseAutoEncoder",
+      "hidden_dim": 4,
+      "lr": 0.0001,
+      "l1_weight": 0.001,
+      "inference_flops": 72,
+      "training_flops": 103360000,
+      "total_flops": 103360072,
+      "mcc": 0.13643943255645596
+    },
+    {
+      "model": "SparseAutoEncoder",
+      "hidden_dim": 8,
+      "lr": 0.0001,
+      "l1_weight": 0.001,
+      "inference_flops": 144,
+      "training_flops": 195840000,
+      "total_flops": 195840144,
+      "mcc": 0.2805557524682256
+    },
+    {
+      "model": "SparseAutoEncoder",
+      "hidden_dim": 10,
+      "lr": 0.003,
+      "l1_weight": 0.001,
+      "inference_flops": 180,
+      "training_flops": 242080000,
+      "total_flops": 242080180,
+      "mcc": 0.3835085050984274
+    },
+    {
+      "model": "SparseAutoEncoder",
+      "hidden_dim": 12,
+      "lr": 0.003,
+      "l1_weight": 0.001,
+      "inference_flops": 216,
+      "training_flops": 288320000,
+      "total_flops": 288320216,
+      "mcc": 0.4323828414393941
+    },
+    {
+      "model": "SparseAutoEncoder",
+      "hidden_dim": 16,
+      "lr": 0.01,
+      "l1_weight": 0.001,
+      "inference_flops": 288,
+      "training_flops": 380800000,
+      "total_flops": 380800288,
+      "mcc": 0.6333953595422308
+    },
+    {
+      "model": "GatedSAE",
+      "hidden_dim": 4,
+      "lr": 0.01,
+      "l1_weight": 0.0001,
+      "inference_flops": 120,
+      "training_flops": 151680000,
+      "total_flops": 151680120,
+      "mcc": 0.1415051340634363
+    },
+    {
+      "model": "GatedSAE",
+      "hidden_dim": 8,
+      "lr": 0.003,
+      "l1_weight": 0.0001,
+      "inference_flops": 224,
+      "training_flops": 261120000,
+      "total_flops": 261120224,
+      "mcc": 0.32696008720120817
+    },
+    {
+      "model": "GatedSAE",
+      "hidden_dim": 10,
+      "lr": 0.01,
+      "l1_weight": 0.0001,
+      "inference_flops": 276,
+      "training_flops": 315840000,
+      "total_flops": 315840276,
+      "mcc": 0.4460086248674072
+    },
+    {
+      "model": "GatedSAE",
+      "hidden_dim": 12,
+      "lr": 0.01,
+      "l1_weight": 0.0001,
+      "inference_flops": 328,
+      "training_flops": 370560000,
+      "total_flops": 370560328,
+      "mcc": 0.612666076207315
+    },
+    {
+      "model": "GatedSAE",
+      "hidden_dim": 16,
+      "lr": 0.001,
+      "l1_weight": 0.0001,
+      "inference_flops": 432,
+      "training_flops": 480000000,
+      "total_flops": 480000432,
+      "mcc": 0.7109881471048283
+    },
+    {
+      "model": "TopKSAE",
+      "hidden_dim": 4,
+      "lr": 0.0001,
+      "l1_weight": 1e-05,
+      "inference_flops": 103,
+      "training_flops": 120640000,
+      "total_flops": 120640103,
+      "mcc": 0.13007404778700948
+    },
+    {
+      "model": "TopKSAE",
+      "hidden_dim": 8,
+      "lr": 0.01,
+      "l1_weight": 1e-05,
+      "inference_flops": 187,
+      "training_flops": 218240000,
+      "total_flops": 218240187,
+      "mcc": 0.35666911536904544
+    },
+    {
+      "model": "TopKSAE",
+      "hidden_dim": 10,
+      "lr": 0.003,
+      "l1_weight": 1e-05,
+      "inference_flops": 229,
+      "training_flops": 267040000,
+      "total_flops": 267040229,
+      "mcc": 0.4685785902691544
+    },
+    {
+      "model": "TopKSAE",
+      "hidden_dim": 12,
+      "lr": 0.01,
+      "l1_weight": 1e-05,
+      "inference_flops": 271,
+      "training_flops": 315840000,
+      "total_flops": 315840271,
+      "mcc": 0.5567732398099706
+    },
+    {
+      "model": "TopKSAE",
+      "hidden_dim": 16,
+      "lr": 0.001,
+      "l1_weight": 1e-05,
+      "inference_flops": 355,
+      "training_flops": 413440000,
+      "total_flops": 413440355,
+      "mcc": 0.5810311135429309
+    }
+  ]
+}

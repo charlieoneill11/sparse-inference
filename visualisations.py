@@ -126,7 +126,8 @@ MODEL_NAME_MAP = {
 }
 
 # Load the JSON data
-with open('results/experiment_results.json', 'r') as f:
+path = 'results/experiment_results_with_cosine_annealing.json'
+with open(path, 'r') as f:
     data = json.load(f)
 
 # Extract results

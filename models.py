@@ -202,7 +202,9 @@ class GatedSAE(nn.Module):
         self.D_.grad -= D_grad_proj
 
 
-### TOP-K Sparse Autoencoder ###
+import torch
+from torch import nn
+from torch.nn import functional as F
 
 class TopK(nn.Module):
     def __init__(self, k: int, postact_fn: nn.Module = nn.ReLU()):
@@ -223,27 +225,33 @@ class TopKSAE(nn.Module):
         self.learn_D = learn_D
         torch.manual_seed(seed + 42)
         N, M = D.shape
-        
-        self.encoder = nn.Linear(M, N, bias=False)
-        self.latent_bias = nn.Parameter(torch.zeros(N))
-        self.activation = TopK(k=k, postact_fn=postact_fn)
-        
+
+        # Initialize D (decoder weights)
         if learn_D:
             self.D_ = nn.Parameter(data=torch.randn(D.shape), requires_grad=True)
+            self.D_.data /= torch.linalg.norm(self.D_, dim=1, keepdim=True)
         else:
             self.D_ = nn.Parameter(data=D, requires_grad=False)
-        
+            self.D_.data /= torch.linalg.norm(self.D_, dim=1, keepdim=True)
+
+        # initialise encoder with transposed D
+        self.encoder = nn.Linear(M, N, bias=False)
+        # with torch.no_grad():
+        #     self.encoder.weight.data = self.D_.clone()
+
+        self.latent_bias = nn.Parameter(torch.zeros(N))
+        self.activation = TopK(k=k, postact_fn=postact_fn)
         self.pre_bias = nn.Parameter(torch.zeros(M))
 
     def forward(self, X):
         if self.learn_D:
             self.D_.data /= torch.linalg.norm(self.D_, dim=1, keepdim=True)
-        
+
         X_centered = X - self.pre_bias
         S_pre_act = self.encoder(X_centered) + self.latent_bias
         S_ = self.activation(S_pre_act)
         X_ = S_ @ self.D_ + self.pre_bias
-        
+
         return S_, X_
 
     def loss_forward(self, X, weight):

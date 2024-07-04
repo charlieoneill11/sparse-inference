@@ -23,7 +23,7 @@ K = 3  # number of active components
 M = 8  # number of measurements
 seed = 20240625
 num_data = 1024
-lr = 3e-3
+lr = 3e-4
 num_step = 20000
 l1_weight = 1e-2
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -38,6 +38,9 @@ def train(model):
     for i in range(num_step):
         if isinstance(model, GatedSAE):
             S_, X_, loss = model.loss_forward(X, l1_weight=l1_weight)
+        elif isinstance(model, TopKSAE):
+            S_, X_ = model.forward(X)
+            loss = torch.sum((X - X_) ** 2)
         else:
             S_, X_ = model.forward(X)
             loss = criterion(S_, X, X_, l1_weight=l1_weight)
@@ -135,10 +138,10 @@ X = torch.tensor(S, dtype=torch.float32).to(device) @ D
 print(S.shape, X.shape, D.shape)
 
 
-model = SparseCoding(S, D, learn_D=True, seed=seed).to(device)
+#model = SparseCoding(S, D, learn_D=True, seed=seed).to(device)
 #model = SparseAutoEncoder(D, learn_D=False, seed=seed, relu=False).to(device)
 #model = GatedSAE(D, learn_D=False, seed=seed).to(device)
-#model = TopKSAE(D, learn_D=False, seed=seed, k=K).to(device)
+model = TopKSAE(D, learn_D=True, seed=seed, k=K).to(device)
 
 # Read in lr and l1_weight from config.yaml
 with open('train_configs.yaml') as f:
@@ -168,7 +171,7 @@ else:
 print("lr: ", lr)
 print("l1_weight: ", l1_weight)
 
-
+lr = 3e-4
 
 S_ = train(model)
 # analyze(S, S_)
