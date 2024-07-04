@@ -201,11 +201,6 @@ class GatedSAE(nn.Module):
         D_grad_proj = (self.D_.grad * D_normed).sum(-1, keepdim=True) * D_normed
         self.D_.grad -= D_grad_proj
 
-
-import torch
-from torch import nn
-from torch.nn import functional as F
-
 class TopK(nn.Module):
     def __init__(self, k: int, postact_fn: nn.Module = nn.ReLU()):
         super().__init__()
@@ -236,8 +231,8 @@ class TopKSAE(nn.Module):
 
         # initialise encoder with transposed D
         self.encoder = nn.Linear(M, N, bias=False)
-        # with torch.no_grad():
-        #     self.encoder.weight.data = self.D_.clone()
+        with torch.no_grad():
+            self.encoder.weight.data = self.D_.clone()
 
         self.latent_bias = nn.Parameter(torch.zeros(N))
         self.activation = TopK(k=k, postact_fn=postact_fn)

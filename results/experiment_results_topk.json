@@ -1,0 +1,39 @@
+{
+  "parameters": {
+    "N": 16,
+    "M": 8,
+    "K": 3,
+    "num_data": 1024,
+    "num_step": 20000,
+    "batch_size": 32,
+    "seed": 20240625,
+    "hidden_dims": [
+      16
+    ],
+    "lr_range": [
+      0.0001,
+      0.003,
+      0.001,
+      0.01
+    ],
+    "l1_weight_range": [
+      1e-05,
+      0.0001,
+      0.001
+    ],
+    "use_cosine_annealing": true,
+    "T_max": 20000
+  },
+  "results": [
+    {
+      "model": "TopKSAE",
+      "hidden_dim": 16,
+      "lr": 0.001,
+      "l1_weight": 0.0,
+      "inference_flops": 355,
+      "training_flops": 413440000,
+      "total_flops": 413440355,
+      "mcc": 0.7532269701871854
+    }
+  ]
+}
