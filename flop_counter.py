@@ -1,12 +1,12 @@
 import math
 
 def calculate_generalsae_flops(projections_up, M):
-    inference_flops = (2 * M * projections_up[0] + projections_up[0])
+    inference_flops = (M * projections_up[0] + projections_up[0])
     for i in range(1, len(projections_up)):
-        inference_flops += (2 * projections_up[i-1] * projections_up[i] + projections_up[i])
-    inference_flops += (2 * projections_up[-1] * M)
+        inference_flops += (projections_up[i-1] * projections_up[i] + projections_up[i])
+    inference_flops += (projections_up[-1] * M)
     
-    training_flops = 3 * inference_flops
+    training_flops = inference_flops #3 * inference_flops
     
     # Parameter updates
     param_count = sum(projections_up[i-1] * projections_up[i] + projections_up[i] for i in range(len(projections_up)))
@@ -26,7 +26,7 @@ def calculate_inference_flops(model_type, N, M, K, num_iterations=100, projectio
         return 2*N*M + 10*N + 2*M
     elif model_type == "TopKSAE":
         return 2*N*M + 2*N + 2*M + N*K + K
-    elif model_type == "GeneralSAE":
+    elif model_type == "MLP":
         if projections_up is None:
             raise ValueError("projections_up must be provided for GeneralSAE")
         return calculate_generalsae_flops(projections_up, M)[0]
@@ -42,7 +42,7 @@ def calculate_training_flops(model_type, N, M, K, batch_size, num_step, projecti
         flops_per_step = batch_size * (4*N*M + 8*M + 9*N) + 4 * (N*M + 6*N + 2*M)
     elif model_type == "TopKSAE":
         flops_per_step = batch_size * (4*N*M + 4*M + 2*N + N*K + K) + 4 * (N*M + N + M)
-    elif model_type == "GeneralSAE":
+    elif model_type == "MLP":
         if projections_up is None:
             raise ValueError("projections_up must be provided for GeneralSAE")
         flops_per_step = batch_size * calculate_generalsae_flops(projections_up, M)[1]

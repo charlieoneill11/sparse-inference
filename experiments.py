@@ -29,7 +29,7 @@ lr_range = [1e-4, 3e-3, 1e-3, 1e-2]
 l1_weight_range = [1e-5, 1e-4, 1e-3]
 
 # Cosine annealing parameters
-use_cosine_annealing = True
+use_cosine_annealing = False
 T_max = num_step  # Maximum number of iterations
 
 def generate_data(N, M, K, num_data, seed):
@@ -189,7 +189,7 @@ def main():
     
     results = []
     
-    for model_class in [SparseCoding, SparseAutoEncoder, GatedSAE, TopKSAE]:
+    for model_class in [SparseCoding, TopKSAE]: #, SparseAutoEncoder, GatedSAE, TopKSAE]:
         print(f"Running grid search for {model_class.__name__}")
         for hidden_dim in hidden_dims:
             print(f"Running grid search for {model_class.__name__} with hidden_dim={hidden_dim}")

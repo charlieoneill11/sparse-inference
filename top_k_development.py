@@ -8,7 +8,7 @@ from tqdm import tqdm
 import yaml
 from munkres import Munkres
 import json
-from models import SparseCoding, SparseAutoEncoder, GatedSAE, TopKSAE
+from models import SparseCoding, SparseAutoEncoder, GatedSAE, TopKSAE, GeneralSAETopK
 from flop_counter import calculate_inference_flops, calculate_training_flops
 
 # Parameters
@@ -28,8 +28,10 @@ hidden_dims = [16] #[4, 8, 10, 12, 16]
 lr_range = [1e-4, 3e-3, 1e-3, 1e-2]
 l1_weight_range = [1e-5, 1e-4, 1e-3]
 
+projections_up = [12, 16, 32] 
+
 # Cosine annealing parameters
-use_cosine_annealing = True
+use_cosine_annealing = False
 T_max = num_step  # Maximum number of iterations
 
 def generate_data(N, M, K, num_data, seed):
@@ -88,7 +90,7 @@ def train_model(model, X_train, S_train, num_step, lr, l1_weight):
     for i in tqdm(range(num_step), desc=f"Training {model.__class__.__name__}"):
         if isinstance(model, GatedSAE):
             S_, X_, loss = model.loss_forward(X_train, l1_weight=l1_weight)
-        elif isinstance(model, TopKSAE):  # we don't want to apply L1 penalty to TopK
+        elif isinstance(model, TopKSAE) or isinstance(model, GeneralSAETopK):  # we don't want to apply L1 penalty to TopK
             S_, X_ = model.forward(X_train)
             loss = torch.sum((X_train - X_) ** 2)
         else:
@@ -124,6 +126,8 @@ def run_experiment(model_class, hidden_dim, X_train, S_train, D, X_test, S_test,
         model = model_class(S_hidden, D_hidden, learn_D=True).to(device)
     elif model_class == TopKSAE:
         model = model_class(D_hidden, learn_D=True, k=K, seed=seed).to(device)
+    elif model_class == GeneralSAETopK:
+        model = model_class(D, projections_up, k=k, learn_D=True, seed=seed).to(device)
     else:
         model = model_class(D_hidden, learn_D=True, seed=seed).to(device)
     
@@ -166,7 +170,7 @@ def grid_search(model_class, hidden_dim, X_train, S_train, D, X_test, S_test, nu
     best_mcc = -float('inf')
     best_params = None
 
-    if model_class != TopKSAE:
+    if model_class != TopKSAE or model_class != GeneralSAETopK:
         for lr in lr_range:
             for l1_weight in l1_weight_range:
                 print(f"Grid search for {model_class.__name__} with lr={lr}, l1_weight={l1_weight}")
