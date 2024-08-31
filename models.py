@@ -24,23 +24,29 @@ class SparseCoding(nn.Module):
         return S_, X_
 
     def infer(self, X, num_iterations=10000, lr=3e-3, l1_weight=1e-3):
-        # Initialize S_ randomly
-        #S_ = torch.randn(X.shape[0], self.D_.shape[0], device=X.device, requires_grad=True)
+        # initialise S_ randomly
         self.log_S_infer = nn.Parameter(data=-10 * torch.ones(X.shape[0], self.D_.shape[0]), requires_grad=True)
-        #print(f"SparseCoding infer - X shape: {X.shape}")
+        #print(f"Initial log_S_infer: {self.log_S_infer}")
 
-        optimizer = torch.optim.Adam([self.log_S_], lr=lr)
+        optimizer = torch.optim.Adam([self.log_S_infer], lr=lr)
 
         for _ in tqdm(range(num_iterations), desc='Infer'):
             optimizer.zero_grad()
-            S_ = torch.exp(self.log_S_infer)
-            X_ = S_ @ self.D_
-            loss = F.mse_loss(X_, X) + l1_weight * torch.sum(torch.abs(S_))
+            X_ = torch.exp(self.log_S_infer) @ self.D_
+            loss = torch.sum((X - X_) ** 2) + l1_weight * torch.sum(torch.abs(torch.exp(self.log_S_infer)))
+            # Print log_S_infer gradient
+            #print(f"Log_S_infer grad: {self.log_S_infer.grad}")
             loss.backward()
             optimizer.step()
-            S_.data = F.relu(S_.data)
+            #print(f"Infer loss: {loss.item()}")
+            # print(f"Log_S_infer: {self.log_S_infer}")  
+            # 
 
-        return S_.detach()
+        # Set S_ to the inferred value, as a copy (with a gradient) 
+        self.log_S_.data = self.log_S_infer.detach()
+        self.log_S_.requires_grad = True
+
+        return self.log_S_infer.detach()
     
     def loss_forward(self, X, weight):
         S_, X_ = self.forward(X)
@@ -349,3 +355,24 @@ class MLP(nn.Module):
         X_recon = S @ self.D_
         
         return S, X_recon
+
+
+class ITO(nn.Module):
+
+    def __init__(self, D_):
+        super().__init__()
+        self.S_ = nn.Parameter(torch.randn(D_.shape[0]), requires_grad=True)
+        self.D_ = nn.Parameter(D_, requires_grad=False)
+
+    def forward(self, X):
+        return self.S_, X @ self.D_
+    
+    def optimise(self, X, lr=3e-3, num_steps=10_000):
+        optimizer = torch.optim.Adam([self.S_], lr=lr)
+        for _ in range(num_steps):
+            optimizer.zero_grad()
+            S_, X_ = self.forward(X)
+            loss = torch.sum((X - X_) ** 2)
+            loss.backward()
+            optimizer.step()
+        return self.S_

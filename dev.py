@@ -92,6 +92,7 @@ fig = make_subplots(rows=1, cols=1, shared_xaxes=True)
 colors = {'SparseAutoEncoder': 'rgb(31, 119, 180)', 'MLP': 'rgb(255, 127, 14)'}
 
 for result in data['results']:
+    print(result)
     model_name = result['model']
     total_flops = [log['total_flops'] for log in result['performance_log']]
     test_mcc = [log['test_mcc'] for log in result['performance_log']]
