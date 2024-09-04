@@ -12,7 +12,7 @@ from tqdm import tqdm
 from models import SparseAutoEncoder, MLP, SparseCoding
 from metrics import mcc, greedy_mcc
 from utils import numpy_to_list, generate_data, reconstruction_loss_with_l1
-from calculate_flops import (calculate_sae_training_flops, calculate_sae_inference_flops, calculate_mlp_training_flops, 
+from calculate_flops import (calculate_sae_training_flops, calculate_sae_inference_flops, calculate_mlp_training_flops, calculate_optimize_codes_flops,
                             calculate_mlp_inference_flops, calculate_sparse_coding_training_flops, calculate_sparse_coding_inference_flops)
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -91,7 +91,8 @@ def run_sae_ito(model, X_test, S_test, lr=1e-3, num_step=10000, log_step=100, ve
             print(f"Step {i}: Loss Test = {loss_test:.4f}, MCC Test = {mcc_test:.4f}")
             
             # Calculate and log total FLOPs up to this point
-            total_flops = calculate_sparse_coding_training_flops(M, N, X_test.shape[0], i+1, learn_D=model.learn_D)
+            #total_flops = calculate_sparse_coding_training_flops(M, N, X_test.shape[0], i+1, learn_D=model.learn_D)
+            total_flops = calculate_optimize_codes_flops(M, N, X_test.shape[0], num_step)
             log['flops'].append(total_flops)
 
     print(f"Final MCC: {log['mcc_test'][-1]:.4f}") 
@@ -128,6 +129,7 @@ seed = 20240625
 
 # Generate data
 S, X, D = generate_data(N, M, K, num_data * 2, seed=seed)
+D = D.T
 S_train = S[:num_data].to(device)
 X_train = X[:num_data].to(device)
 S_test = S[num_data:].to(device)

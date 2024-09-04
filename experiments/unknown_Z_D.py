@@ -18,10 +18,11 @@ from calculate_flops import (calculate_sae_training_flops, calculate_sae_inferen
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 def calculate_dict_mcc(D_true, D_learned):
-    #return greedy_mcc(D_true.T.cpu().numpy(), D_learned.T.cpu().numpy())
-    return mcc(D_true.cpu().numpy(), D_learned.cpu().numpy())
+    print(f"D_true shape = {D_true.shape}, D_learned shape = {D_learned.shape}")
+    return greedy_mcc(D_true.cpu().numpy(), D_learned.cpu().numpy())
+    #return mcc(D_true.cpu().numpy(), D_learned.cpu().numpy())
 
-def train_sparse_coding(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3, num_step=30000, log_step=10, verbose=0):
+def train_sparse_coding(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3, num_step=30000, log_step=100, verbose=0):
     optim = torch.optim.Adam(model.parameters(), lr=lr)
     log = {'step': [], 'mcc_train': [], 'loss_train': [], 'mcc_test': [], 'loss_test': [], 'train_flops': [], 'test_flops': [], 'dict_mcc': []}
     
@@ -31,6 +32,8 @@ def train_sparse_coding(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3
         optim.zero_grad()
         loss.backward()
         optim.step()
+
+        # Assert that the 
         
         if i > 0 and not i % log_step or i == 0:
             log['step'].append(i)
@@ -40,7 +43,7 @@ def train_sparse_coding(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3
             # Optimize codes for test set
             #with torch.no_grad():
             S_test_opt = model.optimize_codes(X_test, num_iterations=10_000)
-            X_test_ = S_test_opt @ model.D
+            X_test_ = S_test_opt @ model.D.T
             loss_test = reconstruction_loss_with_l1(X_test, X_test_, S_test_opt)
             
             mcc_test = mcc(S_test.cpu().numpy(), S_test_opt.cpu().numpy())
@@ -64,7 +67,7 @@ def train_sparse_coding(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3
     print(f"Final MCC: {log['mcc_test'][-1]:.4f}, Final Dict MCC: {log['dict_mcc'][-1]:.4f}") 
     return log, model.D.data
 
-def train(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3, num_step=30000, log_step=10, verbose=0):
+def train(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3, num_step=30000, log_step=100, verbose=0):
     optim = torch.optim.Adam(model.parameters(), lr=lr)
     log = {'step': [], 'mcc_train': [], 'loss_train': [], 'mcc_test': [], 'loss_test': [], 'train_flops': [], 'test_flops': [], 'dict_mcc': []}
     
@@ -89,7 +92,7 @@ def train(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3, num_step=300
             
             # Calculate dictionary MCC
             if isinstance(model, SparseAutoEncoder) or isinstance(model, MLP):
-                D_learned = model.decoder.weight.data.T
+                D_learned = model.decoder.weight.data
             elif isinstance(model, SparseCoding):
                 D_learned = model.D_.data
             dict_mcc = calculate_dict_mcc(D_true, D_learned)
@@ -116,7 +119,7 @@ def train(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3, num_step=300
     print(f"Final MCC: {log['mcc_test'][-1]:.4f}, Final Dict MCC: {log['dict_mcc'][-1]:.4f}") 
     return log, model.decoder.weight.data.T if hasattr(model, 'decoder') else model.D_.data
 
-def train_sae_with_ito(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3, num_step=30000, log_step=10, verbose=0):
+def train_sae_with_ito(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3, num_step=30000, log_step=100, verbose=0):
     optim = torch.optim.Adam(model.parameters(), lr=lr)
     log_sae = {'step': [], 'mcc_train': [], 'loss_train': [], 'mcc_test': [], 'loss_test': [], 'train_flops': [], 'test_flops': [], 'dict_mcc': []}
     log_ito = {'step': [], 'mcc_test': [], 'loss_test': [], 'test_flops': [], 'dict_mcc': []}
@@ -142,7 +145,7 @@ def train_sae_with_ito(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3,
             log_sae['mcc_test'].append(mcc_test)
             
             # Calculate dictionary MCC for SAE
-            D_learned = model.decoder.weight.data.T
+            D_learned = model.decoder.weight.data
             dict_mcc = calculate_dict_mcc(D_true, D_learned)
             log_sae['dict_mcc'].append(dict_mcc)
             
@@ -155,7 +158,7 @@ def train_sae_with_ito(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3,
             # Run SAE_ITO
             ito_model = SparseCoding(X_test, D_learned, learn_D=False).to(device)
             S_test_opt = ito_model.optimize_codes(X_test, num_iterations=10_000)
-            X_test_ = S_test_opt @ ito_model.D
+            X_test_ = S_test_opt @ ito_model.D.T
             loss_test_ito = reconstruction_loss_with_l1(X_test, X_test_, S_test_opt)
             mcc_test_ito = mcc(S_test.cpu().numpy(), S_test_opt.cpu().numpy())
             
@@ -183,7 +186,7 @@ def run_experiment(model, X_train, S_train, X_test, S_test, D_true, num_step=300
         else:
             # This is the standalone SAE_ITO case (not used in the main loop anymore)
             S_test_opt = model.optimize_codes(X_test, num_iterations=10_000)
-            X_test_ = S_test_opt @ model.D
+            X_test_ = S_test_opt @ model.D.T
             loss_test = reconstruction_loss_with_l1(X_test, X_test_, S_test_opt)
             mcc_test = mcc(S_test.cpu().numpy(), S_test_opt.cpu().numpy())
             dict_mcc = calculate_dict_mcc(D_true, model.D.data)
@@ -224,12 +227,13 @@ K = 3   # number of active components
 hidden_layers = [32, 256]  # list of hidden layer widths
 num_runs = 5
 num_data = 1024
-num_step = 100_000
+num_step = 5_000
 log_step = 2500
 seed = 20240926
 
 # Generate data
 S, X, D = generate_data(N, M, K, num_data * 2, seed=seed)
+D = D.T
 S_train = S[:num_data].to(device)
 X_train = X[:num_data].to(device)
 S_test = S[num_data:].to(device)
@@ -271,12 +275,15 @@ def average_logs(logs, ito=False, sae_avg_logs=None):
         'step': logs[0]['step'],
         'mcc_test': np.mean([log['mcc_test'] for log in logs], axis=0),
         'mcc_test_std': np.std([log['mcc_test'] for log in logs], axis=0),
+        'loss_test': np.mean([log['loss_test'] for log in logs], axis=0),  # Added this line
+        'loss_test_std': np.std([log['loss_test'] for log in logs], axis=0),  # Added this line
         'dict_mcc': np.mean([log['dict_mcc'] for log in logs], axis=0),
         'dict_mcc_std': np.std([log['dict_mcc'] for log in logs], axis=0),
         'train_flops': logs[0]['train_flops'] if not ito else sae_avg_logs['train_flops'],
         'test_flops': logs[0]['test_flops']
     }
     return avg_log
+
 
 # Average logs
 avg_sae = average_logs(logs_sae)

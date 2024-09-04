@@ -22,7 +22,7 @@ def pairwise_corr(z, z_):
 def cossim(z, z_):
     return -F.cosine_similarity(z.T, z_.T).mean()
 
-def train(model, X_train, S_train, X_test, S_test, lr=1e-3, num_step=10000, log_step=10, verbose=0):
+def train(model, X_train, S_train, X_test, S_test, lr=1e-3, num_step=10000, log_step=100, verbose=0):
     criterion = cossim
     optim = torch.optim.Adam(model.parameters(), lr=lr)
     log = {'step': [], 'mcc_train': [], 'loss_train': [], 'mcc_test': [], 'loss_test': [], 'flops': []}
@@ -63,7 +63,7 @@ def train(model, X_train, S_train, X_test, S_test, lr=1e-3, num_step=10000, log_
     
     return log
 
-def run_experiment(model, X_train, S_train, X_test, S_test, num_step=20000, log_step=10, seed=20240625):
+def run_experiment(model, X_train, S_train, X_test, S_test, num_step=20000, log_step=100, seed=20240625):
     torch.manual_seed(seed)
     log = train(model, X_train, S_train, X_test, S_test, num_step=num_step, log_step=log_step)
     return log
