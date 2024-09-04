@@ -58,6 +58,8 @@ def train(model, X_train, S_train, X_test, S_test, lr=1e-3, num_step=10000, log_
                 h = model[0].out_features
                 total_flops = calculate_mlp_training_flops(M, h, N, num_data, i+1)
             log['flops'].append(total_flops)
+
+            print(f"Step {i+1}, Loss: {loss.item()}, MCC: {log['mcc_train'][-1]}, FLOPs: {total_flops}")    
     
     return log
 
@@ -83,7 +85,7 @@ hidden_layers = [32, 256, 1024]  # list of hidden layer widths
 num_runs = 5
 num_data = 1024
 num_step = 20000
-log_step = 10
+log_step = 100
 seed = 20240625
 
 # Generate data

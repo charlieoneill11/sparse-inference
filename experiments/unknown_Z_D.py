@@ -18,7 +18,8 @@ from calculate_flops import (calculate_sae_training_flops, calculate_sae_inferen
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 def calculate_dict_mcc(D_true, D_learned):
-    return greedy_mcc(D_true.T.cpu().numpy(), D_learned.T.cpu().numpy())
+    #return greedy_mcc(D_true.T.cpu().numpy(), D_learned.T.cpu().numpy())
+    return mcc(D_true.cpu().numpy(), D_learned.cpu().numpy())
 
 def train_sparse_coding(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3, num_step=30000, log_step=10, verbose=0):
     optim = torch.optim.Adam(model.parameters(), lr=lr)
@@ -104,7 +105,8 @@ def train(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3, num_step=300
                 test_flops = calculate_mlp_inference_flops(M, h, N, num_data)
             elif isinstance(model, SparseCoding):
                 train_flops = calculate_sparse_coding_training_flops(M, N, num_data, i+1, learn_D=model.learn_D)
-                test_flops = calculate_sparse_coding_inference_flops(M, N, num_data, learn_D=model.learn_D)
+                #test_flops = calculate_sparse_coding_inference_flops(M, N, num_data, learn_D=model.learn_D)
+                test_flops = calculate_optimize_codes_flops(M, N, X_test.shape[0], 10_000)
             log['train_flops'].append(train_flops)
             log['test_flops'].append(test_flops)
 

@@ -10,7 +10,7 @@ import json
 from tqdm import tqdm
 
 from models import SparseAutoEncoder, MLP, SparseCoding
-from metrics import mcc
+from metrics import mcc, greedy_mcc
 from utils import numpy_to_list, generate_data, reconstruction_loss_with_l1
 from calculate_flops import (calculate_sae_training_flops, calculate_sae_inference_flops, calculate_mlp_training_flops, 
                             calculate_mlp_inference_flops, calculate_sparse_coding_training_flops, calculate_sparse_coding_inference_flops)
@@ -22,7 +22,7 @@ def reconstruction_loss_with_l1(X, X_, S_, l1_weight=0.05):
     l1_loss = l1_weight * torch.mean(torch.abs(S_))
     return recon_loss + l1_loss
 
-def train(model, X_train, S_train, X_test, S_test, lr=1e-3, num_step=10000, log_step=10, verbose=0):
+def train(model, X_train, S_train, X_test, S_test, lr=1e-3, num_step=10000, log_step=100, verbose=0):
     optim = torch.optim.Adam(model.parameters(), lr=lr)
     log = {'step': [], 'mcc_train': [], 'loss_train': [], 'mcc_test': [], 'loss_test': [], 'flops': []}
     
@@ -48,7 +48,7 @@ def train(model, X_train, S_train, X_test, S_test, lr=1e-3, num_step=10000, log_
                 S_, X_ = model(X_test)
                 loss = reconstruction_loss_with_l1(X_test, X_, S_)
             loss_test = loss.item()
-            mcc_test = mcc(S_test.detach().cpu().numpy(), S_.detach().cpu().numpy())
+            mcc_test = greedy_mcc(S_test.detach().cpu().numpy(), S_.detach().cpu().numpy())
             log['loss_test'].append(loss_test)
             log['mcc_test'].append(mcc_test)
             # Print every 1000 steps
@@ -71,7 +71,7 @@ def train(model, X_train, S_train, X_test, S_test, lr=1e-3, num_step=10000, log_
     
     return log
 
-def run_sae_ito(model, X_test, S_test, lr=1e-3, num_step=10000, log_step=10, verbose=0):
+def run_sae_ito(model, X_test, S_test, lr=1e-3, num_step=10000, log_step=100, verbose=0):
     optim = torch.optim.Adam(model.parameters(), lr=lr)
     log = {'step': [], 'mcc_test': [], 'loss_test': [], 'flops': []}
     
@@ -98,7 +98,7 @@ def run_sae_ito(model, X_test, S_test, lr=1e-3, num_step=10000, log_step=10, ver
     
     return log
 
-def run_experiment(model, X_train, S_train, X_test, S_test, num_step=20000, log_step=10, seed=20240625):
+def run_experiment(model, X_train, S_train, X_test, S_test, num_step=20000, log_step=100, seed=20240625):
     torch.manual_seed(seed)
     if isinstance(model, SparseCoding):
         log = run_sae_ito(model, X_test, S_test, num_step=num_step, log_step=log_step)
@@ -123,7 +123,7 @@ hidden_layers = [32, 256]  # list of hidden layer widths
 num_runs = 5
 num_data = 1024
 num_step = 20000
-log_step = 10
+log_step = 100
 seed = 20240625
 
 # Generate data

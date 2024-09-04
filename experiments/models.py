@@ -19,7 +19,7 @@ class SparseAutoEncoder(nn.Module):
 
     def forward(self, X):
         if self.learn_D:
-            self.decoder.weight.data /= torch.linalg.norm(self.decoder.weight.data, dim=0, keepdim=True)
+            self.decoder.weight.data /= torch.linalg.norm(self.decoder.weight.data, dim=1, keepdim=True)
         S_ = self.encoder(X)
         X_ = self.decoder(S_)
         return S_, X_
@@ -42,7 +42,7 @@ class MLP(nn.Module):
 
     def forward(self, X):
         if self.learn_D:
-            self.decoder.weight.data /= torch.linalg.norm(self.decoder.weight.data, dim=0, keepdim=True)
+            self.decoder.weight.data /= torch.linalg.norm(self.decoder.weight.data, dim=1, keepdim=True)
         S_ = self.encoder(X)
         X_ = self.decoder(S_)
         return S_, X_
