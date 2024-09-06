@@ -49,60 +49,58 @@ from utils import reconstruction_loss_with_l1
 #         return S_, X_
 
 class SparseAutoEncoder(nn.Module):
-    def __init__(self, M, N, D, learn_D=False, seed=20240625):
+    def __init__(self, M, N, D, learn_D=False, seed=20240625, use_bias=False):
         super().__init__()
         self.learn_D = learn_D
         if self.learn_D:
             assert D is not None, "D must be provided if learn_D is True"
         torch.manual_seed(seed + 42)
-        self.encoder = nn.Sequential(nn.Linear(M, N), nn.ReLU())
-        self.decoder = nn.Linear(N, M)
-        #print(f"SAE decoder shape = {self.decoder.weight.shape}")   
+        self.encoder = nn.Sequential(nn.Linear(M, N, bias=use_bias), nn.ReLU())
+        self.decoder = nn.Linear(N, M, bias=use_bias)
         if learn_D:
             self.decoder.weight = nn.Parameter(torch.randn(M, N), requires_grad=True)
-            #print(f"SAE decoder shape = {self.decoder.weight.shape}")
         else:
             self.decoder.weight = nn.Parameter(D, requires_grad=False)
 
     def forward(self, X, norm_D = True):
         if self.learn_D and norm_D:
             self.decoder.weight.data /= torch.linalg.norm(self.decoder.weight.data, dim=0, keepdim=True)
-            # Print norms of the columns and rows of D
-            # print(f"D norms for columns = {torch.linalg.norm(self.decoder.weight.data, dim=0)}")
-            # print(f"D norms for rows = {torch.linalg.norm(self.decoder.weight.data, dim=1)}")
         S_ = self.encoder(X)
         X_ = S_ @ self.decoder.weight.T
+        if self.decoder.bias is not None:
+            X_ += self.decoder.bias
         return S_, X_
 
 class MLP(nn.Module):
-    def __init__(self, M, N, h, D, learn_D=True, seed=20240625):
+    def __init__(self, M, N, h, D, learn_D=True, seed=20240625, use_bias=False):
         super().__init__()
         self.learn_D = learn_D
         if self.learn_D:
             assert D is not None, "D must be provided if learn_D is True"
         torch.manual_seed(seed + 42)
-        self.encoder = nn.Sequential(nn.Linear(M, h), nn.ReLU(), nn.Linear(h, N), nn.ReLU())
-        self.decoder = nn.Linear(N, M)
-        #print(f"MLP decoder shape = {self.decoder.weight.shape}")
+        self.encoder = nn.Sequential(
+            nn.Linear(M, h, bias=use_bias), 
+            nn.ReLU(), 
+            nn.Linear(h, N, bias=use_bias), 
+            nn.ReLU()
+        )
+        self.decoder = nn.Linear(N, M, bias=use_bias)
         if learn_D:
             self.decoder.weight = nn.Parameter(torch.randn(M, N), requires_grad=True)
-            #print(f"MLP decoder shape = {self.decoder.weight.shape}")
         else:
             self.decoder.weight = nn.Parameter(D.clone(), requires_grad=False)
 
     def forward(self, X, norm_D = True):
         if self.learn_D and norm_D:
             self.decoder.weight.data /= torch.linalg.norm(self.decoder.weight.data, dim=0, keepdim=True)
-            # Print norms of the columns and rows of D
-            # print(f"D norms for columns = {torch.linalg.norm(self.decoder.weight.data, dim=0)}")
-            # print(f"D norms for rows = {torch.linalg.norm(self.decoder.weight.data, dim=1)}")
         S_ = self.encoder(X)
         X_ = S_ @ self.decoder.weight.T
+        if self.decoder.bias is not None:
+            X_ += self.decoder.bias
         return S_, X_
 
-
 class SparseCoding(nn.Module):
-    def __init__(self, X, D, learn_D, seed=20240625, relu_activation = False):
+    def __init__(self, X, D, learn_D, seed=20240625, relu_activation=False, use_bias=False):
         super().__init__()
         self.learn_D = learn_D
         self.relu_activation = relu_activation
@@ -115,6 +113,9 @@ class SparseCoding(nn.Module):
             self.log_S = nn.Parameter(data=-10 * torch.ones(X.shape[0], D.shape[1]), requires_grad=True)
         else:
             self.log_S = nn.Parameter(data=torch.randn(X.shape[0], D.shape[1]), requires_grad=True)
+        self.use_bias = use_bias
+        if use_bias:
+            self.bias = nn.Parameter(torch.zeros(D.shape[0]), requires_grad=True)
 
     def forward(self, X, norm_D = True):
         if self.learn_D and norm_D:
@@ -124,6 +125,8 @@ class SparseCoding(nn.Module):
         else:
             S = torch.exp(self.log_S)
         X_ = S @ self.D.T
+        if self.use_bias:
+            X_ += self.bias
         return S, X_
 
     def optimize_codes(self, X, num_iterations=1000, lr=3e-3, l1_weight=0.01):
@@ -133,6 +136,8 @@ class SparseCoding(nn.Module):
         for j in range(num_iterations):
             S = torch.exp(log_S_) if not self.relu_activation else F.relu(log_S_)
             X_ = S @ self.D.T
+            if self.use_bias:
+                X_ += self.bias
             loss = reconstruction_loss_with_l1(X, X_, S, l1_weight)
             opt.zero_grad()
             loss.backward()

@@ -33,7 +33,7 @@ def train(model, X_train, S_train, X_test, S_test, D_true, lr=3e-4, num_step=100
             
             mcc_test = mcc(S_test.detach().cpu().numpy(), S_.detach().cpu().numpy())
             dict_mcc = calculate_dict_mcc(D_true, model.decoder.weight.data)
-            l0_test = torch.mean((S_.abs() > 1e-10).float().sum(dim=1))
+            l0_test = torch.mean((S_.abs() > 0).float()) #torch.mean((S_.abs() > 1e-10).float().sum(dim=1))
             
             final_log = {
                 'loss_test': loss_test.item(),
@@ -41,6 +41,8 @@ def train(model, X_train, S_train, X_test, S_test, D_true, lr=3e-4, num_step=100
                 'dict_mcc': dict_mcc,
                 'l0_test': l0_test.item()
             }
+
+            print(f"Loss: {loss_test.item():.4f}, Mcc: {mcc_test:.4f}, Dict Mcc: {dict_mcc:.4f}, L0: {l0_test.item():.4f}")
 
     return final_log
 
@@ -78,7 +80,7 @@ def main():
     all_results = {}
     
     for N, M, K in configs:
-        hidden_widths = [M * 2**i for i in range(int(np.log2(128)) + 1)]  # M to M*128
+        hidden_widths = [M * 2**i for i in range(int(np.log2(32)) + 1)]
         print(f"Running MLP experiment for N={N}, M={M}, K={K}")
         results = run_experiment(N, M, K, hidden_widths, num_runs, num_data, seed)
         all_results[f"N{N}_M{M}_K{K}"] = results
