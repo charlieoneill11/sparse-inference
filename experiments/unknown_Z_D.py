@@ -64,7 +64,7 @@ def train_sparse_coding(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3
             if i % 1000 == 0 or i == 0:
                 print(f"Step {i}: Loss Test = {loss_test:.4f}, MCC Test = {mcc_test:.4f}, Dict MCC = {dict_mcc:.4f}")
 
-    print(f"Final MCC: {log['mcc_test'][-1]:.4f}, Final Dict MCC: {log['dict_mcc'][-1]:.4f}") 
+    print(f"Final MCC: {log['mcc_test'][-1]:.4f}, Final Dict MCC: {log['dict_mcc'][-1]:.4f}, Final Test Loss: {log['loss_test'][-1]:.4f}") 
     return log, model.D.data
 
 def train(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3, num_step=30000, log_step=100, verbose=0):
@@ -116,7 +116,7 @@ def train(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3, num_step=300
             if i % 1000 == 0 or i == 0:
                 print(f"Step {i}: Loss Test = {loss_test:.4f}, MCC Test = {mcc_test:.4f}, Dict MCC = {dict_mcc:.4f} (Train: {train_flops/1e9:.2f}B, Test: {test_flops/1e9:.2f}B)")
 
-    print(f"Final MCC: {log['mcc_test'][-1]:.4f}, Final Dict MCC: {log['dict_mcc'][-1]:.4f}") 
+    print(f"Final MCC: {log['mcc_test'][-1]:.4f}, Final Dict MCC: {log['dict_mcc'][-1]:.4f}, Final Test Loss: {log['loss_test'][-1]:.4f}") 
     return log, model.decoder.weight.data.T if hasattr(model, 'decoder') else model.D_.data
 
 def train_sae_with_ito(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3, num_step=30000, log_step=100, verbose=0):
@@ -173,7 +173,7 @@ def train_sae_with_ito(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3,
                 print(f"Step {i}: SAE Loss Test = {loss_test:.4f}, SAE MCC Test = {mcc_test:.4f}, SAE Dict MCC = {dict_mcc:.4f}")
                 print(f"         ITO Loss Test = {loss_test_ito:.4f}, ITO MCC Test = {mcc_test_ito:.4f}")
 
-    print(f"Final SAE MCC: {log_sae['mcc_test'][-1]:.4f}, Final SAE Dict MCC: {log_sae['dict_mcc'][-1]:.4f}")
+    print(f"Final SAE MCC: {log_sae['mcc_test'][-1]:.4f}, Final SAE Dict MCC: {log_sae['dict_mcc'][-1]:.4f}, Final SAE Test Loss: {log_sae['loss_test'][-1]:.4f}")
     print(f"Final ITO MCC: {log_ito['mcc_test'][-1]:.4f}")
     return log_sae, log_ito, D_learned
 
@@ -200,7 +200,7 @@ def run_experiment(model, X_train, S_train, X_test, S_test, D_true, num_step=300
                 'dict_mcc': [dict_mcc]
             }
             learned_D = model.D.data
-            print(f"Final MCC: {log['mcc_test'][-1]:.4f}, Final Dict MCC: {log['dict_mcc'][-1]:.4f}") 
+            print(f"Final MCC: {log['mcc_test'][-1]:.4f}, Final Dict MCC: {log['dict_mcc'][-1]:.4f}, Final Test Loss: {log['loss_test'][-1]:.4f}") 
             return log, None, learned_D
     elif isinstance(model, SparseAutoEncoder):
         return train_sae_with_ito(model, X_train, S_train, X_test, S_test, D_true, num_step=num_step, log_step=log_step)
@@ -227,7 +227,7 @@ K = 3   # number of active components
 hidden_layers = [32, 256]  # list of hidden layer widths
 num_runs = 5
 num_data = 1024
-num_step = 5_000
+num_step = 100_000
 log_step = 2500
 seed = 20240926
 
