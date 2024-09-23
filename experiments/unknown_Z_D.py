@@ -227,7 +227,7 @@ K = 3   # number of active components
 hidden_layers = [32, 256]  # list of hidden layer widths
 num_runs = 5
 num_data = 1024
-num_step = 100_000
+num_step = 40_000 #100_000
 log_step = 500 #2500
 seed = 20240926
 

@@ -8,6 +8,9 @@ def reconstruction_loss_with_l1(X, X_, S_, l1_weight=0.01):
     l1_loss = l1_weight * torch.mean(torch.abs(S_))
     return recon_loss + l1_loss
 
+def reconstruction_loss(X, X_):
+    return F.mse_loss(X_, X)
+
 def numpy_to_list(obj):
     # Function to convert NumPy arrays to lists recursively
     if isinstance(obj, np.ndarray):
