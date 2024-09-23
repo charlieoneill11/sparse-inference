@@ -80,7 +80,7 @@ def main():
     all_results = {}
     
     for N, M, K in configs:
-        hidden_widths = [M * 2**i for i in range(int(np.log2(32)) + 1)]
+        hidden_widths = [16, 32, 64, 128, 256, 512] #[M * 2**i for i in range(int(np.log2(32)) + 1)]
         print(f"Running MLP experiment for N={N}, M={M}, K={K}")
         results = run_experiment(N, M, K, hidden_widths, num_runs, num_data, seed)
         all_results[f"N{N}_M{M}_K{K}"] = results

@@ -18,7 +18,7 @@ from calculate_flops import (calculate_sae_training_flops, calculate_sae_inferen
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 def calculate_dict_mcc(D_true, D_learned):
-    print(f"D_true shape = {D_true.shape}, D_learned shape = {D_learned.shape}")
+    #print(f"D_true shape = {D_true.shape}, D_learned shape = {D_learned.shape}")
     return greedy_mcc(D_true.cpu().numpy(), D_learned.cpu().numpy())
     #return mcc(D_true.cpu().numpy(), D_learned.cpu().numpy())
 
@@ -228,7 +228,7 @@ hidden_layers = [32, 256]  # list of hidden layer widths
 num_runs = 5
 num_data = 1024
 num_step = 100_000
-log_step = 2500
+log_step = 500 #2500
 seed = 20240926
 
 # Generate data

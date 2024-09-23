@@ -252,7 +252,7 @@ def train(model, X_train, S_train, X_test, S_test, lr=1e-3, num_step=10000, log_
                 S_, X_ = model(X_test)
                 loss = reconstruction_loss_with_l1(X_test, X_, S_)
             loss_test = loss.item()
-            mcc_test = greedy_mcc(S_test.detach().cpu().numpy(), S_.detach().cpu().numpy())
+            mcc_test = mcc(S_test.detach().cpu().numpy(), S_.detach().cpu().numpy())
             log['loss_test'].append(loss_test)
             log['mcc_test'].append(mcc_test)
             # Print every 1000 steps
@@ -275,27 +275,59 @@ def train(model, X_train, S_train, X_test, S_test, lr=1e-3, num_step=10000, log_
     
     return log
 
+# def run_sae_ito(model, X_test, S_test, lr=1e-3, num_step=10000, log_step=100, verbose=0):
+#     optim = torch.optim.Adam(model.parameters(), lr=lr)
+#     log = {'step': [], 'mcc_test': [], 'loss_test': [], 'flops': []}
+    
+#     for i in tqdm(range(num_step), disable=not verbose):
+#         S_, X_ = model(X_test)
+#         loss = reconstruction_loss_with_l1(X_test, X_, S_)
+#         optim.zero_grad()
+#         loss.backward()
+#         optim.step()
+        
+#         if i > 0 and not i % log_step:
+#             log['step'].append(i)
+#             loss_test = loss.item()
+#             mcc_test = mcc(S_test.detach().cpu().numpy(), S_.detach().cpu().numpy())
+#             log['loss_test'].append(loss_test)
+#             log['mcc_test'].append(mcc_test)
+#             print(f"Step {i}: Loss Test = {loss_test:.4f}, MCC Test = {mcc_test:.4f}")
+            
+#             # Calculate and log total FLOPs up to this point
+#             total_flops = calculate_optimize_codes_flops(M, N, X_test.shape[0], i+1)
+#             log['flops'].append(total_flops)
+
+#     print(f"Final MCC: {log['mcc_test'][-1]:.4f}") 
+    
+#     return log
+
 def run_sae_ito(model, X_test, S_test, lr=1e-3, num_step=10000, log_step=100, verbose=0):
-    optim = torch.optim.Adam(model.parameters(), lr=lr)
+    log_S_ = nn.Parameter(data=-10 * torch.ones(X_test.shape[0], model.D.shape[1]), requires_grad=True)
+    opt = torch.optim.Adam([log_S_], lr=lr)
     log = {'step': [], 'mcc_test': [], 'loss_test': [], 'flops': []}
     
     for i in tqdm(range(num_step), disable=not verbose):
-        S_, X_ = model(X_test)
-        loss = reconstruction_loss_with_l1(X_test, X_, S_)
-        optim.zero_grad()
+        S = torch.exp(log_S_) if not model.relu_activation else F.relu(log_S_)
+        X_ = S @ model.D.T
+        if model.use_bias:
+            X_ += model.bias
+        loss = reconstruction_loss_with_l1(X_test, X_, S)
+        opt.zero_grad()
         loss.backward()
-        optim.step()
+        opt.step()
         
         if i > 0 and not i % log_step:
             log['step'].append(i)
             loss_test = loss.item()
-            mcc_test = mcc(S_test.detach().cpu().numpy(), S_.detach().cpu().numpy())
+            mcc_test = mcc(S_test.detach().cpu().numpy(), S.detach().cpu().numpy())
             log['loss_test'].append(loss_test)
             log['mcc_test'].append(mcc_test)
-            print(f"Step {i}: Loss Test = {loss_test:.4f}, MCC Test = {mcc_test:.4f}")
+            if i % 1000 == 0:
+                print(f"Step {i}: Loss Test = {loss_test:.4f}, MCC Test = {mcc_test:.4f}")
             
             # Calculate and log total FLOPs up to this point
-            total_flops = calculate_optimize_codes_flops(M, N, X_test.shape[0], num_step)
+            total_flops = calculate_optimize_codes_flops(M, N, X_test.shape[0], i+1)
             log['flops'].append(total_flops)
 
     print(f"Final MCC: {log['mcc_test'][-1]:.4f}") 
@@ -348,20 +380,26 @@ X_test = X[num_data:].to(device)
 # Run experiments
 logs_sae = []
 logs_mlps = {h: [] for h in hidden_layers}
-logs_sae_ito = []
+logs_sae_ito_init = []
+logs_sae_ito_random = []
 
 for i in tqdm(range(num_runs), desc="Running experiments"):
     run_seed = seed + i
 
     SAE = SparseAutoEncoder(M, N, D.to(device), learn_D=False, seed=run_seed)
     print(f"Running experiment {i+1}/{num_runs} with SAE")
-    log_sae, initial_S = run_experiment(SAE, X_train, S_train, X_test, S_test, seed=run_seed)
+    log_sae, initial_S = run_experiment(SAE, X_train, S_train, X_test, S_test, num_step=num_step, seed=run_seed)
     logs_sae.append(log_sae)
 
-    SAE_ITO = SparseCoding(X_test, D.to(device), learn_D=False, seed=run_seed, initial_S=initial_S)
-    print(f"Running experiment {i+1}/{num_runs} with SAE_ITO")
-    log_sae_ito, _ = run_experiment(SAE_ITO, X_train, S_train, X_test, S_test, seed=run_seed)
-    logs_sae_ito.append(log_sae_ito)
+    SAE_ITO_init = SparseCoding(X_test, D.to(device), learn_D=False, seed=run_seed, initial_S=initial_S)
+    print(f"Running experiment {i+1}/{num_runs} with SAE_ITO (initialized)")
+    log_sae_ito_init, _ = run_experiment(SAE_ITO_init, X_train, S_train, X_test, S_test, num_step=num_step, seed=run_seed)
+    logs_sae_ito_init.append(log_sae_ito_init)
+
+    SAE_ITO_random = SparseCoding(X_test, D.to(device), learn_D=False, seed=run_seed)
+    print(f"Running experiment {i+1}/{num_runs} with SAE_ITO (random)")
+    log_sae_ito_random, _ = run_experiment(SAE_ITO_random, X_train, S_train, X_test, S_test, num_step=num_step, seed=run_seed)
+    logs_sae_ito_random.append(log_sae_ito_random)
     
     for h in hidden_layers:
         print(f"Running experiment {i+1}/{num_runs} with MLP (H={h})")
@@ -371,17 +409,19 @@ for i in tqdm(range(num_runs), desc="Running experiments"):
 
 # Average logs
 avg_sae = average_logs(logs_sae)
-avg_sae_ito = average_logs(logs_sae_ito)
+avg_sae_ito_init = average_logs(logs_sae_ito_init)
+avg_sae_ito_random = average_logs(logs_sae_ito_random)
 avg_mlps = {h: average_logs(logs) for h, logs in logs_mlps.items()}
 
 # Save results as JSON
 results = {
     "SAE": avg_sae,
-    "SAE_ITO": avg_sae_ito,
+    "SAE_ITO_init": avg_sae_ito_init,
+    "SAE_ITO_random": avg_sae_ito_random,
     "MLPs": avg_mlps
 }
 
-with open('results/fixed_Z_flops_reconstruction.json', 'w') as f:
+with open('results/fixed_D_flops_reconstruction.json', 'w') as f:
     json.dump(numpy_to_list(results), f)
 
-print("Experiment completed. Results saved to 'results/fixed_Z_flops_reconstruction.json'.")
+print("Experiment completed. Results saved to 'results/fixed_D_flops_reconstruction.json'.")
