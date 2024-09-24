@@ -1,0 +1,98 @@
+Training on 40.96M total tokens.
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:01<00:00,  1.16s/it]
+/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Loaded pretrained model gpt2-small into HookedTransformer
+Moving model to device:  cpu
+Moving model to device:  cpu
+Using Hugging Face token: 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
+Batch [1/5000], Avg Reconstruction Loss: 1.306476, Avg L1 Loss: 20857.691406, Avg L0 Loss: 8457.578125, Avg Total Loss: 3.392246
+Model checkpoint saved to models/sparse_autoencoder.pth
+Repository 'charlieoneill/sparse-coding' already exists on Hugging Face.
+/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py:215: UserWarning: Both `token` and `use_auth_token` are passed to `__init__` with non-None values. `token` is now the preferred argument to pass a User Access Token. `use_auth_token` value will be ignored.
+  warnings.warn(
+/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_deprecation.py:131: FutureWarning: 'Repository' (from 'huggingface_hub.repository') is deprecated and will be removed from version '1.0'. Please prefer the http-based alternatives instead. Given its large adoption in legacy code, the complete removal is only planned on next major release.
+For more details, please read https://huggingface.co/docs/huggingface_hub/concepts/git_vs_http.
+  warnings.warn(warning_message, FutureWarning)
+/Users/charlesoneill/sparse-inference/wild/./charlieoneill_sparse-coding is already a clone of https://huggingface.co/charlieoneill/sparse-coding. Make sure you pull the latest changes with `repo.git_pull()`.
+Several commits (2) will be pushed upstream.
+The progress bars may be unreliable.
+Upload file sparse_autoencoder.pth: 107MB [00:48, 2.61MB/s]                                                                               To https://huggingface.co/charlieoneill/sparse-coding
+   4aa6fce..085b080  main -> main
+
+Upload file sparse_autoencoder.pth: 100%|████████████████████████████████████████████████████████████| 99.1M/99.1M [00:49<00:00, 2.11MB/s]
+Model 'sparse_autoencoder.pth' uploaded to Hugging Face repository 'charlieoneill/sparse-coding' with commit message 'Checkpoint at batch 1'.
+Batch [2/5000], Avg Reconstruction Loss: 105.396210, Avg L1 Loss: 11423.847656, Avg L0 Loss: 5038.372070, Avg Total Loss: 106.538597
+Model checkpoint saved to models/sparse_autoencoder.pth
+Repository 'charlieoneill/sparse-coding' already exists on Hugging Face.
+/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py:215: UserWarning: Both `token` and `use_auth_token` are passed to `__init__` with non-None values. `token` is now the preferred argument to pass a User Access Token. `use_auth_token` value will be ignored.
+  warnings.warn(
+/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_deprecation.py:131: FutureWarning: 'Repository' (from 'huggingface_hub.repository') is deprecated and will be removed from version '1.0'. Please prefer the http-based alternatives instead. Given its large adoption in legacy code, the complete removal is only planned on next major release.
+For more details, please read https://huggingface.co/docs/huggingface_hub/concepts/git_vs_http.
+  warnings.warn(warning_message, FutureWarning)
+/Users/charlesoneill/sparse-inference/wild/./charlieoneill_sparse-coding is already a clone of https://huggingface.co/charlieoneill/sparse-coding. Make sure you pull the latest changes with `repo.git_pull()`.
+To https://huggingface.co/charlieoneill/sparse-coding
+   085b080..fe28cbc  main -> main
+Model 'sparse_autoencoder.pth' uploaded to Hugging Face repository 'charlieoneill/sparse-coding' with commit message 'Checkpoint at batch 2'.
+Batch [3/5000], Avg Reconstruction Loss: 3.150742, Avg L1 Loss: 6858.626953, Avg L0 Loss: 3130.559570, Avg Total Loss: 3.836605
+Model checkpoint saved to models/sparse_autoencoder.pth
+Repository 'charlieoneill/sparse-coding' already exists on Hugging Face.
+
+/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py:215: UserWarning: Both `token` and `use_auth_token` are passed to `__init__` with non-None values. `token` is now the preferred argument to pass a User Access Token. `use_auth_token` value will be ignored.
+  warnings.warn(
+/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_deprecation.py:131: FutureWarning: 'Repository' (from 'huggingface_hub.repository') is deprecated and will be removed from version '1.0'. Please prefer the http-based alternatives instead. Given its large adoption in legacy code, the complete removal is only planned on next major release.
+For more details, please read https://huggingface.co/docs/huggingface_hub/concepts/git_vs_http.
+  warnings.warn(warning_message, FutureWarning)
+/Users/charlesoneill/sparse-inference/wild/./charlieoneill_sparse-coding is already a clone of https://huggingface.co/charlieoneill/sparse-coding. Make sure you pull the latest changes with `repo.git_pull()`.
+To https://huggingface.co/charlieoneill/sparse-coding
+   fe28cbc..d254f8b  main -> main
+Model 'sparse_autoencoder.pth' uploaded to Hugging Face repository 'charlieoneill/sparse-coding' with commit message 'Checkpoint at batch 3'.
+Batch [4/5000], Avg Reconstruction Loss: 6.351223, Avg L1 Loss: 4536.640137, Avg L0 Loss: 2143.621338, Avg Total Loss: 6.804887
+Model checkpoint saved to models/sparse_autoencoder.pth
+Repository 'charlieoneill/sparse-coding' already exists on Hugging Face.
+
+/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py:215: UserWarning: Both `token` and `use_auth_token` are passed to `__init__` with non-None values. `token` is now the preferred argument to pass a User Access Token. `use_auth_token` value will be ignored.
+  warnings.warn(
+/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_deprecation.py:131: FutureWarning: 'Repository' (from 'huggingface_hub.repository') is deprecated and will be removed from version '1.0'. Please prefer the http-based alternatives instead. Given its large adoption in legacy code, the complete removal is only planned on next major release.
+For more details, please read https://huggingface.co/docs/huggingface_hub/concepts/git_vs_http.
+  warnings.warn(warning_message, FutureWarning)
+/Users/charlesoneill/sparse-inference/wild/./charlieoneill_sparse-coding is already a clone of https://huggingface.co/charlieoneill/sparse-coding. Make sure you pull the latest changes with `repo.git_pull()`.
+Upload file sparse_autoencoder.pth:  77%|██████████████████████████████████████████████▏             | 76.3M/99.1M [00:36<00:10, 2.25MB/s]Traceback (most recent call last):
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/repository.py", line 418, in _lfs_log_progress
+    yield
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/repository.py", line 1109, in git_push
+    stdout, stderr = process.communicate()
+                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/subprocess.py", line 1209, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/subprocess.py", line 2115, in _communicate
+    ready = selector.select(timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/selectors.py", line 415, in select
+    fd_event_list = self._selector.poll(timeout)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/charlesoneill/sparse-inference/wild/main.py", line 443, in <module>
+    )
+  File "/Users/charlesoneill/sparse-inference/wild/main.py", line 364, in main
+    repo_name = "charlieoneill/sparse-coding"
+  File "/Users/charlesoneill/sparse-inference/wild/main.py", line 270, in train
+    commit_message = f"Checkpoint at batch {batch_num}"
+  File "/Users/charlesoneill/sparse-inference/wild/main.py", line 170, in upload_to_huggingface
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/repository.py", line 1099, in git_push
+    with _lfs_log_progress():
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/repository.py", line 421, in _lfs_log_progress
+    x.join()
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/threading.py", line 1147, in join
+    self._wait_for_tstate_lock()
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/threading.py", line 1167, in _wait_for_tstate_lock
+    if lock.acquire(block, timeout):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

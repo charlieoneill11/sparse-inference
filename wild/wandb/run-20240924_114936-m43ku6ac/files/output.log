@@ -1,0 +1,72 @@
+Training on 40.96M total tokens.
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:01<00:00,  1.04s/it]
+/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Loaded pretrained model gpt2-small into HookedTransformer
+Moving model to device:  cpu
+Moving model to device:  cpu
+Batch [1/5000], Avg Reconstruction Loss: 1.306476, Avg L1 Loss: 20857.691406, Avg L0 Loss: 8457.578125, Avg Total Loss: 3.392246
+Model checkpoint saved to models/sparse_autoencoder.pth_batch_1_1727142594.pth
+Creating repository 'sparse-coding' on Hugging Face.
+Traceback (most recent call last):
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 406, in hf_raise_for_status
+    response.raise_for_status()
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/api/models/sparse-coding
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/charlesoneill/sparse-inference/wild/main.py", line 378, in upload_to_huggingface
+    api.repo_info(repo_id=repo_name)
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/hf_api.py", line 2682, in repo_info
+    return method(
+           ^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/hf_api.py", line 2467, in model_info
+    hf_raise_for_status(r)
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 454, in hf_raise_for_status
+    raise _format(RepositoryNotFoundError, message, response) from e
+huggingface_hub.errors.RepositoryNotFoundError: 401 Client Error. (Request ID: Root=1-66f21ac3-49a43c1f3e3975eb4d00c449;d6df9d94-6b87-4fbc-b8ec-a46c238f2275)
+
+Repository Not Found for url: https://huggingface.co/api/models/sparse-coding.
+Please make sure you specified the correct `repo_id` and `repo_type`.
+If you are trying to access a private or gated repo, make sure you are authenticated.
+Invalid username or password.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 406, in hf_raise_for_status
+    response.raise_for_status()
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/api/repos/create
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/charlesoneill/sparse-inference/wild/main.py", line 660, in <module>
+    main(args)
+  File "/Users/charlesoneill/sparse-inference/wild/main.py", line 581, in main
+    train(
+  File "/Users/charlesoneill/sparse-inference/wild/main.py", line 497, in train
+    upload_to_huggingface(checkpoint_path, repo_name, hf_token, commit_message)
+  File "/Users/charlesoneill/sparse-inference/wild/main.py", line 382, in upload_to_huggingface
+    api.create_repo(repo_id=repo_name, private=False)
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/hf_api.py", line 3457, in create_repo
+    hf_raise_for_status(r)
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 477, in hf_raise_for_status
+    raise _format(HfHubHTTPError, str(e), response) from e
+huggingface_hub.errors.HfHubHTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/api/repos/create (Request ID: Root=1-66f21ac3-260edba54c26e20b2960b932;1b0384d1-2979-4c87-8e80-415792e510c9)
+
+Invalid username or password.

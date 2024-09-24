@@ -1,0 +1,18 @@
+{"time":"2024-09-24T12:04:46.178806+10:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2024-09-24T12:04:46.178857+10:00","level":"INFO","msg":"created symlink","path":"/Users/charlesoneill/sparse-inference/wild/wandb/run-20240924_120446-mp68mm51/logs/debug-core.log"}
+{"time":"2024-09-24T12:04:46.178935+10:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2024-09-24T12:04:46.178944+10:00","level":"INFO","msg":"created symlink","path":"/Users/charlesoneill/sparse-inference/wild/wandb/run-20240924_120446-mp68mm51/logs/debug-core.log"}
+{"time":"2024-09-24T12:04:46.184868+10:00","level":"INFO","msg":"created new stream","id":"mp68mm51"}
+{"time":"2024-09-24T12:04:46.184942+10:00","level":"INFO","msg":"stream: started","id":"mp68mm51"}
+{"time":"2024-09-24T12:04:46.18495+10:00","level":"INFO","msg":"handler: started","stream_id":{"value":"mp68mm51"}}
+{"time":"2024-09-24T12:04:46.185022+10:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"mp68mm51"}}
+{"time":"2024-09-24T12:04:46.185043+10:00","level":"INFO","msg":"sender: started","stream_id":{"value":"mp68mm51"}}
+{"time":"2024-09-24T12:04:46.549412+10:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-09-24T12:04:46.550961+10:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-09-24T12:05:04.274382+10:00","level":"INFO","msg":"stream: closing","id":"mp68mm51"}
+{"time":"2024-09-24T12:05:04.274421+10:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-09-24T12:05:04.274562+10:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-09-24T12:05:05.772771+10:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"mp68mm51"}}
+{"time":"2024-09-24T12:05:05.772761+10:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"mp68mm51"}}
+{"time":"2024-09-24T12:05:05.772782+10:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"mp68mm51"}}
+{"time":"2024-09-24T12:05:05.773415+10:00","level":"INFO","msg":"stream: closed","id":"mp68mm51"}

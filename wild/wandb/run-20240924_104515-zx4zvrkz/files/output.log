@@ -1,0 +1,171 @@
+Training on 40.96M total tokens.
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00,  1.00it/s]
+/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Loaded pretrained model gpt2-small into HookedTransformer
+Moving model to device:  cpu
+Moving model to device:  cpu
+Batch [1/5000], Avg Reconstruction Loss: 1.306476, Avg L1 Loss: 20857.691406, Avg L0 Loss: 8457.578125, Avg Total Loss: 3.392246
+Batch [2/5000], Avg Reconstruction Loss: 105.396210, Avg L1 Loss: 11423.847656, Avg L0 Loss: 5038.372070, Avg Total Loss: 106.538597
+Batch [3/5000], Avg Reconstruction Loss: 3.150742, Avg L1 Loss: 6858.626953, Avg L0 Loss: 3130.559570, Avg Total Loss: 3.836605
+Batch [4/5000], Avg Reconstruction Loss: 6.351223, Avg L1 Loss: 4536.640137, Avg L0 Loss: 2143.621338, Avg Total Loss: 6.804887
+Batch [5/5000], Avg Reconstruction Loss: 11.267878, Avg L1 Loss: 2881.409180, Avg L0 Loss: 1394.780884, Avg Total Loss: 11.556019
+Batch [6/5000], Avg Reconstruction Loss: 7.548729, Avg L1 Loss: 1868.673218, Avg L0 Loss: 990.444214, Avg Total Loss: 7.735597
+Batch [7/5000], Avg Reconstruction Loss: 3.430810, Avg L1 Loss: 1129.873657, Avg L0 Loss: 669.931030, Avg Total Loss: 3.543797
+Batch [8/5000], Avg Reconstruction Loss: 1.654572, Avg L1 Loss: 674.669250, Avg L0 Loss: 464.644775, Avg Total Loss: 1.722039
+Batch [9/5000], Avg Reconstruction Loss: 1.181916, Avg L1 Loss: 401.330383, Avg L0 Loss: 323.822388, Avg Total Loss: 1.222049
+Batch [10/5000], Avg Reconstruction Loss: 1.116335, Avg L1 Loss: 273.300995, Avg L0 Loss: 249.764771, Avg Total Loss: 1.143665
+Batch [11/5000], Avg Reconstruction Loss: 1.116303, Avg L1 Loss: 177.475281, Avg L0 Loss: 178.701660, Avg Total Loss: 1.134051
+Batch [12/5000], Avg Reconstruction Loss: 1.121131, Avg L1 Loss: 134.794403, Avg L0 Loss: 147.650269, Avg Total Loss: 1.134610
+Batch [13/5000], Avg Reconstruction Loss: 1.132427, Avg L1 Loss: 87.338516, Avg L0 Loss: 98.712402, Avg Total Loss: 1.141161
+Batch [14/5000], Avg Reconstruction Loss: 1.128516, Avg L1 Loss: 67.250000, Avg L0 Loss: 81.108276, Avg Total Loss: 1.135241
+Batch [15/5000], Avg Reconstruction Loss: 1.122051, Avg L1 Loss: 48.853531, Avg L0 Loss: 60.524414, Avg Total Loss: 1.126937
+Batch [16/5000], Avg Reconstruction Loss: 1.122277, Avg L1 Loss: 45.212955, Avg L0 Loss: 54.797241, Avg Total Loss: 1.126798
+Batch [17/5000], Avg Reconstruction Loss: 1.120138, Avg L1 Loss: 34.403599, Avg L0 Loss: 43.189087, Avg Total Loss: 1.123579
+Batch [18/5000], Avg Reconstruction Loss: 1.122833, Avg L1 Loss: 30.868563, Avg L0 Loss: 37.597168, Avg Total Loss: 1.125920
+Batch [19/5000], Avg Reconstruction Loss: 1.121513, Avg L1 Loss: 19.011951, Avg L0 Loss: 25.039551, Avg Total Loss: 1.123414
+Batch [20/5000], Avg Reconstruction Loss: 1.119780, Avg L1 Loss: 28.616941, Avg L0 Loss: 34.842529, Avg Total Loss: 1.122642
+Batch [21/5000], Avg Reconstruction Loss: 1.121116, Avg L1 Loss: 16.359085, Avg L0 Loss: 21.578003, Avg Total Loss: 1.122752
+Batch [22/5000], Avg Reconstruction Loss: 1.118868, Avg L1 Loss: 19.142443, Avg L0 Loss: 24.181152, Avg Total Loss: 1.120782
+Batch [23/5000], Avg Reconstruction Loss: 1.123500, Avg L1 Loss: 25.041574, Avg L0 Loss: 27.758545, Avg Total Loss: 1.126005
+Batch [24/5000], Avg Reconstruction Loss: 1.120977, Avg L1 Loss: 13.312054, Avg L0 Loss: 16.944580, Avg Total Loss: 1.122308
+Batch [25/5000], Avg Reconstruction Loss: 1.115351, Avg L1 Loss: 20.565788, Avg L0 Loss: 26.549072, Avg Total Loss: 1.117407
+Batch [26/5000], Avg Reconstruction Loss: 1.120424, Avg L1 Loss: 17.128870, Avg L0 Loss: 20.323242, Avg Total Loss: 1.122136
+Batch [27/5000], Avg Reconstruction Loss: 1.121933, Avg L1 Loss: 10.496389, Avg L0 Loss: 13.164429, Avg Total Loss: 1.122983
+Batch [28/5000], Avg Reconstruction Loss: 1.111124, Avg L1 Loss: 22.078609, Avg L0 Loss: 27.329468, Avg Total Loss: 1.113332
+Batch [29/5000], Avg Reconstruction Loss: 1.123514, Avg L1 Loss: 8.206157, Avg L0 Loss: 10.554565, Avg Total Loss: 1.124334
+Batch [30/5000], Avg Reconstruction Loss: 1.118701, Avg L1 Loss: 9.056571, Avg L0 Loss: 11.671875, Avg Total Loss: 1.119607
+Batch [31/5000], Avg Reconstruction Loss: 1.118145, Avg L1 Loss: 11.469592, Avg L0 Loss: 14.099365, Avg Total Loss: 1.119292
+Batch [32/5000], Avg Reconstruction Loss: 1.116643, Avg L1 Loss: 13.361485, Avg L0 Loss: 15.918091, Avg Total Loss: 1.117980
+Batch [33/5000], Avg Reconstruction Loss: 1.117068, Avg L1 Loss: 9.905781, Avg L0 Loss: 12.377686, Avg Total Loss: 1.118059
+Batch [34/5000], Avg Reconstruction Loss: 1.117065, Avg L1 Loss: 11.031874, Avg L0 Loss: 13.598755, Avg Total Loss: 1.118168
+Batch [35/5000], Avg Reconstruction Loss: 1.121162, Avg L1 Loss: 7.079589, Avg L0 Loss: 8.765015, Avg Total Loss: 1.121870
+Batch [36/5000], Avg Reconstruction Loss: 1.117869, Avg L1 Loss: 14.049604, Avg L0 Loss: 16.551270, Avg Total Loss: 1.119274
+Batch [37/5000], Avg Reconstruction Loss: 1.117947, Avg L1 Loss: 7.925282, Avg L0 Loss: 10.056274, Avg Total Loss: 1.118740
+Batch [38/5000], Avg Reconstruction Loss: 1.119837, Avg L1 Loss: 6.511787, Avg L0 Loss: 8.208740, Avg Total Loss: 1.120488
+Batch [39/5000], Avg Reconstruction Loss: 1.117554, Avg L1 Loss: 7.281654, Avg L0 Loss: 9.538696, Avg Total Loss: 1.118282
+Batch [40/5000], Avg Reconstruction Loss: 1.118139, Avg L1 Loss: 6.746294, Avg L0 Loss: 8.628662, Avg Total Loss: 1.118814
+Batch [41/5000], Avg Reconstruction Loss: 1.123048, Avg L1 Loss: 10.918105, Avg L0 Loss: 11.873047, Avg Total Loss: 1.124140
+Batch [42/5000], Avg Reconstruction Loss: 1.119344, Avg L1 Loss: 6.141477, Avg L0 Loss: 7.982178, Avg Total Loss: 1.119959
+Batch [43/5000], Avg Reconstruction Loss: 1.119237, Avg L1 Loss: 5.406389, Avg L0 Loss: 7.265747, Avg Total Loss: 1.119777
+Batch [44/5000], Avg Reconstruction Loss: 1.120968, Avg L1 Loss: 7.481790, Avg L0 Loss: 9.044067, Avg Total Loss: 1.121716
+Batch [45/5000], Avg Reconstruction Loss: 1.119193, Avg L1 Loss: 5.568283, Avg L0 Loss: 7.485107, Avg Total Loss: 1.119750
+Batch [46/5000], Avg Reconstruction Loss: 1.117883, Avg L1 Loss: 7.379790, Avg L0 Loss: 8.988770, Avg Total Loss: 1.118621
+Batch [47/5000], Avg Reconstruction Loss: 1.119879, Avg L1 Loss: 9.575838, Avg L0 Loss: 11.711426, Avg Total Loss: 1.120837
+Batch [48/5000], Avg Reconstruction Loss: 1.116198, Avg L1 Loss: 7.927612, Avg L0 Loss: 10.118286, Avg Total Loss: 1.116990
+Batch [49/5000], Avg Reconstruction Loss: 1.118582, Avg L1 Loss: 6.233101, Avg L0 Loss: 8.199341, Avg Total Loss: 1.119206
+Batch [50/5000], Avg Reconstruction Loss: 1.115266, Avg L1 Loss: 6.991698, Avg L0 Loss: 8.735596, Avg Total Loss: 1.115965
+Batch [51/5000], Avg Reconstruction Loss: 1.115624, Avg L1 Loss: 11.424736, Avg L0 Loss: 14.005371, Avg Total Loss: 1.116766
+Batch [52/5000], Avg Reconstruction Loss: 1.117229, Avg L1 Loss: 5.962836, Avg L0 Loss: 7.870850, Avg Total Loss: 1.117825
+Batch [53/5000], Avg Reconstruction Loss: 1.119890, Avg L1 Loss: 4.443843, Avg L0 Loss: 5.910278, Avg Total Loss: 1.120335
+Batch [54/5000], Avg Reconstruction Loss: 1.122228, Avg L1 Loss: 4.887681, Avg L0 Loss: 6.229370, Avg Total Loss: 1.122716
+Batch [55/5000], Avg Reconstruction Loss: 1.122000, Avg L1 Loss: 4.763664, Avg L0 Loss: 6.087769, Avg Total Loss: 1.122476
+Batch [56/5000], Avg Reconstruction Loss: 1.119832, Avg L1 Loss: 5.760432, Avg L0 Loss: 7.010498, Avg Total Loss: 1.120408
+Batch [57/5000], Avg Reconstruction Loss: 1.121058, Avg L1 Loss: 3.862434, Avg L0 Loss: 5.000244, Avg Total Loss: 1.121445
+Batch [58/5000], Avg Reconstruction Loss: 1.123168, Avg L1 Loss: 3.454109, Avg L0 Loss: 4.611206, Avg Total Loss: 1.123514
+Batch [59/5000], Avg Reconstruction Loss: 1.117231, Avg L1 Loss: 5.282778, Avg L0 Loss: 6.886475, Avg Total Loss: 1.117760
+Batch [60/5000], Avg Reconstruction Loss: 1.117870, Avg L1 Loss: 4.889721, Avg L0 Loss: 6.412109, Avg Total Loss: 1.118359
+Batch [61/5000], Avg Reconstruction Loss: 1.117601, Avg L1 Loss: 5.957669, Avg L0 Loss: 7.269653, Avg Total Loss: 1.118197
+Batch [62/5000], Avg Reconstruction Loss: 1.119554, Avg L1 Loss: 5.625655, Avg L0 Loss: 7.019531, Avg Total Loss: 1.120116
+Batch [63/5000], Avg Reconstruction Loss: 1.119027, Avg L1 Loss: 7.901585, Avg L0 Loss: 9.389648, Avg Total Loss: 1.119817
+Batch [64/5000], Avg Reconstruction Loss: 1.119994, Avg L1 Loss: 3.585720, Avg L0 Loss: 4.533081, Avg Total Loss: 1.120352
+Batch [65/5000], Avg Reconstruction Loss: 1.120195, Avg L1 Loss: 5.290348, Avg L0 Loss: 5.584595, Avg Total Loss: 1.120724
+Batch [66/5000], Avg Reconstruction Loss: 1.117975, Avg L1 Loss: 6.756672, Avg L0 Loss: 7.386353, Avg Total Loss: 1.118651
+Batch [67/5000], Avg Reconstruction Loss: 1.119325, Avg L1 Loss: 4.718435, Avg L0 Loss: 5.401855, Avg Total Loss: 1.119797
+Batch [68/5000], Avg Reconstruction Loss: 1.116974, Avg L1 Loss: 8.420875, Avg L0 Loss: 8.473022, Avg Total Loss: 1.117816
+Batch [69/5000], Avg Reconstruction Loss: 1.117420, Avg L1 Loss: 5.990795, Avg L0 Loss: 5.552002, Avg Total Loss: 1.118019
+Batch [70/5000], Avg Reconstruction Loss: 1.118297, Avg L1 Loss: 6.065155, Avg L0 Loss: 4.347412, Avg Total Loss: 1.118903
+Batch [71/5000], Avg Reconstruction Loss: 1.113294, Avg L1 Loss: 10.422414, Avg L0 Loss: 8.137451, Avg Total Loss: 1.114336
+Batch [72/5000], Avg Reconstruction Loss: 1.113731, Avg L1 Loss: 11.530931, Avg L0 Loss: 6.915894, Avg Total Loss: 1.114884
+Batch [73/5000], Avg Reconstruction Loss: 1.108080, Avg L1 Loss: 21.456226, Avg L0 Loss: 16.841553, Avg Total Loss: 1.110225
+Batch [74/5000], Avg Reconstruction Loss: 1.110541, Avg L1 Loss: 16.085978, Avg L0 Loss: 7.694336, Avg Total Loss: 1.112150
+Batch [75/5000], Avg Reconstruction Loss: 1.110777, Avg L1 Loss: 18.041483, Avg L0 Loss: 8.161865, Avg Total Loss: 1.112581
+Batch [76/5000], Avg Reconstruction Loss: 1.109344, Avg L1 Loss: 19.848318, Avg L0 Loss: 7.151855, Avg Total Loss: 1.111329
+Batch [77/5000], Avg Reconstruction Loss: 1.106480, Avg L1 Loss: 27.810444, Avg L0 Loss: 9.873169, Avg Total Loss: 1.109261
+Batch [78/5000], Avg Reconstruction Loss: 1.105640, Avg L1 Loss: 27.046631, Avg L0 Loss: 7.136597, Avg Total Loss: 1.108345
+Batch [79/5000], Avg Reconstruction Loss: 1.099790, Avg L1 Loss: 33.696762, Avg L0 Loss: 7.982422, Avg Total Loss: 1.103159
+Batch [80/5000], Avg Reconstruction Loss: 1.098932, Avg L1 Loss: 40.506584, Avg L0 Loss: 9.529297, Avg Total Loss: 1.102983
+Batch [81/5000], Avg Reconstruction Loss: 1.094127, Avg L1 Loss: 46.517620, Avg L0 Loss: 9.340820, Avg Total Loss: 1.098778
+Batch [82/5000], Avg Reconstruction Loss: 1.087572, Avg L1 Loss: 49.967182, Avg L0 Loss: 8.533569, Avg Total Loss: 1.092569
+Batch [83/5000], Avg Reconstruction Loss: 1.083859, Avg L1 Loss: 52.349743, Avg L0 Loss: 6.629028, Avg Total Loss: 1.089094
+Batch [84/5000], Avg Reconstruction Loss: 1.074883, Avg L1 Loss: 61.555943, Avg L0 Loss: 8.769043, Avg Total Loss: 1.081038
+Batch [85/5000], Avg Reconstruction Loss: 1.071473, Avg L1 Loss: 64.330307, Avg L0 Loss: 7.095581, Avg Total Loss: 1.077906
+Batch [86/5000], Avg Reconstruction Loss: 1.062726, Avg L1 Loss: 69.954109, Avg L0 Loss: 7.362305, Avg Total Loss: 1.069722
+Batch [87/5000], Avg Reconstruction Loss: 1.056190, Avg L1 Loss: 74.940735, Avg L0 Loss: 8.619873, Avg Total Loss: 1.063684
+Batch [88/5000], Avg Reconstruction Loss: 1.050761, Avg L1 Loss: 77.640564, Avg L0 Loss: 6.618530, Avg Total Loss: 1.058525
+Batch [89/5000], Avg Reconstruction Loss: 1.038912, Avg L1 Loss: 85.032051, Avg L0 Loss: 10.481323, Avg Total Loss: 1.047416
+Batch [90/5000], Avg Reconstruction Loss: 1.032528, Avg L1 Loss: 89.730598, Avg L0 Loss: 8.035156, Avg Total Loss: 1.041501
+Batch [91/5000], Avg Reconstruction Loss: 1.022027, Avg L1 Loss: 94.623016, Avg L0 Loss: 7.846436, Avg Total Loss: 1.031489
+Batch [92/5000], Avg Reconstruction Loss: 1.011040, Avg L1 Loss: 102.333244, Avg L0 Loss: 10.127197, Avg Total Loss: 1.021273
+Batch [93/5000], Avg Reconstruction Loss: 1.002838, Avg L1 Loss: 105.587891, Avg L0 Loss: 8.420532, Avg Total Loss: 1.013397
+Batch [94/5000], Avg Reconstruction Loss: 0.987453, Avg L1 Loss: 114.728142, Avg L0 Loss: 12.738647, Avg Total Loss: 0.998926
+Batch [95/5000], Avg Reconstruction Loss: 0.977828, Avg L1 Loss: 120.153488, Avg L0 Loss: 9.980835, Avg Total Loss: 0.989843
+Batch [96/5000], Avg Reconstruction Loss: 0.963018, Avg L1 Loss: 124.819427, Avg L0 Loss: 11.189331, Avg Total Loss: 0.975500
+Batch [97/5000], Avg Reconstruction Loss: 0.952016, Avg L1 Loss: 128.548035, Avg L0 Loss: 8.194458, Avg Total Loss: 0.964871
+Batch [98/5000], Avg Reconstruction Loss: 0.937987, Avg L1 Loss: 137.357147, Avg L0 Loss: 9.747559, Avg Total Loss: 0.951723
+Batch [99/5000], Avg Reconstruction Loss: 0.924431, Avg L1 Loss: 139.579697, Avg L0 Loss: 6.869263, Avg Total Loss: 0.938389
+Batch [100/5000], Avg Reconstruction Loss: 0.908052, Avg L1 Loss: 144.409653, Avg L0 Loss: 9.248291, Avg Total Loss: 0.922493
+Model checkpoint saved to models/sparse_autoencoder.pth_batch_100_1727139214.pth
+Creating repository 'sparse-coding' on Hugging Face.
+Traceback (most recent call last):
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 406, in hf_raise_for_status
+    response.raise_for_status()
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/api/models/sparse-coding
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/charlesoneill/sparse-inference/wild/main.py", line 378, in upload_to_huggingface
+    api.repo_info(repo_id=repo_name)
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/hf_api.py", line 2682, in repo_info
+    return method(
+           ^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/hf_api.py", line 2467, in model_info
+    hf_raise_for_status(r)
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 454, in hf_raise_for_status
+    raise _format(RepositoryNotFoundError, message, response) from e
+huggingface_hub.errors.RepositoryNotFoundError: 401 Client Error. (Request ID: Root=1-66f20d8f-1481be665dd1c80b15755881;99fda194-ae3b-40e6-a651-28c585d9ca9c)
+
+Repository Not Found for url: https://huggingface.co/api/models/sparse-coding.
+Please make sure you specified the correct `repo_id` and `repo_type`.
+If you are trying to access a private or gated repo, make sure you are authenticated.
+Invalid username or password.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 406, in hf_raise_for_status
+    response.raise_for_status()
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/api/repos/create
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/charlesoneill/sparse-inference/wild/main.py", line 660, in <module>
+    main(args)
+  File "/Users/charlesoneill/sparse-inference/wild/main.py", line 581, in main
+    train(
+  File "/Users/charlesoneill/sparse-inference/wild/main.py", line 497, in train
+    upload_to_huggingface(checkpoint_path, repo_name, hf_token, commit_message)
+  File "/Users/charlesoneill/sparse-inference/wild/main.py", line 382, in upload_to_huggingface
+    api.create_repo(repo_id=repo_name, private=False)
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/hf_api.py", line 3457, in create_repo
+    hf_raise_for_status(r)
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 477, in hf_raise_for_status
+    raise _format(HfHubHTTPError, str(e), response) from e
+huggingface_hub.errors.HfHubHTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/api/repos/create (Request ID: Root=1-66f20d8f-10e15d1b5d223c0945251eac;70372cb1-f210-4a58-9817-a6b2066da769)
+
+Invalid username or password.

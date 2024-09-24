@@ -10,9 +10,20 @@ from sae_lens.training.session_loader import LMSparseAutoencoderSessionloader
 from sae_lens.toolkit.pretrained_saes import get_gpt2_res_jb_saes
 from models import SparseAutoencoder
 
+import wandb
+from huggingface_hub import HfApi
+import sys
+import time
+import yaml
+
+import warnings
+warnings.filterwarnings("ignore")
+
+
 def get_device():
     """Determine the available device (GPU if available, else CPU)."""
     return 'cuda' if torch.cuda.is_available() else 'cpu'
+
 
 def initialize_activation_store(config):
     """
@@ -37,6 +48,7 @@ def initialize_activation_store(config):
     transformer_model, _, activation_store = loader.load_sae_training_group_session()
     return transformer_model.to(config['device']), activation_store
 
+
 def mse(output, target):
     """
     Compute the Mean Squared Error between output and target.
@@ -49,6 +61,7 @@ def mse(output, target):
         torch.Tensor: MSE value.
     """
     return F.mse_loss(output, target)
+
 
 def normalized_mse(recon, xs):
     """
@@ -74,6 +87,7 @@ def normalized_mse(recon, xs):
     epsilon = 1e-8
     return mse_recon / (mse_mean + epsilon)
 
+
 def loss_fn(X, X_, S_, l1_weight=0.01):
     """
     Compute the combined normalized reconstruction and sparsity loss.
@@ -94,13 +108,60 @@ def loss_fn(X, X_, S_, l1_weight=0.01):
     l1_loss = S_.norm(p=1, dim=-1).mean()
     l0_loss = S_.norm(p=0, dim=-1).mean()
     
-    print(f"Reconstruction loss: {recon_loss.item():.6f}, "
-          f"L1 loss: {l1_loss.item():.6f}, L0 loss: {l0_loss.item():.6f}")
-    
     # Combine losses
-    return recon_loss + l1_weight * l1_loss
+    total_loss = recon_loss + l1_weight * l1_loss
+    
+    return recon_loss, l1_loss, l0_loss, total_loss
 
-def train(model, transformer, activation_store, optimizer, device, n_batches, l1_weight, layer):
+
+def upload_to_huggingface(model_path, repo_name, hf_token, commit_message):
+    """
+    Upload the model to Hugging Face Hub.
+
+    Args:
+        model_path (str): Local path to the saved model.
+        repo_name (str): Name of the Hugging Face repository (e.g., "username/sparse-coding").
+        hf_token (str): Hugging Face authentication token.
+        commit_message (str): Commit message for the upload.
+
+    Returns:
+        None
+    """
+    api = HfApi()
+    
+    # Check if the repository exists; if not, create it
+    try:
+        api.repo_info(repo_id=repo_name)
+        print(f"Repository '{repo_name}' already exists on Hugging Face.")
+    except Exception as e:
+        print(f"Creating repository '{repo_name}' on Hugging Face.")
+        try:
+            api.create_repo(repo_id=repo_name, private=False)
+            print(f"Repository '{repo_name}' created successfully.")
+        except Exception as e:
+            print(f"Failed to create repository '{repo_name}'. Error: {e}")
+            sys.exit(1)
+    
+    # Define the path within the repository where the model will be uploaded
+    filename = os.path.basename(model_path)
+    path_in_repo = filename  # You can change this to a subdirectory if desired
+    
+    # Upload the file
+    try:
+        api.upload_file(
+            path_or_fileobj=model_path,
+            path_in_repo=path_in_repo,
+            repo_id=repo_name,
+            token=hf_token,
+            commit_message=commit_message
+        )
+        print(f"Model '{filename}' uploaded to Hugging Face repository '{repo_name}' with commit message '{commit_message}'.")
+    except Exception as e:
+        print(f"Failed to upload file to Hugging Face. Error: {e}")
+        sys.exit(1)
+
+
+def train(model, transformer, activation_store, optimizer, device, n_batches, l1_weight, layer, save_path, repo_name, hf_token):
     """
     Train the sparse autoencoder using activations from the activation store.
 
@@ -113,11 +174,23 @@ def train(model, transformer, activation_store, optimizer, device, n_batches, l1
         n_batches (int): Number of training batches.
         l1_weight (float): Weight for the L1 loss component.
         layer (int): Layer number to extract activations from.
+        save_path (str): Path to save the trained model.
+        repo_name (str): Hugging Face repository name.
+        hf_token (str): Hugging Face authentication token.
 
     Returns:
         None
     """
     model.train()
+    
+    # Initialize accumulators for logging
+    recon_loss_acc = 0.0
+    l1_loss_acc = 0.0
+    l0_loss_acc = 0.0
+    total_loss_acc = 0.0
+    log_interval = 1  # Log every batch
+    upload_interval = 1000  # Upload every 100 batches
+
     for batch_num in range(1, n_batches + 1):
         # Fetch a batch of tokens from the activation store
         batch_tokens = activation_store.get_batch_tokens().to(device)
@@ -131,13 +204,74 @@ def train(model, transformer, activation_store, optimizer, device, n_batches, l1
 
         optimizer.zero_grad()
         S_, X_ = model(X)
-        loss = loss_fn(X, X_, S_, l1_weight=l1_weight)
-        loss.backward()
+        recon_loss, l1_loss, l0_loss, total_loss = loss_fn(X, X_, S_, l1_weight=l1_weight)
+        total_loss.backward()
         optimizer.step()
         
-        print(f"Batch [{batch_num}/{n_batches}], Loss: {loss.item():.6f}")
+        # Accumulate losses
+        recon_loss_acc += recon_loss.item()
+        l1_loss_acc += l1_loss.item()
+        l0_loss_acc += l0_loss.item()
+        total_loss_acc += total_loss.item()
+        
+        # Log every log_interval batches
+        if batch_num % log_interval == 0:
+            avg_recon_loss = recon_loss_acc / log_interval
+            avg_l1_loss = l1_loss_acc / log_interval
+            avg_l0_loss = l0_loss_acc / log_interval
+            avg_total_loss = total_loss_acc / log_interval
+            
+            print(f"Batch [{batch_num}/{n_batches}], "
+                  f"Avg Reconstruction Loss: {avg_recon_loss:.6f}, "
+                  f"Avg L1 Loss: {avg_l1_loss:.6f}, "
+                  f"Avg L0 Loss: {avg_l0_loss:.6f}, "
+                  f"Avg Total Loss: {avg_total_loss:.6f}")
+            
+            # Log to wandb
+            wandb.log({
+                "reconstruction_loss": avg_recon_loss,
+                "l1_loss": avg_l1_loss,
+                "l0_loss": avg_l0_loss,
+                "total_loss": avg_total_loss,
+                "batch": batch_num
+            })
+            
+            # Reset accumulators
+            recon_loss_acc = 0.0
+            l1_loss_acc = 0.0
+            l0_loss_acc = 0.0
+            total_loss_acc = 0.0
+        
+        # Upload every upload_interval batches
+        if batch_num % upload_interval == 0:
+            # Save the model
+            torch.save(model.state_dict(), save_path)
+            print(f"Model checkpoint saved to {save_path}")
+            
+            # Commit message
+            commit_message = f"Checkpoint at batch {batch_num}"
+            
+            # Upload to Hugging Face
+            upload_to_huggingface(save_path, repo_name, hf_token, commit_message)
     
     print("Training complete.")
+
+
+def upload_final_model(model_path, repo_name, hf_token):
+    """
+    Upload the final trained model to Hugging Face Hub.
+
+    Args:
+        model_path (str): Path to the saved model.
+        repo_name (str): Hugging Face repository name.
+        hf_token (str): Hugging Face authentication token.
+
+    Returns:
+        None
+    """
+    commit_message = "Final model upload after training completion."
+    upload_to_huggingface(model_path, repo_name, hf_token, commit_message)
+
 
 def main(args):
     """
@@ -151,7 +285,28 @@ def main(args):
     """
     device = get_device()
     print(f"Using device: {device}")
+
+    # Initialize wandb
+    wandb.init(
+        project="sparse-coding",
+        config={
+            "layer": args.layer,
+            "input_dim": args.input_dim,
+            "projection_up": args.projection_up,
+            "l1_weight": args.l1_weight,
+            "lr": args.lr,
+            "n_batches": args.n_batches,
+            "batch_size": args.batch_size,
+            "save_path": args.save_path
+        },
+        name=f"layer_{args.layer}_hidden_{args.projection_up*args.input_dim}_l1_{args.l1_weight}"
+    )
     
+    # Print how many tokens we're training on
+    seq_len = 128
+    total_tokens = seq_len * args.batch_size * args.n_batches
+    print(f"Training on {total_tokens / 1e6}M total tokens.")
+
     # Configuration for the activation store
     config = {
         'device': device,
@@ -172,6 +327,16 @@ def main(args):
     # Define optimizer
     optimizer = optim.Adam(model.parameters(), lr=args.lr)
     
+    # Get Hugging Face token
+    config = yaml.safe_load(open("config.yaml"))
+    hf_token = os.getenv("HF_TOKEN")  # Alternatively, use config['HF_TOKEN']
+    print(f"Using Hugging Face token: {hf_token}")
+    if not hf_token:
+        print("Error: Hugging Face token not found. Please set the 'HF_TOKEN' environment variable.")
+        sys.exit(1)
+    
+    repo_name = "charlieoneill/sparse-coding"
+
     # Train the model
     train(
         model=model,
@@ -181,15 +346,23 @@ def main(args):
         device=device,
         n_batches=args.n_batches,
         l1_weight=args.l1_weight,
-        layer=args.layer
+        layer=args.layer,
+        save_path=args.save_path,
+        repo_name=repo_name,
+        hf_token=hf_token
     )
     
-    # Create directory if it doesn't exist
-    os.makedirs(os.path.dirname(args.save_path), exist_ok=True)
+    # Save the final model
+    final_model_path = args.save_path
+    torch.save(model.state_dict(), final_model_path)
+    print(f"Final model saved to {final_model_path}")
     
-    # Save the trained model
-    torch.save(model.state_dict(), args.save_path)
-    print(f"Model saved to {args.save_path}")
+    # Upload the final model to Hugging Face
+    upload_final_model(final_model_path, repo_name, hf_token)
+    
+    # Finish wandb run
+    wandb.finish()
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -216,7 +389,7 @@ if __name__ == "__main__":
     parser.add_argument(
         '--l1_weight',
         type=float,
-        default=0.01,
+        default=1e-4,
         help='L1 coefficient for the loss function'
     )
     parser.add_argument(
@@ -228,7 +401,7 @@ if __name__ == "__main__":
     parser.add_argument(
         '--n_batches',
         type=int,
-        default=5000,
+        default=50000,
         help='Number of training batches'
     )
     parser.add_argument(

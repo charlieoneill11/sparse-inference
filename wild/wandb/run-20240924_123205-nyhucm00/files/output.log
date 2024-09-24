@@ -1,0 +1,308 @@
+Training on 40.96M total tokens.
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:01<00:00,  1.02s/it]
+Loaded pretrained model gpt2-small into HookedTransformer
+Moving model to device:  cpu
+Moving model to device:  cpu
+Using Hugging Face token: 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
+Batch [1/5000], Avg Reconstruction Loss: 1.306476, Avg L1 Loss: 20857.691406, Avg L0 Loss: 8457.578125, Avg Total Loss: 3.392246
+Batch [2/5000], Avg Reconstruction Loss: 105.396210, Avg L1 Loss: 11423.847656, Avg L0 Loss: 5038.372070, Avg Total Loss: 106.538597
+Batch [3/5000], Avg Reconstruction Loss: 3.150742, Avg L1 Loss: 6858.626953, Avg L0 Loss: 3130.559570, Avg Total Loss: 3.836605
+Batch [4/5000], Avg Reconstruction Loss: 6.351223, Avg L1 Loss: 4536.640137, Avg L0 Loss: 2143.621338, Avg Total Loss: 6.804887
+Batch [5/5000], Avg Reconstruction Loss: 11.267878, Avg L1 Loss: 2881.409180, Avg L0 Loss: 1394.780884, Avg Total Loss: 11.556019
+Batch [6/5000], Avg Reconstruction Loss: 7.548729, Avg L1 Loss: 1868.673218, Avg L0 Loss: 990.444214, Avg Total Loss: 7.735597
+Batch [7/5000], Avg Reconstruction Loss: 3.430810, Avg L1 Loss: 1129.873657, Avg L0 Loss: 669.931030, Avg Total Loss: 3.543797
+Batch [8/5000], Avg Reconstruction Loss: 1.654572, Avg L1 Loss: 674.669250, Avg L0 Loss: 464.644775, Avg Total Loss: 1.722039
+Batch [9/5000], Avg Reconstruction Loss: 1.181916, Avg L1 Loss: 401.330383, Avg L0 Loss: 323.822388, Avg Total Loss: 1.222049
+Batch [10/5000], Avg Reconstruction Loss: 1.116335, Avg L1 Loss: 273.300995, Avg L0 Loss: 249.764771, Avg Total Loss: 1.143665
+Batch [11/5000], Avg Reconstruction Loss: 1.116303, Avg L1 Loss: 177.475281, Avg L0 Loss: 178.701660, Avg Total Loss: 1.134051
+Batch [12/5000], Avg Reconstruction Loss: 1.121131, Avg L1 Loss: 134.794403, Avg L0 Loss: 147.650269, Avg Total Loss: 1.134610
+Batch [13/5000], Avg Reconstruction Loss: 1.132427, Avg L1 Loss: 87.338516, Avg L0 Loss: 98.712402, Avg Total Loss: 1.141161
+Batch [14/5000], Avg Reconstruction Loss: 1.128516, Avg L1 Loss: 67.250000, Avg L0 Loss: 81.108276, Avg Total Loss: 1.135241
+Batch [15/5000], Avg Reconstruction Loss: 1.122051, Avg L1 Loss: 48.853531, Avg L0 Loss: 60.524414, Avg Total Loss: 1.126937
+Batch [16/5000], Avg Reconstruction Loss: 1.122277, Avg L1 Loss: 45.212955, Avg L0 Loss: 54.797241, Avg Total Loss: 1.126798
+Batch [17/5000], Avg Reconstruction Loss: 1.120138, Avg L1 Loss: 34.403599, Avg L0 Loss: 43.189087, Avg Total Loss: 1.123579
+Batch [18/5000], Avg Reconstruction Loss: 1.122833, Avg L1 Loss: 30.868563, Avg L0 Loss: 37.597168, Avg Total Loss: 1.125920
+Batch [19/5000], Avg Reconstruction Loss: 1.121513, Avg L1 Loss: 19.011951, Avg L0 Loss: 25.039551, Avg Total Loss: 1.123414
+Batch [20/5000], Avg Reconstruction Loss: 1.119780, Avg L1 Loss: 28.616941, Avg L0 Loss: 34.842529, Avg Total Loss: 1.122642
+Batch [21/5000], Avg Reconstruction Loss: 1.121116, Avg L1 Loss: 16.359085, Avg L0 Loss: 21.578003, Avg Total Loss: 1.122752
+Batch [22/5000], Avg Reconstruction Loss: 1.118868, Avg L1 Loss: 19.142443, Avg L0 Loss: 24.181152, Avg Total Loss: 1.120782
+Batch [23/5000], Avg Reconstruction Loss: 1.123500, Avg L1 Loss: 25.041574, Avg L0 Loss: 27.758545, Avg Total Loss: 1.126005
+Batch [24/5000], Avg Reconstruction Loss: 1.120977, Avg L1 Loss: 13.312054, Avg L0 Loss: 16.944580, Avg Total Loss: 1.122308
+Batch [25/5000], Avg Reconstruction Loss: 1.115351, Avg L1 Loss: 20.565788, Avg L0 Loss: 26.549072, Avg Total Loss: 1.117407
+Batch [26/5000], Avg Reconstruction Loss: 1.120424, Avg L1 Loss: 17.128870, Avg L0 Loss: 20.323242, Avg Total Loss: 1.122136
+Batch [27/5000], Avg Reconstruction Loss: 1.121933, Avg L1 Loss: 10.496389, Avg L0 Loss: 13.164429, Avg Total Loss: 1.122983
+Batch [28/5000], Avg Reconstruction Loss: 1.111124, Avg L1 Loss: 22.078609, Avg L0 Loss: 27.329468, Avg Total Loss: 1.113332
+Batch [29/5000], Avg Reconstruction Loss: 1.123514, Avg L1 Loss: 8.206157, Avg L0 Loss: 10.554565, Avg Total Loss: 1.124334
+Batch [30/5000], Avg Reconstruction Loss: 1.118701, Avg L1 Loss: 9.056571, Avg L0 Loss: 11.671875, Avg Total Loss: 1.119607
+Batch [31/5000], Avg Reconstruction Loss: 1.118145, Avg L1 Loss: 11.469592, Avg L0 Loss: 14.099365, Avg Total Loss: 1.119292
+Batch [32/5000], Avg Reconstruction Loss: 1.116643, Avg L1 Loss: 13.361485, Avg L0 Loss: 15.918091, Avg Total Loss: 1.117980
+Batch [33/5000], Avg Reconstruction Loss: 1.117068, Avg L1 Loss: 9.905781, Avg L0 Loss: 12.377686, Avg Total Loss: 1.118059
+Batch [34/5000], Avg Reconstruction Loss: 1.117065, Avg L1 Loss: 11.031874, Avg L0 Loss: 13.598755, Avg Total Loss: 1.118168
+Batch [35/5000], Avg Reconstruction Loss: 1.121162, Avg L1 Loss: 7.079589, Avg L0 Loss: 8.765015, Avg Total Loss: 1.121870
+Batch [36/5000], Avg Reconstruction Loss: 1.117869, Avg L1 Loss: 14.049604, Avg L0 Loss: 16.551270, Avg Total Loss: 1.119274
+Batch [37/5000], Avg Reconstruction Loss: 1.117947, Avg L1 Loss: 7.925282, Avg L0 Loss: 10.056274, Avg Total Loss: 1.118740
+Batch [38/5000], Avg Reconstruction Loss: 1.119837, Avg L1 Loss: 6.511787, Avg L0 Loss: 8.208740, Avg Total Loss: 1.120488
+Batch [39/5000], Avg Reconstruction Loss: 1.117554, Avg L1 Loss: 7.281654, Avg L0 Loss: 9.538696, Avg Total Loss: 1.118282
+Batch [40/5000], Avg Reconstruction Loss: 1.118139, Avg L1 Loss: 6.746294, Avg L0 Loss: 8.628662, Avg Total Loss: 1.118814
+Batch [41/5000], Avg Reconstruction Loss: 1.123048, Avg L1 Loss: 10.918105, Avg L0 Loss: 11.873047, Avg Total Loss: 1.124140
+Batch [42/5000], Avg Reconstruction Loss: 1.119344, Avg L1 Loss: 6.141477, Avg L0 Loss: 7.982178, Avg Total Loss: 1.119959
+Batch [43/5000], Avg Reconstruction Loss: 1.119237, Avg L1 Loss: 5.406389, Avg L0 Loss: 7.265747, Avg Total Loss: 1.119777
+Batch [44/5000], Avg Reconstruction Loss: 1.120968, Avg L1 Loss: 7.481790, Avg L0 Loss: 9.044067, Avg Total Loss: 1.121716
+Batch [45/5000], Avg Reconstruction Loss: 1.119193, Avg L1 Loss: 5.568283, Avg L0 Loss: 7.485107, Avg Total Loss: 1.119750
+Batch [46/5000], Avg Reconstruction Loss: 1.117883, Avg L1 Loss: 7.379790, Avg L0 Loss: 8.988770, Avg Total Loss: 1.118621
+Batch [47/5000], Avg Reconstruction Loss: 1.119879, Avg L1 Loss: 9.575838, Avg L0 Loss: 11.711426, Avg Total Loss: 1.120837
+Batch [48/5000], Avg Reconstruction Loss: 1.116198, Avg L1 Loss: 7.927612, Avg L0 Loss: 10.118286, Avg Total Loss: 1.116990
+Batch [49/5000], Avg Reconstruction Loss: 1.118582, Avg L1 Loss: 6.233101, Avg L0 Loss: 8.199341, Avg Total Loss: 1.119206
+Batch [50/5000], Avg Reconstruction Loss: 1.115266, Avg L1 Loss: 6.991698, Avg L0 Loss: 8.735596, Avg Total Loss: 1.115965
+Batch [51/5000], Avg Reconstruction Loss: 1.115624, Avg L1 Loss: 11.424736, Avg L0 Loss: 14.005371, Avg Total Loss: 1.116766
+Batch [52/5000], Avg Reconstruction Loss: 1.117229, Avg L1 Loss: 5.962836, Avg L0 Loss: 7.870850, Avg Total Loss: 1.117825
+Batch [53/5000], Avg Reconstruction Loss: 1.119890, Avg L1 Loss: 4.443843, Avg L0 Loss: 5.910278, Avg Total Loss: 1.120335
+Batch [54/5000], Avg Reconstruction Loss: 1.122228, Avg L1 Loss: 4.887681, Avg L0 Loss: 6.229370, Avg Total Loss: 1.122716
+Batch [55/5000], Avg Reconstruction Loss: 1.122000, Avg L1 Loss: 4.763664, Avg L0 Loss: 6.087769, Avg Total Loss: 1.122476
+Batch [56/5000], Avg Reconstruction Loss: 1.119832, Avg L1 Loss: 5.760432, Avg L0 Loss: 7.010498, Avg Total Loss: 1.120408
+Batch [57/5000], Avg Reconstruction Loss: 1.121058, Avg L1 Loss: 3.862434, Avg L0 Loss: 5.000244, Avg Total Loss: 1.121445
+Batch [58/5000], Avg Reconstruction Loss: 1.123168, Avg L1 Loss: 3.454109, Avg L0 Loss: 4.611206, Avg Total Loss: 1.123514
+Batch [59/5000], Avg Reconstruction Loss: 1.117231, Avg L1 Loss: 5.282778, Avg L0 Loss: 6.886475, Avg Total Loss: 1.117760
+Batch [60/5000], Avg Reconstruction Loss: 1.117870, Avg L1 Loss: 4.889721, Avg L0 Loss: 6.412109, Avg Total Loss: 1.118359
+Batch [61/5000], Avg Reconstruction Loss: 1.117601, Avg L1 Loss: 5.957669, Avg L0 Loss: 7.269653, Avg Total Loss: 1.118197
+Batch [62/5000], Avg Reconstruction Loss: 1.119554, Avg L1 Loss: 5.625655, Avg L0 Loss: 7.019531, Avg Total Loss: 1.120116
+Batch [63/5000], Avg Reconstruction Loss: 1.119027, Avg L1 Loss: 7.901585, Avg L0 Loss: 9.389648, Avg Total Loss: 1.119817
+Batch [64/5000], Avg Reconstruction Loss: 1.119994, Avg L1 Loss: 3.585720, Avg L0 Loss: 4.533081, Avg Total Loss: 1.120352
+Batch [65/5000], Avg Reconstruction Loss: 1.120195, Avg L1 Loss: 5.290348, Avg L0 Loss: 5.584595, Avg Total Loss: 1.120724
+Batch [66/5000], Avg Reconstruction Loss: 1.117975, Avg L1 Loss: 6.756672, Avg L0 Loss: 7.386353, Avg Total Loss: 1.118651
+Batch [67/5000], Avg Reconstruction Loss: 1.119325, Avg L1 Loss: 4.718435, Avg L0 Loss: 5.401855, Avg Total Loss: 1.119797
+Batch [68/5000], Avg Reconstruction Loss: 1.116974, Avg L1 Loss: 8.420875, Avg L0 Loss: 8.473022, Avg Total Loss: 1.117816
+Batch [69/5000], Avg Reconstruction Loss: 1.117420, Avg L1 Loss: 5.990795, Avg L0 Loss: 5.552002, Avg Total Loss: 1.118019
+Batch [70/5000], Avg Reconstruction Loss: 1.118297, Avg L1 Loss: 6.065155, Avg L0 Loss: 4.347412, Avg Total Loss: 1.118903
+Batch [71/5000], Avg Reconstruction Loss: 1.113294, Avg L1 Loss: 10.422414, Avg L0 Loss: 8.137451, Avg Total Loss: 1.114336
+Batch [72/5000], Avg Reconstruction Loss: 1.113731, Avg L1 Loss: 11.530931, Avg L0 Loss: 6.915894, Avg Total Loss: 1.114884
+Batch [73/5000], Avg Reconstruction Loss: 1.108080, Avg L1 Loss: 21.456226, Avg L0 Loss: 16.841553, Avg Total Loss: 1.110225
+Batch [74/5000], Avg Reconstruction Loss: 1.110541, Avg L1 Loss: 16.085978, Avg L0 Loss: 7.694336, Avg Total Loss: 1.112150
+Batch [75/5000], Avg Reconstruction Loss: 1.110777, Avg L1 Loss: 18.041483, Avg L0 Loss: 8.161865, Avg Total Loss: 1.112581
+Batch [76/5000], Avg Reconstruction Loss: 1.109344, Avg L1 Loss: 19.848318, Avg L0 Loss: 7.151855, Avg Total Loss: 1.111329
+Batch [77/5000], Avg Reconstruction Loss: 1.106480, Avg L1 Loss: 27.810444, Avg L0 Loss: 9.873169, Avg Total Loss: 1.109261
+Batch [78/5000], Avg Reconstruction Loss: 1.105640, Avg L1 Loss: 27.046631, Avg L0 Loss: 7.136597, Avg Total Loss: 1.108345
+Batch [79/5000], Avg Reconstruction Loss: 1.099790, Avg L1 Loss: 33.696762, Avg L0 Loss: 7.982422, Avg Total Loss: 1.103159
+Batch [80/5000], Avg Reconstruction Loss: 1.098932, Avg L1 Loss: 40.506584, Avg L0 Loss: 9.529297, Avg Total Loss: 1.102983
+Batch [81/5000], Avg Reconstruction Loss: 1.094127, Avg L1 Loss: 46.517620, Avg L0 Loss: 9.340820, Avg Total Loss: 1.098778
+Batch [82/5000], Avg Reconstruction Loss: 1.087572, Avg L1 Loss: 49.967182, Avg L0 Loss: 8.533569, Avg Total Loss: 1.092569
+Batch [83/5000], Avg Reconstruction Loss: 1.083859, Avg L1 Loss: 52.349743, Avg L0 Loss: 6.629028, Avg Total Loss: 1.089094
+Batch [84/5000], Avg Reconstruction Loss: 1.074883, Avg L1 Loss: 61.555943, Avg L0 Loss: 8.769043, Avg Total Loss: 1.081038
+Batch [85/5000], Avg Reconstruction Loss: 1.071473, Avg L1 Loss: 64.330307, Avg L0 Loss: 7.095581, Avg Total Loss: 1.077906
+Batch [86/5000], Avg Reconstruction Loss: 1.062726, Avg L1 Loss: 69.954109, Avg L0 Loss: 7.362305, Avg Total Loss: 1.069722
+Batch [87/5000], Avg Reconstruction Loss: 1.056190, Avg L1 Loss: 74.940735, Avg L0 Loss: 8.619873, Avg Total Loss: 1.063684
+Batch [88/5000], Avg Reconstruction Loss: 1.050761, Avg L1 Loss: 77.640564, Avg L0 Loss: 6.618530, Avg Total Loss: 1.058525
+Batch [89/5000], Avg Reconstruction Loss: 1.038912, Avg L1 Loss: 85.032051, Avg L0 Loss: 10.481323, Avg Total Loss: 1.047416
+Batch [90/5000], Avg Reconstruction Loss: 1.032528, Avg L1 Loss: 89.730598, Avg L0 Loss: 8.035156, Avg Total Loss: 1.041501
+Batch [91/5000], Avg Reconstruction Loss: 1.022027, Avg L1 Loss: 94.623016, Avg L0 Loss: 7.846436, Avg Total Loss: 1.031489
+Batch [92/5000], Avg Reconstruction Loss: 1.011040, Avg L1 Loss: 102.333244, Avg L0 Loss: 10.127197, Avg Total Loss: 1.021273
+Batch [93/5000], Avg Reconstruction Loss: 1.002838, Avg L1 Loss: 105.587891, Avg L0 Loss: 8.420532, Avg Total Loss: 1.013397
+Batch [94/5000], Avg Reconstruction Loss: 0.987453, Avg L1 Loss: 114.728142, Avg L0 Loss: 12.738647, Avg Total Loss: 0.998926
+Batch [95/5000], Avg Reconstruction Loss: 0.977828, Avg L1 Loss: 120.153488, Avg L0 Loss: 9.980835, Avg Total Loss: 0.989843
+Batch [96/5000], Avg Reconstruction Loss: 0.963018, Avg L1 Loss: 124.819427, Avg L0 Loss: 11.189331, Avg Total Loss: 0.975500
+Batch [97/5000], Avg Reconstruction Loss: 0.952016, Avg L1 Loss: 128.548035, Avg L0 Loss: 8.194458, Avg Total Loss: 0.964871
+Batch [98/5000], Avg Reconstruction Loss: 0.937987, Avg L1 Loss: 137.357147, Avg L0 Loss: 9.747559, Avg Total Loss: 0.951723
+Batch [99/5000], Avg Reconstruction Loss: 0.924431, Avg L1 Loss: 139.579697, Avg L0 Loss: 6.869263, Avg Total Loss: 0.938389
+Batch [100/5000], Avg Reconstruction Loss: 0.908052, Avg L1 Loss: 144.409653, Avg L0 Loss: 9.248291, Avg Total Loss: 0.922493
+Model checkpoint saved to models/sparse_autoencoder.pth
+Repository 'charlieoneill/sparse-coding' already exists on Hugging Face.
+/Users/charlesoneill/sparse-inference/wild/./charlieoneill_sparse-coding is already a clone of https://huggingface.co/charlieoneill/sparse-coding. Make sure you pull the latest changes with `repo.git_pull()`.
+Several commits (2) will be pushed upstream.
+The progress bars may be unreliable.
+Upload file sparse_autoencoder.pth: 107MB [01:33, 1.69MB/s]To https://huggingface.co/charlieoneill/sparse-coding                          
+   d254f8b..160731c  main -> main
+
+Upload file sparse_autoencoder.pth: 100%|████████████████████████████████████████████████████████████| 99.1M/99.1M [01:34<00:00, 1.10MB/s]
+Model 'sparse_autoencoder.pth' uploaded to Hugging Face repository 'charlieoneill/sparse-coding' with commit message 'Checkpoint at batch 100'.
+Batch [101/5000], Avg Reconstruction Loss: 0.892324, Avg L1 Loss: 149.696350, Avg L0 Loss: 9.704712, Avg Total Loss: 0.907294
+Batch [102/5000], Avg Reconstruction Loss: 0.875573, Avg L1 Loss: 154.826981, Avg L0 Loss: 11.486084, Avg Total Loss: 0.891056
+Batch [103/5000], Avg Reconstruction Loss: 0.856284, Avg L1 Loss: 163.548843, Avg L0 Loss: 12.574707, Avg Total Loss: 0.872639
+Batch [104/5000], Avg Reconstruction Loss: 0.839904, Avg L1 Loss: 166.791504, Avg L0 Loss: 8.303223, Avg Total Loss: 0.856583
+Batch [105/5000], Avg Reconstruction Loss: 0.821265, Avg L1 Loss: 171.342606, Avg L0 Loss: 9.669189, Avg Total Loss: 0.838400
+Batch [106/5000], Avg Reconstruction Loss: 0.802167, Avg L1 Loss: 173.555237, Avg L0 Loss: 9.640503, Avg Total Loss: 0.819523
+Batch [107/5000], Avg Reconstruction Loss: 0.784531, Avg L1 Loss: 180.211075, Avg L0 Loss: 7.813721, Avg Total Loss: 0.802552
+Batch [108/5000], Avg Reconstruction Loss: 0.764201, Avg L1 Loss: 184.550262, Avg L0 Loss: 7.406006, Avg Total Loss: 0.782656
+Batch [109/5000], Avg Reconstruction Loss: 0.743525, Avg L1 Loss: 189.794800, Avg L0 Loss: 8.859375, Avg Total Loss: 0.762505
+Batch [110/5000], Avg Reconstruction Loss: 0.721811, Avg L1 Loss: 195.499817, Avg L0 Loss: 8.255737, Avg Total Loss: 0.741361
+Batch [111/5000], Avg Reconstruction Loss: 0.702182, Avg L1 Loss: 204.307892, Avg L0 Loss: 8.971558, Avg Total Loss: 0.722612
+Batch [112/5000], Avg Reconstruction Loss: 0.681560, Avg L1 Loss: 208.155838, Avg L0 Loss: 6.493286, Avg Total Loss: 0.702376
+Batch [113/5000], Avg Reconstruction Loss: 0.659029, Avg L1 Loss: 211.148529, Avg L0 Loss: 6.871826, Avg Total Loss: 0.680144
+Batch [114/5000], Avg Reconstruction Loss: 0.637815, Avg L1 Loss: 218.294708, Avg L0 Loss: 8.428345, Avg Total Loss: 0.659645
+Batch [115/5000], Avg Reconstruction Loss: 0.615686, Avg L1 Loss: 223.140030, Avg L0 Loss: 8.116333, Avg Total Loss: 0.638000
+Batch [116/5000], Avg Reconstruction Loss: 0.593866, Avg L1 Loss: 228.464859, Avg L0 Loss: 7.867188, Avg Total Loss: 0.616713
+Batch [117/5000], Avg Reconstruction Loss: 0.572697, Avg L1 Loss: 235.646881, Avg L0 Loss: 7.117676, Avg Total Loss: 0.596261
+Batch [118/5000], Avg Reconstruction Loss: 0.550461, Avg L1 Loss: 238.249023, Avg L0 Loss: 8.190308, Avg Total Loss: 0.574286
+Batch [119/5000], Avg Reconstruction Loss: 0.528033, Avg L1 Loss: 242.785751, Avg L0 Loss: 8.459473, Avg Total Loss: 0.552311
+Batch [120/5000], Avg Reconstruction Loss: 0.505691, Avg L1 Loss: 244.415115, Avg L0 Loss: 10.112305, Avg Total Loss: 0.530133
+Batch [121/5000], Avg Reconstruction Loss: 0.484281, Avg L1 Loss: 252.247269, Avg L0 Loss: 9.213501, Avg Total Loss: 0.509506
+Batch [122/5000], Avg Reconstruction Loss: 0.462131, Avg L1 Loss: 250.921646, Avg L0 Loss: 6.877808, Avg Total Loss: 0.487223
+Batch [123/5000], Avg Reconstruction Loss: 0.439201, Avg L1 Loss: 255.439987, Avg L0 Loss: 7.944092, Avg Total Loss: 0.464745
+Batch [124/5000], Avg Reconstruction Loss: 0.419283, Avg L1 Loss: 264.188446, Avg L0 Loss: 12.076660, Avg Total Loss: 0.445702
+Batch [125/5000], Avg Reconstruction Loss: 0.397318, Avg L1 Loss: 266.377075, Avg L0 Loss: 7.594116, Avg Total Loss: 0.423956
+Batch [126/5000], Avg Reconstruction Loss: 0.377466, Avg L1 Loss: 270.067871, Avg L0 Loss: 7.953369, Avg Total Loss: 0.404473
+Batch [127/5000], Avg Reconstruction Loss: 0.356199, Avg L1 Loss: 272.682983, Avg L0 Loss: 13.806885, Avg Total Loss: 0.383468
+Batch [128/5000], Avg Reconstruction Loss: 0.338125, Avg L1 Loss: 268.162292, Avg L0 Loss: 9.724731, Avg Total Loss: 0.364942
+Batch [129/5000], Avg Reconstruction Loss: 0.320070, Avg L1 Loss: 276.738251, Avg L0 Loss: 8.441895, Avg Total Loss: 0.347744
+Batch [130/5000], Avg Reconstruction Loss: 0.300416, Avg L1 Loss: 272.343658, Avg L0 Loss: 13.129395, Avg Total Loss: 0.327651
+Batch [131/5000], Avg Reconstruction Loss: 0.284757, Avg L1 Loss: 279.042450, Avg L0 Loss: 7.715576, Avg Total Loss: 0.312661
+Batch [132/5000], Avg Reconstruction Loss: 0.268682, Avg L1 Loss: 278.352905, Avg L0 Loss: 7.595337, Avg Total Loss: 0.296518
+Batch [133/5000], Avg Reconstruction Loss: 0.251059, Avg L1 Loss: 280.284363, Avg L0 Loss: 8.764771, Avg Total Loss: 0.279088
+Batch [134/5000], Avg Reconstruction Loss: 0.237339, Avg L1 Loss: 287.012604, Avg L0 Loss: 9.663818, Avg Total Loss: 0.266040
+Batch [135/5000], Avg Reconstruction Loss: 0.222880, Avg L1 Loss: 286.514893, Avg L0 Loss: 8.281128, Avg Total Loss: 0.251531
+Batch [136/5000], Avg Reconstruction Loss: 0.208747, Avg L1 Loss: 287.625916, Avg L0 Loss: 8.224243, Avg Total Loss: 0.237509
+Batch [137/5000], Avg Reconstruction Loss: 0.197776, Avg L1 Loss: 286.802582, Avg L0 Loss: 7.564453, Avg Total Loss: 0.226457
+Batch [138/5000], Avg Reconstruction Loss: 0.186554, Avg L1 Loss: 288.705383, Avg L0 Loss: 9.155029, Avg Total Loss: 0.215424
+Batch [139/5000], Avg Reconstruction Loss: 0.176010, Avg L1 Loss: 285.202332, Avg L0 Loss: 9.614746, Avg Total Loss: 0.204530
+Batch [140/5000], Avg Reconstruction Loss: 0.167639, Avg L1 Loss: 291.117065, Avg L0 Loss: 7.611206, Avg Total Loss: 0.196751
+Batch [141/5000], Avg Reconstruction Loss: 0.158966, Avg L1 Loss: 290.099792, Avg L0 Loss: 11.951294, Avg Total Loss: 0.187976
+Batch [142/5000], Avg Reconstruction Loss: 0.147988, Avg L1 Loss: 282.316315, Avg L0 Loss: 8.531738, Avg Total Loss: 0.176220
+Batch [143/5000], Avg Reconstruction Loss: 0.143227, Avg L1 Loss: 291.462311, Avg L0 Loss: 7.718018, Avg Total Loss: 0.172373
+Batch [144/5000], Avg Reconstruction Loss: 0.136230, Avg L1 Loss: 283.058716, Avg L0 Loss: 9.262329, Avg Total Loss: 0.164536
+Batch [145/5000], Avg Reconstruction Loss: 0.130682, Avg L1 Loss: 283.512878, Avg L0 Loss: 7.435059, Avg Total Loss: 0.159033
+Batch [146/5000], Avg Reconstruction Loss: 0.126713, Avg L1 Loss: 281.192078, Avg L0 Loss: 9.846680, Avg Total Loss: 0.154832
+Batch [147/5000], Avg Reconstruction Loss: 0.121031, Avg L1 Loss: 283.573669, Avg L0 Loss: 8.784424, Avg Total Loss: 0.149389
+Batch [148/5000], Avg Reconstruction Loss: 0.117519, Avg L1 Loss: 277.385376, Avg L0 Loss: 8.959473, Avg Total Loss: 0.145257
+Batch [149/5000], Avg Reconstruction Loss: 0.113382, Avg L1 Loss: 278.149414, Avg L0 Loss: 9.085083, Avg Total Loss: 0.141197
+Batch [150/5000], Avg Reconstruction Loss: 0.111026, Avg L1 Loss: 276.283295, Avg L0 Loss: 8.575562, Avg Total Loss: 0.138655
+Batch [151/5000], Avg Reconstruction Loss: 0.108321, Avg L1 Loss: 271.596832, Avg L0 Loss: 8.510376, Avg Total Loss: 0.135481
+Batch [152/5000], Avg Reconstruction Loss: 0.107314, Avg L1 Loss: 268.848907, Avg L0 Loss: 8.290039, Avg Total Loss: 0.134199
+Batch [153/5000], Avg Reconstruction Loss: 0.105501, Avg L1 Loss: 265.361298, Avg L0 Loss: 10.004639, Avg Total Loss: 0.132038
+Batch [154/5000], Avg Reconstruction Loss: 0.103327, Avg L1 Loss: 261.456573, Avg L0 Loss: 10.069580, Avg Total Loss: 0.129473
+Batch [155/5000], Avg Reconstruction Loss: 0.102069, Avg L1 Loss: 265.075256, Avg L0 Loss: 8.726685, Avg Total Loss: 0.128576
+Batch [156/5000], Avg Reconstruction Loss: 0.101960, Avg L1 Loss: 257.026306, Avg L0 Loss: 10.766479, Avg Total Loss: 0.127663
+Batch [157/5000], Avg Reconstruction Loss: 0.099697, Avg L1 Loss: 256.106873, Avg L0 Loss: 9.168823, Avg Total Loss: 0.125307
+Batch [158/5000], Avg Reconstruction Loss: 0.098621, Avg L1 Loss: 249.006989, Avg L0 Loss: 8.361328, Avg Total Loss: 0.123522
+Batch [159/5000], Avg Reconstruction Loss: 0.098452, Avg L1 Loss: 247.556366, Avg L0 Loss: 9.137207, Avg Total Loss: 0.123207
+Batch [160/5000], Avg Reconstruction Loss: 0.097773, Avg L1 Loss: 252.660980, Avg L0 Loss: 8.059814, Avg Total Loss: 0.123040
+Batch [161/5000], Avg Reconstruction Loss: 0.097051, Avg L1 Loss: 244.562881, Avg L0 Loss: 8.502563, Avg Total Loss: 0.121507
+Batch [162/5000], Avg Reconstruction Loss: 0.096269, Avg L1 Loss: 242.538620, Avg L0 Loss: 10.033691, Avg Total Loss: 0.120523
+Batch [163/5000], Avg Reconstruction Loss: 0.095966, Avg L1 Loss: 238.757050, Avg L0 Loss: 9.074951, Avg Total Loss: 0.119842
+Batch [164/5000], Avg Reconstruction Loss: 0.095249, Avg L1 Loss: 232.210236, Avg L0 Loss: 9.153687, Avg Total Loss: 0.118470
+Batch [165/5000], Avg Reconstruction Loss: 0.093360, Avg L1 Loss: 234.143814, Avg L0 Loss: 8.115967, Avg Total Loss: 0.116774
+Batch [166/5000], Avg Reconstruction Loss: 0.096064, Avg L1 Loss: 230.862747, Avg L0 Loss: 11.700195, Avg Total Loss: 0.119150
+Batch [167/5000], Avg Reconstruction Loss: 0.094756, Avg L1 Loss: 225.695374, Avg L0 Loss: 8.279785, Avg Total Loss: 0.117326
+Batch [168/5000], Avg Reconstruction Loss: 0.094413, Avg L1 Loss: 225.535614, Avg L0 Loss: 10.448486, Avg Total Loss: 0.116967
+Batch [169/5000], Avg Reconstruction Loss: 0.094344, Avg L1 Loss: 222.597977, Avg L0 Loss: 8.366333, Avg Total Loss: 0.116603
+Batch [170/5000], Avg Reconstruction Loss: 0.094051, Avg L1 Loss: 221.492477, Avg L0 Loss: 8.449341, Avg Total Loss: 0.116200
+Batch [171/5000], Avg Reconstruction Loss: 0.098806, Avg L1 Loss: 227.824646, Avg L0 Loss: 20.547119, Avg Total Loss: 0.121589
+Batch [172/5000], Avg Reconstruction Loss: 0.094549, Avg L1 Loss: 215.799255, Avg L0 Loss: 8.098877, Avg Total Loss: 0.116129
+Batch [173/5000], Avg Reconstruction Loss: 0.094792, Avg L1 Loss: 216.516571, Avg L0 Loss: 9.061768, Avg Total Loss: 0.116444
+Batch [174/5000], Avg Reconstruction Loss: 0.094879, Avg L1 Loss: 216.282990, Avg L0 Loss: 9.498657, Avg Total Loss: 0.116507
+Batch [175/5000], Avg Reconstruction Loss: 0.094066, Avg L1 Loss: 214.578857, Avg L0 Loss: 8.604248, Avg Total Loss: 0.115524
+Batch [176/5000], Avg Reconstruction Loss: 0.095880, Avg L1 Loss: 207.790085, Avg L0 Loss: 9.147827, Avg Total Loss: 0.116659
+Batch [177/5000], Avg Reconstruction Loss: 0.094801, Avg L1 Loss: 208.758575, Avg L0 Loss: 8.275513, Avg Total Loss: 0.115677
+Batch [178/5000], Avg Reconstruction Loss: 0.095430, Avg L1 Loss: 205.109802, Avg L0 Loss: 10.621094, Avg Total Loss: 0.115941
+Batch [179/5000], Avg Reconstruction Loss: 0.093697, Avg L1 Loss: 205.851883, Avg L0 Loss: 8.652344, Avg Total Loss: 0.114282
+Batch [180/5000], Avg Reconstruction Loss: 0.092603, Avg L1 Loss: 206.765686, Avg L0 Loss: 7.864014, Avg Total Loss: 0.113280
+Batch [181/5000], Avg Reconstruction Loss: 0.092234, Avg L1 Loss: 206.538910, Avg L0 Loss: 7.394287, Avg Total Loss: 0.112888
+Batch [182/5000], Avg Reconstruction Loss: 0.093051, Avg L1 Loss: 203.377274, Avg L0 Loss: 9.610596, Avg Total Loss: 0.113388
+Batch [183/5000], Avg Reconstruction Loss: 0.093679, Avg L1 Loss: 201.015793, Avg L0 Loss: 9.148804, Avg Total Loss: 0.113781
+Batch [184/5000], Avg Reconstruction Loss: 0.094358, Avg L1 Loss: 203.814789, Avg L0 Loss: 8.589355, Avg Total Loss: 0.114739
+Batch [185/5000], Avg Reconstruction Loss: 0.092168, Avg L1 Loss: 201.026108, Avg L0 Loss: 7.538330, Avg Total Loss: 0.112271
+Batch [186/5000], Avg Reconstruction Loss: 0.092676, Avg L1 Loss: 201.748627, Avg L0 Loss: 7.412354, Avg Total Loss: 0.112850
+Batch [187/5000], Avg Reconstruction Loss: 0.092322, Avg L1 Loss: 202.206299, Avg L0 Loss: 11.003906, Avg Total Loss: 0.112543
+Batch [188/5000], Avg Reconstruction Loss: 0.092988, Avg L1 Loss: 199.095459, Avg L0 Loss: 7.861450, Avg Total Loss: 0.112898
+Batch [189/5000], Avg Reconstruction Loss: 0.091857, Avg L1 Loss: 202.486862, Avg L0 Loss: 7.959961, Avg Total Loss: 0.112105
+Batch [190/5000], Avg Reconstruction Loss: 0.093432, Avg L1 Loss: 200.167191, Avg L0 Loss: 13.007080, Avg Total Loss: 0.113448
+Batch [191/5000], Avg Reconstruction Loss: 0.090531, Avg L1 Loss: 202.991470, Avg L0 Loss: 7.323608, Avg Total Loss: 0.110830
+Batch [192/5000], Avg Reconstruction Loss: 0.092940, Avg L1 Loss: 195.756744, Avg L0 Loss: 8.523071, Avg Total Loss: 0.112516
+Batch [193/5000], Avg Reconstruction Loss: 0.090749, Avg L1 Loss: 201.985382, Avg L0 Loss: 8.455811, Avg Total Loss: 0.110947
+Batch [194/5000], Avg Reconstruction Loss: 0.091243, Avg L1 Loss: 203.376862, Avg L0 Loss: 8.244873, Avg Total Loss: 0.111580
+Batch [195/5000], Avg Reconstruction Loss: 0.092578, Avg L1 Loss: 199.954254, Avg L0 Loss: 11.130981, Avg Total Loss: 0.112573
+Batch [196/5000], Avg Reconstruction Loss: 0.091330, Avg L1 Loss: 198.645844, Avg L0 Loss: 8.128540, Avg Total Loss: 0.111195
+Batch [197/5000], Avg Reconstruction Loss: 0.092039, Avg L1 Loss: 198.632874, Avg L0 Loss: 8.560791, Avg Total Loss: 0.111903
+Batch [198/5000], Avg Reconstruction Loss: 0.091598, Avg L1 Loss: 196.795166, Avg L0 Loss: 7.162231, Avg Total Loss: 0.111278
+Batch [199/5000], Avg Reconstruction Loss: 0.091569, Avg L1 Loss: 198.191803, Avg L0 Loss: 9.868530, Avg Total Loss: 0.111388
+Batch [200/5000], Avg Reconstruction Loss: 0.090627, Avg L1 Loss: 198.767044, Avg L0 Loss: 7.360718, Avg Total Loss: 0.110504
+Model checkpoint saved to models/sparse_autoencoder.pth
+Repository 'charlieoneill/sparse-coding' already exists on Hugging Face.
+/Users/charlesoneill/sparse-inference/wild/./charlieoneill_sparse-coding is already a clone of https://huggingface.co/charlieoneill/sparse-coding. Make sure you pull the latest changes with `repo.git_pull()`.
+Upload file sparse_autoencoder.pth: 107MB [00:48, 2.62MB/s]                                                                               To https://huggingface.co/charlieoneill/sparse-coding
+   160731c..e66de56  main -> main
+
+Upload file sparse_autoencoder.pth: 100%|████████████████████████████████████████████████████████████| 99.1M/99.1M [00:51<00:00, 2.03MB/s]
+Model 'sparse_autoencoder.pth' uploaded to Hugging Face repository 'charlieoneill/sparse-coding' with commit message 'Checkpoint at batch 200'.
+Batch [201/5000], Avg Reconstruction Loss: 0.091328, Avg L1 Loss: 193.531509, Avg L0 Loss: 8.728271, Avg Total Loss: 0.110681
+Batch [202/5000], Avg Reconstruction Loss: 0.089453, Avg L1 Loss: 200.677734, Avg L0 Loss: 7.583618, Avg Total Loss: 0.109521
+Batch [203/5000], Avg Reconstruction Loss: 0.093262, Avg L1 Loss: 197.315704, Avg L0 Loss: 11.326782, Avg Total Loss: 0.112994
+Batch [204/5000], Avg Reconstruction Loss: 0.091411, Avg L1 Loss: 196.347473, Avg L0 Loss: 8.299438, Avg Total Loss: 0.111046
+Batch [205/5000], Avg Reconstruction Loss: 0.090272, Avg L1 Loss: 199.558640, Avg L0 Loss: 8.930420, Avg Total Loss: 0.110228
+Batch [206/5000], Avg Reconstruction Loss: 0.091017, Avg L1 Loss: 196.339844, Avg L0 Loss: 8.671387, Avg Total Loss: 0.110651
+Batch [207/5000], Avg Reconstruction Loss: 0.091347, Avg L1 Loss: 198.053406, Avg L0 Loss: 8.754150, Avg Total Loss: 0.111152
+Batch [208/5000], Avg Reconstruction Loss: 0.089470, Avg L1 Loss: 201.736038, Avg L0 Loss: 8.276733, Avg Total Loss: 0.109644
+Batch [209/5000], Avg Reconstruction Loss: 0.090053, Avg L1 Loss: 196.331482, Avg L0 Loss: 8.964844, Avg Total Loss: 0.109686
+Batch [210/5000], Avg Reconstruction Loss: 0.090383, Avg L1 Loss: 196.694946, Avg L0 Loss: 10.206055, Avg Total Loss: 0.110052
+Batch [211/5000], Avg Reconstruction Loss: 0.089810, Avg L1 Loss: 199.164673, Avg L0 Loss: 11.067871, Avg Total Loss: 0.109727
+Batch [212/5000], Avg Reconstruction Loss: 0.091685, Avg L1 Loss: 197.950684, Avg L0 Loss: 9.392822, Avg Total Loss: 0.111480
+Batch [213/5000], Avg Reconstruction Loss: 0.090329, Avg L1 Loss: 199.197144, Avg L0 Loss: 11.978149, Avg Total Loss: 0.110249
+Batch [214/5000], Avg Reconstruction Loss: 0.090021, Avg L1 Loss: 198.338165, Avg L0 Loss: 7.501587, Avg Total Loss: 0.109855
+Batch [215/5000], Avg Reconstruction Loss: 0.090361, Avg L1 Loss: 197.806381, Avg L0 Loss: 9.160156, Avg Total Loss: 0.110142
+Batch [216/5000], Avg Reconstruction Loss: 0.088229, Avg L1 Loss: 196.571808, Avg L0 Loss: 8.294434, Avg Total Loss: 0.107886
+Batch [217/5000], Avg Reconstruction Loss: 0.090281, Avg L1 Loss: 194.833984, Avg L0 Loss: 10.890503, Avg Total Loss: 0.109765
+Batch [218/5000], Avg Reconstruction Loss: 0.089493, Avg L1 Loss: 195.696091, Avg L0 Loss: 8.575195, Avg Total Loss: 0.109062
+Batch [219/5000], Avg Reconstruction Loss: 0.089027, Avg L1 Loss: 196.684006, Avg L0 Loss: 9.537231, Avg Total Loss: 0.108695
+Batch [220/5000], Avg Reconstruction Loss: 0.089268, Avg L1 Loss: 200.857697, Avg L0 Loss: 9.310547, Avg Total Loss: 0.109354
+Batch [221/5000], Avg Reconstruction Loss: 0.089909, Avg L1 Loss: 196.312805, Avg L0 Loss: 9.096680, Avg Total Loss: 0.109540
+Batch [222/5000], Avg Reconstruction Loss: 0.090408, Avg L1 Loss: 197.864487, Avg L0 Loss: 9.603394, Avg Total Loss: 0.110195
+Batch [223/5000], Avg Reconstruction Loss: 0.090036, Avg L1 Loss: 195.167206, Avg L0 Loss: 10.051270, Avg Total Loss: 0.109552
+Batch [224/5000], Avg Reconstruction Loss: 0.087887, Avg L1 Loss: 196.984665, Avg L0 Loss: 8.694336, Avg Total Loss: 0.107585
+Batch [225/5000], Avg Reconstruction Loss: 0.088387, Avg L1 Loss: 196.964447, Avg L0 Loss: 10.232666, Avg Total Loss: 0.108083
+Batch [226/5000], Avg Reconstruction Loss: 0.089489, Avg L1 Loss: 195.405807, Avg L0 Loss: 10.368408, Avg Total Loss: 0.109029
+Batch [227/5000], Avg Reconstruction Loss: 0.088197, Avg L1 Loss: 195.603088, Avg L0 Loss: 8.050293, Avg Total Loss: 0.107758
+Batch [228/5000], Avg Reconstruction Loss: 0.087869, Avg L1 Loss: 195.079666, Avg L0 Loss: 8.778931, Avg Total Loss: 0.107377
+Batch [229/5000], Avg Reconstruction Loss: 0.092149, Avg L1 Loss: 190.991974, Avg L0 Loss: 15.239868, Avg Total Loss: 0.111248
+Batch [230/5000], Avg Reconstruction Loss: 0.091309, Avg L1 Loss: 204.429855, Avg L0 Loss: 18.467407, Avg Total Loss: 0.111752
+Batch [231/5000], Avg Reconstruction Loss: 0.087897, Avg L1 Loss: 192.675461, Avg L0 Loss: 9.145142, Avg Total Loss: 0.107164
+Batch [232/5000], Avg Reconstruction Loss: 0.089136, Avg L1 Loss: 192.622421, Avg L0 Loss: 10.395996, Avg Total Loss: 0.108399
+Batch [233/5000], Avg Reconstruction Loss: 0.085831, Avg L1 Loss: 197.466949, Avg L0 Loss: 8.083984, Avg Total Loss: 0.105578
+Batch [234/5000], Avg Reconstruction Loss: 0.087192, Avg L1 Loss: 194.659592, Avg L0 Loss: 9.956543, Avg Total Loss: 0.106658
+Batch [235/5000], Avg Reconstruction Loss: 0.088962, Avg L1 Loss: 193.053085, Avg L0 Loss: 13.115845, Avg Total Loss: 0.108267
+Batch [236/5000], Avg Reconstruction Loss: 0.087268, Avg L1 Loss: 193.968491, Avg L0 Loss: 9.635986, Avg Total Loss: 0.106664
+Batch [237/5000], Avg Reconstruction Loss: 0.088641, Avg L1 Loss: 194.835663, Avg L0 Loss: 10.872314, Avg Total Loss: 0.108125
+Batch [238/5000], Avg Reconstruction Loss: 0.086893, Avg L1 Loss: 193.071991, Avg L0 Loss: 9.250977, Avg Total Loss: 0.106200
+Batch [239/5000], Avg Reconstruction Loss: 0.088386, Avg L1 Loss: 191.564148, Avg L0 Loss: 10.197632, Avg Total Loss: 0.107543
+Batch [240/5000], Avg Reconstruction Loss: 0.086381, Avg L1 Loss: 195.439789, Avg L0 Loss: 9.089355, Avg Total Loss: 0.105925
+Batch [241/5000], Avg Reconstruction Loss: 0.086598, Avg L1 Loss: 194.303223, Avg L0 Loss: 9.216309, Avg Total Loss: 0.106028
+Batch [242/5000], Avg Reconstruction Loss: 0.086743, Avg L1 Loss: 190.841949, Avg L0 Loss: 10.533447, Avg Total Loss: 0.105827
+Batch [243/5000], Avg Reconstruction Loss: 0.086936, Avg L1 Loss: 194.099701, Avg L0 Loss: 9.900879, Avg Total Loss: 0.106346
+Traceback (most recent call last):
+  File "/Users/charlesoneill/sparse-inference/wild/main.py", line 446, in <module>
+    main(args)
+  File "/Users/charlesoneill/sparse-inference/wild/main.py", line 367, in main
+    train(
+  File "/Users/charlesoneill/sparse-inference/wild/main.py", line 216, in train
+    _, cache = transformer.run_with_cache(batch_tokens)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/transformer_lens/HookedTransformer.py", line 627, in run_with_cache
+    out, cache_dict = super().run_with_cache(
+                      ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/transformer_lens/hook_points.py", line 513, in run_with_cache
+    model_out = self(*model_args, **model_kwargs)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/transformer_lens/HookedTransformer.py", line 568, in forward
+    logits = self.unembed(residual)  # [batch, pos, d_vocab]
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/transformer_lens/components.py", line 81, in forward
+    einsum(
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/fancy_einsum/__init__.py", line 136, in einsum
+    return backend.einsum(new_equation, *operands)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/fancy_einsum/__init__.py", line 54, in einsum
+    return self.torch.einsum(equation, *operands)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/torch/functional.py", line 385, in einsum
+    return _VF.einsum(equation, operands)  # type: ignore[attr-defined]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

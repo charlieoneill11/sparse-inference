@@ -1,0 +1,18 @@
+{"time":"2024-09-24T12:32:05.337011+10:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2024-09-24T12:32:05.337085+10:00","level":"INFO","msg":"created symlink","path":"/Users/charlesoneill/sparse-inference/wild/wandb/run-20240924_123205-nyhucm00/logs/debug-core.log"}
+{"time":"2024-09-24T12:32:05.337209+10:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2024-09-24T12:32:05.337222+10:00","level":"INFO","msg":"created symlink","path":"/Users/charlesoneill/sparse-inference/wild/wandb/run-20240924_123205-nyhucm00/logs/debug-core.log"}
+{"time":"2024-09-24T12:32:05.342893+10:00","level":"INFO","msg":"created new stream","id":"nyhucm00"}
+{"time":"2024-09-24T12:32:05.342952+10:00","level":"INFO","msg":"stream: started","id":"nyhucm00"}
+{"time":"2024-09-24T12:32:05.342953+10:00","level":"INFO","msg":"handler: started","stream_id":{"value":"nyhucm00"}}
+{"time":"2024-09-24T12:32:05.343012+10:00","level":"INFO","msg":"sender: started","stream_id":{"value":"nyhucm00"}}
+{"time":"2024-09-24T12:32:05.342983+10:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"nyhucm00"}}
+{"time":"2024-09-24T12:32:05.758124+10:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-09-24T12:32:05.759576+10:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-09-24T12:56:23.080878+10:00","level":"INFO","msg":"stream: closing","id":"nyhucm00"}
+{"time":"2024-09-24T12:56:23.080902+10:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-09-24T12:56:23.081051+10:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-09-24T12:56:24.537078+10:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"nyhucm00"}}
+{"time":"2024-09-24T12:56:24.537098+10:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"nyhucm00"}}
+{"time":"2024-09-24T12:56:24.537087+10:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"nyhucm00"}}
+{"time":"2024-09-24T12:56:24.537332+10:00","level":"INFO","msg":"stream: closed","id":"nyhucm00"}

@@ -1,0 +1,53 @@
+Training on 40.96M total tokens.
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00,  1.09it/s]
+/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Loaded pretrained model gpt2-small into HookedTransformer
+Moving model to device:  cpu
+Moving model to device:  cpu
+Batch [10/5000], Avg Reconstruction Loss: 14.240489, Avg L1 Loss: 5090.606284, Avg L0 Loss: 2286.351917, Avg Total Loss: 14.749550
+Traceback (most recent call last):
+  File "/Users/charlesoneill/sparse-inference/wild/main.py", line 660, in <module>
+    main(args)
+  File "/Users/charlesoneill/sparse-inference/wild/main.py", line 581, in main
+    train(
+  File "/Users/charlesoneill/sparse-inference/wild/main.py", line 440, in train
+    _, cache = transformer.run_with_cache(batch_tokens)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/transformer_lens/HookedTransformer.py", line 627, in run_with_cache
+    out, cache_dict = super().run_with_cache(
+                      ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/transformer_lens/hook_points.py", line 513, in run_with_cache
+    model_out = self(*model_args, **model_kwargs)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/transformer_lens/HookedTransformer.py", line 550, in forward
+    residual = block(
+               ^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/transformer_lens/components.py", line 1601, in forward
+    mlp_out = self.hook_mlp_out(self.mlp(normalized_resid_mid))  # [batch, pos, d_model]
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/transformer_lens/components.py", line 1276, in forward
+    post_act = self.hook_post(self.act_fn(pre_act))  # [batch, pos, d_mlp]
+                              ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/transformer_lens/utils.py", line 162, in gelu_new
+    * (1.0 + torch.tanh(np.sqrt(2.0 / np.pi) * (input + 0.044715 * torch.pow(input, 3.0))))
+                                                                   ^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

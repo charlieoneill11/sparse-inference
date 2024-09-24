@@ -1,0 +1,14 @@
+{"time":"2024-09-24T12:18:38.203922+10:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2024-09-24T12:18:38.203956+10:00","level":"INFO","msg":"created symlink","path":"/Users/charlesoneill/sparse-inference/wild/wandb/run-20240924_121838-9mo6wdmo/logs/debug-core.log"}
+{"time":"2024-09-24T12:18:38.204002+10:00","level":"INFO","msg":"using version","core version":"0.18.1"}
+{"time":"2024-09-24T12:18:38.204007+10:00","level":"INFO","msg":"created symlink","path":"/Users/charlesoneill/sparse-inference/wild/wandb/run-20240924_121838-9mo6wdmo/logs/debug-core.log"}
+{"time":"2024-09-24T12:18:38.207368+10:00","level":"INFO","msg":"created new stream","id":"9mo6wdmo"}
+{"time":"2024-09-24T12:18:38.20741+10:00","level":"INFO","msg":"stream: started","id":"9mo6wdmo"}
+{"time":"2024-09-24T12:18:38.207421+10:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"9mo6wdmo"}}
+{"time":"2024-09-24T12:18:38.207469+10:00","level":"INFO","msg":"sender: started","stream_id":{"value":"9mo6wdmo"}}
+{"time":"2024-09-24T12:18:38.207446+10:00","level":"INFO","msg":"handler: started","stream_id":{"value":"9mo6wdmo"}}
+{"time":"2024-09-24T12:18:38.561155+10:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2024-09-24T12:18:38.562644+10:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-09-24T12:21:13.241236+10:00","level":"INFO","msg":"stream: closing","id":"9mo6wdmo"}
+{"time":"2024-09-24T12:21:13.241266+10:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-09-24T12:21:13.241396+10:00","level":"INFO","msg":"Stopped system monitor"}
