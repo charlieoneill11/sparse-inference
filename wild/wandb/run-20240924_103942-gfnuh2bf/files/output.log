@@ -1,8 +1,0 @@
-Training on 40960000 total tokens.
-100%|███████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:01<00:00,  1.02s/it]
-/Users/charlesoneill/miniconda3/envs/sparse-inference/lib/python3.12/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
-  warnings.warn(
-Loaded pretrained model gpt2-small into HookedTransformer
-Moving model to device:  cpu
-Moving model to device:  cpu
-Error: Hugging Face token not found. Please set the 'HF_TOKEN' environment variable.

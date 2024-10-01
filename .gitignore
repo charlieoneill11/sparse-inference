@@ -1,3 +1,5 @@
 .ipynb_checkpoints
 __pycache__
 *.yaml
+wild/scores.npy
+wild/mlp_scores.npy

@@ -106,12 +106,12 @@ class ConstrainedUnitNormLinear(nn.Module):
     
 class SparseAutoencoder(nn.Module):
 
-    def __init__(self, n_input_features: int, n_learned_features: int, l1_coefficient: float):
+    def __init__(self, n_input_features: int, n_learned_features: int):
         super(SparseAutoencoder, self).__init__()
 
         self.n_input_features = n_input_features
         self.n_learned_features = n_learned_features
-        self.l1_coefficient = l1_coefficient
+        #self.l1_coefficient = l1_coefficient
 
         # Tied bias
         self.geometric_median_dataset = torch.zeros(n_input_features)
@@ -132,25 +132,9 @@ class SparseAutoencoder(nn.Module):
         )
 
     def forward(self, x):
-        learned_activations = self.encoder(x)
-        reconstructed_activations = self.decoder(learned_activations)
-        loss, recon_loss = self.loss_fn(reconstructed_activations, learned_activations, x)
-        return reconstructed_activations, loss, recon_loss
-    
-    def loss_fn(self, decoded_activations, learned_activations, resid_streams):
-
-        # RECONSTRUCTION LOSS
-        per_item_mse_loss = self.per_item_mse_loss_with_target_norm(decoded_activations, resid_streams)
-        recon_loss = per_item_mse_loss.sum(dim=-1).mean()
-
-        # SPARSITY LOSS
-        sparsity_loss = learned_activations.norm(p=1, dim=-1).mean()
-
-        # combine
-        return recon_loss + (self.l1_coefficient * sparsity_loss), recon_loss
+        S_ = self.encoder(x)
+        X_ = self.decoder(S_)
+        return S_, X_
 
     def initialise_tied_parameters(self) -> None:
         self.tied_bias.data = self.geometric_median_dataset.clone() 
-
-    def per_item_mse_loss_with_target_norm(self, preds, target):
-        return torch.nn.functional.mse_loss(preds, target, reduction='none')
