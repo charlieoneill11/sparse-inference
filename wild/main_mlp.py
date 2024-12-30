@@ -96,7 +96,7 @@ def upload_to_huggingface(model_path, repo_name, hf_token, commit_message):
         print(f"Failed to upload file to Hugging Face. Error: {e}")
         sys.exit(1)
 
-def train(model, transformer, activation_store, optimizer, device, n_batches, layer, save_path, repo_name, hf_token):
+def train(model, transformer, activation_store, optimizer, device, n_batches, layer, save_path, repo_name, hf_token, skip_upload=False):
     model.train()
 
     recon_loss_acc = 0.0
@@ -132,15 +132,16 @@ def train(model, transformer, activation_store, optimizer, device, n_batches, la
             torch.save(model.state_dict(), save_path)
             print(f"Model checkpoint saved to {save_path}")
 
-            commit_message = f"Checkpoint at batch {batch_num}"
-
-            upload_to_huggingface(save_path, repo_name, hf_token, commit_message)
+            if not skip_upload:
+                commit_message = f"Checkpoint at batch {batch_num}"
+                upload_to_huggingface(save_path, repo_name, hf_token, commit_message)
 
     print("Training complete.")
 
-def upload_final_model(model_path, repo_name, hf_token):
-    commit_message = "Final model upload after training completion."
-    upload_to_huggingface(model_path, repo_name, hf_token, commit_message)
+def upload_final_model(model_path, repo_name, hf_token, skip_upload=False):
+    if not skip_upload:
+        commit_message = "Final model upload after training completion."
+        upload_to_huggingface(model_path, repo_name, hf_token, commit_message)
 
 class MLP(nn.Module):
     def __init__(self, M, N, h, seed=20240625, use_bias=False):
@@ -191,10 +192,13 @@ def main(args):
 
     optimizer = optim.Adam(model.parameters(), lr=args.lr)
 
-    hf_token = os.getenv("HF_TOKEN")
-    if not hf_token:
-        print("Error: Hugging Face token not found. Please set the 'HF_TOKEN' environment variable.")
-        sys.exit(1)
+    if not args.skip_upload:
+        hf_token = os.getenv("HF_TOKEN")
+        if not hf_token:
+            print("Error: Hugging Face token not found. Please set the 'HF_TOKEN' environment variable.")
+            sys.exit(1)
+    else:
+        hf_token = None
 
     repo_name = "charlieoneill/sparse-coding"
 
@@ -208,26 +212,28 @@ def main(args):
         layer=args.layer,
         save_path=args.save_path,
         repo_name=repo_name,
-        hf_token=hf_token
+        hf_token=hf_token,
+        skip_upload=args.skip_upload
     )
 
     final_model_path = args.save_path
     torch.save(model.state_dict(), final_model_path)
     print(f"Final model saved to {final_model_path}")
 
-    upload_final_model(final_model_path, repo_name, hf_token)
+    upload_final_model(final_model_path, repo_name, hf_token, args.skip_upload)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train an MLP on Transformer Activations with Normalized MSE")
     parser.add_argument('--layer', type=int, required=True, help='Layer number to extract activations from')
-    parser.add_argument('--input_dim', type=int, required=True, help='Dimensionality of the input activations')
-    parser.add_argument('--hidden_dim', type=int, default=1024, help='Number of neurons in the hidden layer')
+    parser.add_argument('--input_dim', type=int, default=768, help='Dimensionality of the input activations')
+    parser.add_argument('--hidden_dim', type=int, default=4224, help='Number of neurons in the hidden layer')
     parser.add_argument('--output_dim', type=int, default=16896, help='Number of neurons in the output layer (before decoder)')
     parser.add_argument('--use_bias', action='store_true', help='Whether to use bias in the layers')
     parser.add_argument('--lr', type=float, default=3e-3, help='Learning rate')
     parser.add_argument('--n_batches', type=int, default=50000, help='Number of training batches')
     parser.add_argument('--batch_size', type=int, default=64, help='Batch size for training')
     parser.add_argument('--save_path', type=str, default='models/mlp_model.pth', help='Path to save the trained model')
+    parser.add_argument('--skip_upload', action='store_true', help='Skip uploading to HuggingFace')
 
     args = parser.parse_args()
     main(args)

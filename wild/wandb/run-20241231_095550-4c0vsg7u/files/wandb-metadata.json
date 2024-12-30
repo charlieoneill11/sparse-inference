@@ -1,0 +1,43 @@
+{
+  "os": "macOS-15.1-arm64-arm-64bit",
+  "python": "3.12.4",
+  "startedAt": "2024-12-30T22:55:50.694886Z",
+  "args": [
+    "--layer",
+    "9",
+    "--input_dim",
+    "768"
+  ],
+  "program": "/Users/charlesoneill/sparse-inference/wild/main.py",
+  "codePath": "wild/main.py",
+  "git": {
+    "remote": "https://github.com/charlieoneill11/sparse-inference.git",
+    "commit": "41b4c2878b7dbece7202a369cd5e9333d52a83e0"
+  },
+  "email": "cponeill00@gmail.com",
+  "root": "/Users/charlesoneill/sparse-inference/wild",
+  "host": "Charless-MacBook-Pro-2.local",
+  "username": "charlesoneill",
+  "executable": "/Users/charlesoneill/miniconda3/envs/sparse-inference/bin/python",
+  "codePathLocal": "main.py",
+  "cpu_count": 12,
+  "cpu_count_logical": 12,
+  "disk": {
+    "/": {
+      "total": "994662584320",
+      "used": "642428829696"
+    }
+  },
+  "memory": {
+    "total": "34359738368"
+  },
+  "cpu": {
+    "count": 12,
+    "countLogical": 12
+  },
+  "gpuapple": {
+    "gpuType": "Apple M2 Max",
+    "vendor": "sppci_vendor_Apple",
+    "cores": 30
+  }
+}

@@ -151,27 +151,50 @@ from models import SparseCoding, SparseAutoEncoder
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-def apply_topk(S, k):
-    topk = torch.topk(S.abs(), k=k, dim=-1)
-    result = torch.zeros_like(S)
-    result.scatter_(-1, topk.indices, S.gather(-1, topk.indices))
-    return result
+# def apply_topk(S, k):
+#     topk = torch.topk(S.abs(), k=k, dim=-1)
+#     result = torch.zeros_like(S)
+#     result.scatter_(-1, topk.indices, S.gather(-1, topk.indices))
+#     return result
 
-def optimize_codes_topk(model, X, k, num_iterations=10_000, lr=3e-3):
-    log_S = nn.Parameter(data=-10 * torch.ones(X.shape[0], model.D.shape[1]), requires_grad=True)
-    opt = torch.optim.Adam([log_S], lr=lr)
+# def optimize_codes_topk(model, X, k, num_iterations=10_000, lr=1e-3):
+#     log_S = nn.Parameter(data=-10 * torch.ones(X.shape[0], model.D.shape[1]), requires_grad=True)
+#     opt = torch.optim.Adam([log_S], lr=lr)
+
+#     for _ in range(num_iterations):
+#         S = apply_topk(torch.exp(log_S), k)
+#         X_ = S @ model.D.T
+#         if model.use_bias:
+#             X_ += model.bias
+#         loss = reconstruction_loss(X, X_)
+#         opt.zero_grad()
+#         loss.backward()
+#         opt.step()
+
+#     return apply_topk(torch.exp(log_S.detach()), k)
+
+def optimize_codes_topk(model, X, k, num_iterations=10_000, lr=9e-1):
+    S = nn.Parameter(data=torch.zeros(X.shape[0], model.D.shape[1]), requires_grad=True)
+    opt = torch.optim.Adam([S], lr=lr)
 
     for _ in range(num_iterations):
-        S = apply_topk(torch.exp(log_S), k)
-        X_ = S @ model.D.T
+        S_topk = apply_topk(S, k)
+        X_ = S_topk @ model.D.T
         if model.use_bias:
             X_ += model.bias
         loss = reconstruction_loss(X, X_)
         opt.zero_grad()
         loss.backward()
+        print(f"Loss: {loss.item():.4f}")
         opt.step()
 
-    return apply_topk(torch.exp(log_S.detach()), k)
+    return apply_topk(S.detach(), k)
+
+def apply_topk(S, k):
+    topk = torch.topk(S.abs(), k=k, dim=-1)
+    result = torch.zeros_like(S)
+    result.scatter_(-1, topk.indices, S.gather(-1, topk.indices))
+    return result
 
 def calculate_losses(model, X, S_true, l1_weight=0.0, k=None, method='original'):
     if isinstance(model, SparseCoding):
@@ -181,7 +204,7 @@ def calculate_losses(model, X, S_true, l1_weight=0.0, k=None, method='original')
             S = model.optimize_codes(X, num_iterations=10_000, l1_weight=l1_weight)
             S = apply_topk(S, k)
         elif method == 'optimize_topk':
-            S = optimize_codes_topk(model, X, k, num_iterations=10_000)
+            S = optimize_codes_topk(model, X, k, num_iterations=1_000)
         
         X_recon = S @ model.D.T
         if model.use_bias:

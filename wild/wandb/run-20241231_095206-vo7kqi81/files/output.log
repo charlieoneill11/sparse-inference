@@ -1,0 +1,7 @@
+Training on 409.6M total tokens.
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:00<00:00,  1.08it/s]
+Loaded pretrained model gpt2-small into HookedTransformer
+Moving model to device:  cpu
+Moving model to device:  cpu
+Using Hugging Face token: None
+Error: Hugging Face token not found. Please set the 'HF_TOKEN' environment variable.
