@@ -308,7 +308,7 @@ def run_sae_ito(model, X_test, S_test, lr=1e-3, num_step=10000, log_step=100, ve
     log = {'step': [], 'mcc_test': [], 'loss_test': [], 'flops': []}
     
     for i in tqdm(range(num_step), disable=not verbose):
-        S = torch.exp(log_S_) if not model.relu_activation else F.relu(log_S_)
+        S = torch.exp(log_S_).to(device) if not model.relu_activation else F.relu(log_S_).to(device)
         X_ = S @ model.D.T
         if model.use_bias:
             X_ += model.bias
@@ -386,17 +386,17 @@ logs_sae_ito_random = []
 for i in tqdm(range(num_runs), desc="Running experiments"):
     run_seed = seed + i
 
-    SAE = SparseAutoEncoder(M, N, D.to(device), learn_D=False, seed=run_seed)
+    SAE = SparseAutoEncoder(M, N, D.to(device), learn_D=False, seed=run_seed).to(device)
     print(f"Running experiment {i+1}/{num_runs} with SAE")
     log_sae, initial_S = run_experiment(SAE, X_train, S_train, X_test, S_test, num_step=num_step, seed=run_seed)
     logs_sae.append(log_sae)
 
-    SAE_ITO_init = SparseCoding(X_test, D.to(device), learn_D=False, seed=run_seed, initial_S=initial_S)
+    SAE_ITO_init = SparseCoding(X_test, D.to(device), learn_D=False, seed=run_seed, initial_S=initial_S).to(device)
     print(f"Running experiment {i+1}/{num_runs} with SAE_ITO (initialized)")
     log_sae_ito_init, _ = run_experiment(SAE_ITO_init, X_train, S_train, X_test, S_test, num_step=num_step, seed=run_seed)
     logs_sae_ito_init.append(log_sae_ito_init)
 
-    SAE_ITO_random = SparseCoding(X_test, D.to(device), learn_D=False, seed=run_seed)
+    SAE_ITO_random = SparseCoding(X_test, D.to(device), learn_D=False, seed=run_seed).to(device)
     print(f"Running experiment {i+1}/{num_runs} with SAE_ITO (random)")
     log_sae_ito_random, _ = run_experiment(SAE_ITO_random, X_train, S_train, X_test, S_test, num_step=num_step, seed=run_seed)
     logs_sae_ito_random.append(log_sae_ito_random)
