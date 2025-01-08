@@ -135,7 +135,7 @@ class SparseCoding(nn.Module):
 
         for j in range(num_iterations):
             S = torch.exp(log_S_) if not self.relu_activation else F.relu(log_S_)
-            X_ = S @ self.D.T
+            X_ = S.to('cuda') @ self.D.T
             if self.use_bias:
                 X_ += self.bias
             loss = reconstruction_loss_with_l1(X, X_, S, l1_weight)

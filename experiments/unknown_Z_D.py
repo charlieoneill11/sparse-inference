@@ -42,7 +42,7 @@ def train_sparse_coding(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3
             
             # Optimize codes for test set
             #with torch.no_grad():
-            S_test_opt = model.optimize_codes(X_test, num_iterations=10_000)
+            S_test_opt = model.optimize_codes(X_test, num_iterations=10_000).to(device)
             X_test_ = S_test_opt @ model.D.T
             loss_test = reconstruction_loss_with_l1(X_test, X_test_, S_test_opt)
             
@@ -157,7 +157,7 @@ def train_sae_with_ito(model, X_train, S_train, X_test, S_test, D_true, lr=1e-3,
 
             # Run SAE_ITO
             ito_model = SparseCoding(X_test, D_learned, learn_D=False).to(device)
-            S_test_opt = ito_model.optimize_codes(X_test, num_iterations=10_000)
+            S_test_opt = ito_model.optimize_codes(X_test, num_iterations=10_000).to(device)
             X_test_ = S_test_opt @ ito_model.D.T
             loss_test_ito = reconstruction_loss_with_l1(X_test, X_test_, S_test_opt)
             mcc_test_ito = mcc(S_test.cpu().numpy(), S_test_opt.cpu().numpy())
