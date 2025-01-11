@@ -12,6 +12,8 @@ from sae_lens.toolkit.pretrained_saes import get_gpt2_res_jb_saes
 
 # We keep the import of SparseAutoencoder (though not used) to minimize code changes
 from models import SparseAutoencoder
+
+import wandb
 from huggingface_hub import HfApi
 import sys
 import time
@@ -98,8 +100,8 @@ def upload_to_huggingface(model_path, repo_name, hf_token, commit_message):
         try:
             api.create_repo(repo_id=repo_name, private=False)
             print(f"Repository '{repo_name}' created successfully.")
-        except Exception as e:
-            print(f"Failed to create repository '{repo_name}'. Error: {e}")
+        except Exception as e2:
+            print(f"Failed to create repository '{repo_name}'. Error: {e2}")
             sys.exit(1)
     
     # Define the path within the repository
@@ -127,40 +129,50 @@ def resample_dead_neurons(
     dead_neurons: torch.Tensor
 ):
     """
-    Resample dead neurons by reinitializing their encoder and decoder rows/columns.
-    Kept as-is from the sparse autoencoder script for minimal changes,
-    though it might not match the new MLP structure.
+    Resample "dead" neurons in the SECOND LAYER of the MLP encoder,
+    reinitializing the row in encoder[2].weight and the column in decoder.weight,
+    plus the corresponding bias.  
+    We keep the overall structure from the SparseAutoencoder code but adapt the shapes.
     """
     if not dead_neurons.any():
         print("No dead neurons to resample.")
         return
 
     with torch.no_grad():
-        # These lines expect a single encoder/decoder pair
-        # from the old SparseAutoencoder. We keep them anyway:
-        encoder_weight = model.encoder[0].weight.data  # [hidden_dim, input_dim]
-        decoder_weight = model.decoder.weight.data     # [input_dim, hidden_dim]
-        hidden_dim, input_dim = encoder_weight.shape
+        # For the MLP:
+        # - The second layer is model.encoder[2], with shape [N, h].
+        # - The decoder is model.decoder, with shape [M, N].
+        encoder_weight = model.encoder[2].weight.data  # shape: [N, h]
+        decoder_weight = model.decoder.weight.data     # shape: [M, N]
+
+        # We'll interpret:
+        #   N = encoder_weight.shape[0]    (number of second-layer neurons)
+        #   h = encoder_weight.shape[1]
+        #   M = decoder_weight.shape[0]    (input_dim for the final Linear)
+        N, h = encoder_weight.shape
+        M, _ = decoder_weight.shape
 
         num_resampled = 0
         for idx in torch.where(dead_neurons)[0]:
-            # Initialize a random vector for the decoder column
-            new_dec_col = torch.randn(input_dim, device=decoder_weight.device)
+            # 1) Reinitialize the DECODER column for neuron idx
+            new_dec_col = torch.randn(M, device=decoder_weight.device)
             new_dec_col /= (new_dec_col.norm() + 1e-12)
             decoder_weight[:, idx] = new_dec_col
 
-            # For the encoder row, pick a smaller norm for minimal interference
-            new_enc_row = new_dec_col.clone() * 0.2
+            # 2) Reinitialize the ENCODER row for neuron idx
+            new_enc_row = torch.randn(h, device=encoder_weight.device)
+            new_enc_row /= (new_enc_row.norm() + 1e-12)
+            new_enc_row *= 0.2
             encoder_weight[idx] = new_enc_row
 
-            # Reset encoder bias
-            model.encoder[0].bias.data[idx] = 0.0
+            # 3) Reset encoder bias
+            model.encoder[2].bias.data[idx] = 0.0
 
-            # Reset optimizer states for these parameters
+            # 4) Reset optimizer states for these parameters
             params_to_reset = [
-                model.encoder[0].weight,  
-                model.decoder.weight,     
-                model.encoder[0].bias     
+                model.encoder[2].weight,
+                model.decoder.weight,
+                model.encoder[2].bias
             ]
             for param in params_to_reset:
                 if param in optimizer.state:
@@ -186,7 +198,7 @@ def train(
 ):
     """
     Train the MLP model using activations from the activation store.
-    Function body unchanged except for references to the newly passed-in model.
+    We only track the second layer neurons in 'S_' for deadness.
     """
     model.train()
     
@@ -199,7 +211,8 @@ def train(
     log_interval = 100
     upload_interval = 2000
     
-    hidden_dim = model.encoder[0].weight.shape[0]
+    # Our second-layer weight is encoder[2], shape [N, h], so hidden_dim = N
+    hidden_dim = model.encoder[2].weight.shape[0]
 
     # We'll track neuron firing over some steps
     max_track_steps = 1000
@@ -233,7 +246,7 @@ def train(
         l0_loss_acc += l0_loss.item()
         total_loss_acc += total_loss.item()
 
-        # Track neuron firing across the batch
+        # Track neuron firing (only in the second layer)
         fired = (S_ > 0).any(dim=0).cpu()
         fired_buffer[step_idx] = fired
         step_idx = (step_idx + 1) % max_track_steps
@@ -253,6 +266,15 @@ def train(
                 f"AvgTotal: {avg_tot:.6f}"
             )
 
+            # Optionally log to wandb
+            wandb.log({
+                "reconstruction_loss": avg_recon,
+                "l1_loss": avg_l1,
+                "l0_loss": avg_l0,
+                "total_loss": avg_tot,
+                "batch": batch_num
+            })
+
             recon_loss_acc = 0.0
             l1_loss_acc = 0.0
             l0_loss_acc = 0.0
@@ -266,8 +288,8 @@ def train(
             upload_to_huggingface(save_path, repo_name, hf_token, commit_message)
         
         # Perform neuron resampling at the specified intervals
-        # if batch_num in resample_steps:
-        if batch_num % 1000 == 0 and batch_num > 0:
+        # (We keep the same 1,000-step check but you can also do exactly at 25k, 50k, etc.)
+        if batch_num % 10_000 == 0 and batch_num > 0:
             print(f"*** Resampling dead neurons at step {batch_num} ***")
             sum_of_fires = fired_buffer.sum(dim=0)  # shape [hidden_dim]
             dead_neurons = (sum_of_fires == 0)
@@ -295,7 +317,7 @@ def upload_final_model(model_path, repo_name, hf_token):
 # kept in the same file for minimal changes.
 ###############################################################################
 class MLP(nn.Module):
-    def __init__(self, M, N, h, seed=20240625, use_bias=False):
+    def __init__(self, M, N, h, seed=20240625, use_bias=True):
         super().__init__()
         torch.manual_seed(seed + 42)
         self.encoder = nn.Sequential(
@@ -329,6 +351,22 @@ def main(args):
     device = get_device()
     print(f"Using device: {device}")
 
+    # Initialize wandb
+    wandb.init(
+        project="sparse-coding",
+        config={
+            "layer": args.layer,
+            "input_dim": args.input_dim,
+            "projection_up": args.projection_up,
+            "l1_weight": args.l1_weight,
+            "lr": args.lr,
+            "n_batches": args.n_batches,
+            "batch_size": args.batch_size,
+            "save_path": args.save_path
+        },
+        name=f"layer_{args.layer}_hidden_{args.projection_up*args.input_dim}_l1_{args.l1_weight}"
+    )
+    
     seq_len = 128
     total_tokens = seq_len * args.batch_size * args.n_batches
     print(f"Training on {total_tokens/1e6:.2f}M total tokens.")
@@ -348,7 +386,7 @@ def main(args):
     # We use the same notion that "N = projection_up * input_dim" is the dimension
     # of the final hidden representation, and we'll just pick h = N for simplicity.
     N = args.projection_up * args.input_dim
-    h = N  # second hidden dimension (feel free to adjust)
+    h = 8448  # Or any suitable choice
     model = MLP(M=args.input_dim, N=N, h=h).to(device)
     
     # Define optimizer
@@ -385,6 +423,8 @@ def main(args):
     
     # Upload final to HF
     upload_final_model(final_model_path, repo_name, hf_token)
+    
+    wandb.finish()
 
 
 if __name__ == "__main__":
@@ -412,7 +452,7 @@ if __name__ == "__main__":
     parser.add_argument(
         '--l1_weight',
         type=float,
-        default=1e-4,
+        default=7e-5,
         help='L1 coefficient'
     )
     parser.add_argument(
