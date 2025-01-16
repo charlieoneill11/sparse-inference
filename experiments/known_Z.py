@@ -78,12 +78,12 @@ def average_logs(logs):
     return avg_log
 
 # Parameters
-N = 16  # number of sparse sources
-M = 8   # number of measurements
-K = 3   # number of active components
-hidden_layers = [32, 256, 1024]  # list of hidden layer widths
+N = 1000  # number of sparse sources
+M = 200   # number of measurements
+K = 20   # number of active components
+hidden_layers = [32, 256]  # list of hidden layer widths
 num_runs = 5
-num_data = 1024
+num_data = 500000
 num_step = 20000
 log_step = 100
 seed = 20240625

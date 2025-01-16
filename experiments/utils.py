@@ -21,25 +21,16 @@ def numpy_to_list(obj):
         return [numpy_to_list(item) for item in obj]
     return obj
 
-def generate_data(N, M, K, num_data, seed, alpha=1.0):
+def generate_data(N, M, K, num_data, seed):
     np.random.seed(seed)
     torch.manual_seed(seed)
-    
-    # Create Zipf-like weights for each dimension
-    weights = 1 / np.arange(1, N + 1) ** alpha  # Zipf distribution
-    weights = weights / weights.sum()  # Normalize to probability distribution
     
     S = []
     for _ in range(num_data):
         s = np.abs(np.random.normal(0, 1, N))
-        
-        # Instead of uniform random choice, use weighted sampling
         mask = np.zeros(N)
-        mask[np.random.choice(N, K, replace=False, p=weights)] = 1
-        
-        # Scale the values by the weights to introduce frequency bias
-        # in magnitude as well as occurrence
-        s *= mask * (weights + 0.1)  # Adding small constant to avoid zero values
+        mask[np.random.choice(N, K, replace=False)] = 1
+        s *= mask
         S.append(s)
     S = np.array(S)
     

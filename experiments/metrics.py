@@ -52,6 +52,10 @@ def greedy_mcc(z, z_):
     mis = vanilla_mcc(np.array(new_z).T, np.array(new_z_).T)
     return mis
 
+def simple_mcc(z, z_):
+    D = min(z.shape[1], z_.shape[1])
+    return np.mean([corr(z[:, i], z_[:, i])[0] for i in range(D)])
+
 
 def mcc(z, z_):
     """
@@ -61,4 +65,4 @@ def mcc(z, z_):
     if z_.shape[1] == z.shape[1]:
         return vanilla_mcc(z, z_)
     else:
-        return greedy_mcc(z, z_)
+        return simple_mcc(z, z_)
