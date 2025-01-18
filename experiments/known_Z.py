@@ -8,6 +8,7 @@ from torch import nn
 from torch.nn import functional as F
 import json
 from tqdm import tqdm
+from time import time
 
 from metrics import mcc, corr
 from utils import numpy_to_list, generate_data, reconstruction_loss_with_l1
@@ -16,8 +17,21 @@ from calculate_flops import (calculate_sae_training_flops, calculate_sae_inferen
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-def pairwise_corr(z, z_):
+def pairwise_corr_old(z, z_):
     return np.mean([corr(a, b)[0] for a, b in zip(z.T, z_.T)])
+
+def normalize(x):
+    x -= torch.mean(x, axis=0, keepdims=True)
+    norms = torch.linalg.norm(x, axis=0, keepdims=True)
+    norms[norms == 0] == 1
+    return x / norms
+
+def pairwise_corr(z, z_):
+    "vectorized and on GPU, much faster than old."
+    with torch.no_grad():
+        corrs = torch.sum(normalize(z) * normalize(z_), axis=0)
+        mcc = torch.mean(corrs)
+    return mcc
 
 def cossim(z, z_):
     return -F.cosine_similarity(z.T, z_.T).mean()
@@ -34,6 +48,7 @@ def train(model, X_train, S_train, X_test, S_test, lr=1e-3, num_step=10000, log_
         h = model[0].out_features
         total_flops = calculate_mlp_training_flops(M, h, N, num_data, 0)  # 0 steps initially
     
+    t0 = time()
     for i in tqdm(range(num_step), disable=not verbose):
         S_ = model(X_train)
         loss = criterion(S_train, S_)
@@ -44,12 +59,12 @@ def train(model, X_train, S_train, X_test, S_test, lr=1e-3, num_step=10000, log_
         if i > 0 and not i % log_step:
             log['step'].append(i)
             log['loss_train'].append(loss.item())
-            log['mcc_train'].append(pairwise_corr(S_train.detach().cpu().numpy(), S_.detach().cpu().numpy()))
+            log['mcc_train'].append(pairwise_corr(S_train.detach(), S_.detach()))
             with torch.no_grad():
                 S_ = model(X_test)
                 loss = criterion(S_test, S_)
             log['loss_test'].append(loss.item())
-            log['mcc_test'].append(pairwise_corr(S_test.detach().cpu().numpy(), S_.detach().cpu().numpy()))
+            log['mcc_test'].append(pairwise_corr(S_test.detach(), S_.detach()))
             
             # Calculate and log total FLOPs up to this point
             if isinstance(model, nn.Sequential) and len(model) == 2:  # SAE
@@ -59,7 +74,8 @@ def train(model, X_train, S_train, X_test, S_test, lr=1e-3, num_step=10000, log_
                 total_flops = calculate_mlp_training_flops(M, h, N, num_data, i+1)
             log['flops'].append(total_flops)
 
-            print(f"Step {i+1}, Loss: {loss.item()}, MCC: {log['mcc_train'][-1]}, FLOPs: {total_flops}")    
+            print(f"Step {i+1}, Loss: {loss.item()}, MCC: {log['mcc_train'][-1]}, FLOPs: {total_flops}, took=%.2fs" % (
+                time() - t0))    
     
     return log
 
@@ -81,7 +97,7 @@ def average_logs(logs):
 N = 1000  # number of sparse sources
 M = 200   # number of measurements
 K = 20   # number of active components
-hidden_layers = [32, 256]  # list of hidden layer widths
+hidden_layers = [32, 256, 1024]  # list of hidden layer widths
 num_runs = 5
 num_data = 500000
 num_step = 20000
